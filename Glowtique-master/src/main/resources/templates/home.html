@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Glowtique | Home</title>
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/logged-header.css">
+</head>
+<body>
+    <th:block th:insert="fragments/header-fragment :: header"></th:block>
+<main>
+    <div class="carousel">
+        <div class="slides">
+            <div class="slide active "><a th:href="@{/brand/0221173b-83be-4158-aa4d-7a40c4693349}"><img src="/images/dior-wallpaper.jpg" alt="Dior">
+            </a></div>
+            <div class="slide"><a th:href="@{/brand/79b9aeac-bdff-4449-aba7-95dbd2d334f3}"> <img src="https://flopicco.com/wp-content/uploads/2018/09/BVLGARI-MANIFATTURA_1.jpg" alt="Bvlgari">
+            </a></div>
+            <div class="slide"><a th:href="@{/brand/38cf031c-8ea8-4bfb-b36a-c7c9df9edc65}"> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1EB6E3led7Mwd5M5dEIp_NFI6iPWwrUI5ng&s" alt="Azzaro">
+            </a></div>
+            <div class="slide"> <a th:href="@{/brand/4b78d577-af04-4081-88d5-62aca4d5003a}"><img src="https://www.zastavki.com/pictures/1920x1080/2014/Brands_Burberry_clothing_store_092572_23.jpg" alt="Burberry">
+            </a></div>
+            <div class="slide"><a th:href="@{/brand/5926acb6-4d71-4dbf-bd62-0db27e95ae80}"> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFp1vYlfQH8yVugzSSgpnlUJjGxvs4Exx-cA&s" alt="Abercrombie & Fitch">
+            </a></div>
+            <div class="slide"> <a th:href="@{/brand/9788f9f7-cfa3-46e0-858b-25998d95728f}"><img src="https://www.frank-studio.co/wp-content/uploads/2020/10/adp_video_cover.jpg" alt="Acqua di parma">
+            </a></div>
+        </div>
+
+        <button class="arrow left">&#10094;</button>
+        <button class="arrow right">&#10095;</button>
+
+        <div class="dots">
+            <span class="dot active" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+            <span class="dot" onclick="currentSlide(4)"></span>
+            <span class="dot" onclick="currentSlide(5)"></span>
+            <span class="dot" onclick="currentSlide(6)"></span>
+        </div>
+    </div>
+    <div class="brands">
+        <form th:action="@{/brand/0221173b-83be-4158-aa4d-7a40c4693349}"><button>DIOR</button></form>
+        <form th:action="@{/brand/79b9aeac-bdff-4449-aba7-95dbd2d334f3}"><button>BVLGARI</button></form>
+        <form th:action="@{/brand/38cf031c-8ea8-4bfb-b36a-c7c9df9edc65}"><button>AZZARO</button></form>
+        <form th:action="@{/brand/4b78d577-af04-4081-88d5-62aca4d5003a}"><button>BURBERRY</button></form>
+        <form th:action="@{/brand/5926acb6-4d71-4dbf-bd62-0db27e95ae80}"><button>ABERCROMBIE & FITCH</button></form>
+        <form th:action="@{/brand/9788f9f7-cfa3-46e0-858b-25998d95728f}"><button>ACQUA DI PARMA</button></form>
+    </div>
+</main>
+
+<footer>
+    <div class="container-advertise">
+        <div class="item">
+            <a th:href="@{/products}">
+                <img src="/images/advertise-1.png">
+                <p>Luxury Perfume Collection</p>
+            </a>
+        </div>
+
+        <div class="item">
+            <a th:href="@{/products}">
+                <img src="/images/advertise-2.png">
+                <p>Haute Perfumerie</p>
+            </a>
+        </div>
+
+        <div class="item">
+            <a th:href="@{/products}">
+                <img src="/images/advertise-3.png" alt="Boss Perfume">
+                <p>Light Up The Holidays</p>
+            </a>
+        </div>
+    </div>
+</footer>
+
+<script src="/css/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Server Error</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
+    .error-container {
+      max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; background: #f8d7da; color: #721c24;
+    }
+    .error-title {
+      font-size: 24px; font-weight: bold;
+    }
+    .error-message {
+      margin-top: 10px; font-size: 18px;
+    }
+    .error-timestamp {
+      font-size: 14px; color: #555; margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+<div class="error-container">
+  <div class="error-title">500 - Internal Server Error</div>
+  <div class="error-message">Oops! Something went wrong on our side. Please try again later.</div>
+  <div class="error-timestamp" th:text="${timestamp}"></div>
+  <a th:href="@{/home}" class="home-link">Go Back to Home</a>
+</div>
+</body>
+</html>

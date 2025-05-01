@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Glowtique | Checkout</title>
+    <link rel="stylesheet" href="/css/logged-header.css">
+    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/checkout.css">
+</head>
+<body>
+    <th:block th:insert="fragments/header-fragment :: header"></th:block>
+
+    <main>
+        <form th:action="@{/checkout/create}" th:method="Post" th:object="${orderRequest}">
+        <div class="container">
+            <div class="left-section">
+                <div class="left-container">
+                    <h2>Данни за доставка</h2>
+                        <label>Име</label>
+                        <input type="text" th:placeholder="${user.firstName}" th:value="${user.firstName}" readonly="readonly">
+                        <p class="alert-warning" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></p>
+
+                        <label>Фамилия</label>
+                        <input type="text" th:placeholder="${user.lastName}" th:value="${user.lastName}" readonly="readonly">
+                        <p class="alert-warning" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></p>
+
+                        <label>Телефон</label>
+                        <input class="number" type="text" th:field="*{phoneNumber}" th:value="${user.phoneNumber}" th:placeholder="${user.phoneNumber}" >
+                        <p class="alert-warning" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></p>
+                        <div class="tooltip-container">
+                            <span class="info-icon">i</span>
+                            <div class="tooltip">
+                                Телефонният номер трябва да започва с 08 и да съдържа 10 цифри.
+                                Да се попълва c "0", пример:
+                                Неправилно - "+359ХХХ"
+                                Правилно - "08ХХХ".
+                            </div>
+                        </div>
+
+                        <label>Личен адрес за доставка</label>
+                        <input type="text" th:field="*{shippingAddress}" th:value="${user.shippingAddress}" th:placeholder="${user.shippingAddress}">
+                        <p class="alert-warning" th:if="${#fields.hasErrors('shippingAddress')}" th:errors="*{shippingAddress}"></p>
+
+                        <label>Адрес на офис или автомат</label>
+                        <input type="text" th:field="*{officeAddress}" placeholder="офис(адрес/автомат)">
+                        <p class="alert-warning" th:if="${#fields.hasErrors('officeAddress')}" th:errors="*{officeAddress}"></p>
+
+                        <label>Пощенски код</label>
+                        <input type="text" th:field="*{postCode}" placeholder="Пощенски код">
+                        <p class="alert-warning" th:if="${#fields.hasErrors('postCode')}" th:errors="*{postCode}"></p>
+
+                        <label>Град</label>
+                        <input type="text" th:field="*{town}" th:value="${user.town}" th:placeholder="${user.town}">
+                        <p class="alert-warning" th:if="${#fields.hasErrors('town')}" th:errors="*{town}"></p>
+
+
+                    <h2>Метод на доставка</h2>
+                    <p class="alert-warning" th:if="${#fields.hasErrors('orderMethod')}" th:errors="*{orderMethod}"></p>
+                    <div class="shipping-methods">
+                        <label class="shipping-option" th:each="method : ${orderMethods}">
+                            <input type="radio" name="shipping" th:value="${method}" th:field="*{orderMethod}">
+                            <img th:if="${method == T(com.glowtique.glowtique.order.model.OrderMethod).SPEEDY_POST}" src="https://douglas.bg/media/stenik_addresscarrier/logo/speedy-automat-105x43.png"
+                                 alt="Speedy Post">
+                            <img th:if="${method == T(com.glowtique.glowtique.order.model.OrderMethod).EASY_BOX}"
+                                 src="https://douglas.bg/media/stenik_addresscarrier/logo/Easybox_113x26.png"
+                                 alt="EasyBox">
+                            <img th:if="${method == T(com.glowtique.glowtique.order.model.OrderMethod).SPEEDY_OFFICE}"
+                                 src="https://douglas.bg/media/stenik_addresscarrier/logo/speedy-office-105x43.png"
+                            alt="Speedy Office">
+                            <img th:if="${method == T(com.glowtique.glowtique.order.model.OrderMethod).ECONT_OFFICE}"
+                                 src="https://douglas.bg/media/stenik_addresscarrier/logo/econt-89x18.png"
+                                 alt="Econt">
+                            <img th:if="${method == T(com.glowtique.glowtique.order.model.OrderMethod).SPEEDY_ADDRESS}"
+                                 src="https://douglas.bg/media/stenik_addresscarrier/logo/speedy-address-105x43.png"
+                                 alt="Speedy Address">
+                            <img th:if="${method == T(com.glowtique.glowtique.order.model.OrderMethod).ECONT_ADDRESS}"
+                                 src="https://douglas.bg/media/stenik_addresscarrier/logo/econt-89x18.png"
+                                 alt="Econt">
+
+
+                            <span th:if="${cart.totalPrice >= 200.00 && method == T(com.glowtique.glowtique.order.model.OrderMethod).SPEEDY_POST}"
+                                  th:text="'Доставка до автомат на Спиди - 0.00 лв'"></span>
+                            <span th:if="${cart.totalPrice < 200.00 && method == T(com.glowtique.glowtique.order.model.OrderMethod).SPEEDY_POST}"
+                                  th:text="'Доставка до автомат на Спиди - 7.00 лв'"></span>
+                            <span th:if="${cart.totalPrice >= 200.00 && method == T(com.glowtique.glowtique.order.model.OrderMethod).EASY_BOX}"
+                                  th:text="'Доставка до EasyBox - 0.00 лв'"></span>
+                            <span th:if="${cart.totalPrice < 200.00 && method == T(com.glowtique.glowtique.order.model.OrderMethod).EASY_BOX}"
+                                  th:text="'Доставка до EasyBox - 7.00 лв'"></span>
+                            <span th:if="${cart.totalPrice >= 200.00 && method == T(com.glowtique.glowtique.order.model.OrderMethod).SPEEDY_ADDRESS}"
+                                  th:text="'Доставка до адрес със Спиди - 0.00 лв'"></span>
+                            <span th:if="${cart.totalPrice < 200.00 && method == T(com.glowtique.glowtique.order.model.OrderMethod).SPEEDY_ADDRESS}"
+                                  th:text="'Доставка до адрес със Спиди - 7.00 лв'"></span>
+                            <span th:if="${cart.totalPrice >= 200.00 && method == T(com.glowtique.glowtique.order.model.OrderMethod).SPEEDY_OFFICE}"
+                                  th:text="'Доставка до офис на Спиди - 0.00 лв'"></span>
+                            <span th:if="${cart.totalPrice < 200.00 && method == T(com.glowtique.glowtique.order.model.OrderMethod).SPEEDY_OFFICE}"
+                                  th:text="'Доставка до офис на Спиди - 7.00 лв'"></span>
+                            <span th:if="${cart.totalPrice >= 200.00 && method == T(com.glowtique.glowtique.order.model.OrderMethod).ECONT_OFFICE}"
+                                  th:text="'Доставка до офис на Еконт - 0.00 лв'"></span>
+                            <span th:if="${cart.totalPrice < 200.00 && method == T(com.glowtique.glowtique.order.model.OrderMethod).ECONT_OFFICE}"
+                                  th:text="'Доставка до офис на Еконт - 7.00 лв'"></span>
+                            <span th:if="${cart.totalPrice >= 200.00 && method == T(com.glowtique.glowtique.order.model.OrderMethod).ECONT_ADDRESS}"
+                                  th:text="'Доставка до адрес с Еконт - 0.00 лв'"></span>
+                            <span th:if="${cart.totalPrice < 200.00 && method == T(com.glowtique.glowtique.order.model.OrderMethod).ECONT_ADDRESS}"
+                                  th:text="'Доставка до адрес с Еконт - 7.00 лв'"></span>
+                        </label>
+                    </div>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function() {
+                            let shippingOptions = document.querySelectorAll(".shipping-option");
+
+                            if (shippingOptions.length > 0) {
+                                let defaultOption = shippingOptions[0];
+                                defaultOption.classList.add("selected");
+                                defaultOption.querySelector("input").checked = true;
+                            }
+
+                            shippingOptions.forEach(option => {
+                                option.addEventListener("click", function() {
+                                    shippingOptions.forEach(opt => opt.classList.remove("selected"));
+                                    this.classList.add("selected");
+                                    this.querySelector("input").checked = true;
+                                });
+                            });
+                        });
+                    </script>
+                </div>
+            </div>
+
+            <div class="right-section">
+                <div class="right-container">
+                    <div th:if="${cartItems == null || #lists.isEmpty(cartItems)}">
+                        <h2>Нямате добавени продукти в количката!</h2>
+                    </div>
+                    <div th:unless="${cartItems == null || #lists.isEmpty(cartItems)}">
+                        <h2>Преглед на поръчката</h2>
+                        <div th:each="item : ${cartItems}" class="order-item">
+                            <a th:href="@{/product/{id}(id=${item.product.id})}"><img th:src="${item.product.image}" alt="КОМПЛЕКТ JEAN PAUL GAULTIER Scandal"> </a>
+                            <div class=ordered>
+                                <a th:href="@{/product/{id}(id=${item.product.id})}" class="order-item-img"><p th:text="${item.product.name}"></p></a>
+                                <p th:text="'Количество: ' + ${item.quantity}" class="quantity"></p>
+                                <p th:text="'Цена: ' + ${item.product.price} + ' лв.'" class="price"></p>
+                            </div>
+                        </div>
+
+                        <div class="total-price-container">
+                            <p th:unless="${user.cart.totalPrice == 0}" th:if="${cart.totalPrice >= 200}" th:text="'Крайна цена: ' + ${cart.totalPrice} + ' лв.'" class="total-price"></p>
+                            <p th:unless="${cart.totalPrice >= 200}" th:text="'Крайна цена: ' + ${cart.totalPrice + 7.00} + ' лв.'" class="total-price"></p>
+
+                            <p th:if="${cart.totalPrice >= 200}" class="total-price-delivery-free">Безплатна доставка</p>
+                            <p th:unless="${cart.totalPrice >= 200}" class="total-price-delivery">Доставка в цената</p>
+                        </div>
+                        <div class="additional-info">
+                            <label for="">Коментар към поръчката</label>
+                            <textarea th:field="*{description}" name="description" id="" cols="4" rows="50"></textarea>
+                        </div>
+
+                        <form th:action="@{/payment}" th:method="Get">
+                        <div class="pay">
+                            <button type="submit" class="payment-button">Плащане</button>
+                        </div>
+                        </form>
+                        <p class="alert-warning" style="text-align: center; font-size: 16px"
+                           th:if="${notEnoughProductStockMessage}"
+                           th:text="${notEnoughProductStockMessage}"></p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        </form>
+    </main>
+</body>
+</html>

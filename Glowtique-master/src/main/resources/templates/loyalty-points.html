@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/logged-header.css">
+    <title>Glowtique | Loyalty</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        .container  h1 {
+            text-align: center;
+            font-size: 2rem;
+        }
+        .info {
+            width: 50%;
+            text-align: center;
+            font-weight: 400;
+            font-size: 1.5rem;
+            background-color: #af764b ;
+            padding: 1.5rem;
+            border-radius: 3px;
+            margin-top: 1.5rem;
+        }
+        .home {
+            padding: 1.5rem;
+            font-size: 1.5rem;
+
+        }
+        .home a {
+            text-decoration: none;
+            color: #8B5E3C;
+        }
+        .home a:hover {
+            color: #5e3310;
+        }
+    </style>
+</head>
+<body>
+    <th:block th:insert="fragments/header-fragment :: header"></th:block>
+
+    <main>
+        <div class="container">
+            <h1>Точки за лоялност</h1>
+            <div class="info">
+                <p>Точките за лоялност се добиват чрез напревени покупки в приложението.
+                    Броят им се изчислява като се вземат 10% от цената на направената поръчка.
+                    Например поръчката Ви е 900 лв. ще се пресметнат 10% => 90 точки за лоялност.
+                    При натрупване на 100 получавате Gift Card с 100 лв. подарък.
+                </p>
+            </div>
+            <div class="home">
+                <a th:href="@{/home}">
+                    Назад към началото
+                </a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

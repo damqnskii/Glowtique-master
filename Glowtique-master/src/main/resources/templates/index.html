@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/static/images/glowtique-logo.png">
+    <title>GlowTique</title>
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
+    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/logged-header.css">
+</head>
+<body>
+    <th:block th:insert="fragments/header-fragment :: header"></th:block>
+
+    <main>
+        <div class="carousel">
+            <div class="slides">
+                <div class="slide active "><img src="/images/dior-wallpaper.jpg">
+                    
+                </div>
+                <div class="slide"> <img src="/images/guerlain.jpg">
+                </div>
+                <div class="slide"> <img src="/images/dior-wallpaper.jpg">
+                </div>
+                <div class="slide"> <img src="/images/BOSS_.jpg">
+                </div>
+                <div class="slide" style="background-image: url('https://douglas.bg/media/stenik_entity/entity/cache/cff643d358f2379c1aa35d5ae1e831781b073488d47502abb6e6d2358598d72e/Douglas_BG_Desktop_1500x642_.jpg');">
+                </div>
+                <div class="slide" style="background-image: url('https://douglas.bg/media/stenik_entity/entity/cache/cff643d358f2379c1aa35d5ae1e831781b073488d47502abb6e6d2358598d72e/1500x642.jpg');">
+                </div>
+            </div>
+    
+            <button class="arrow left">&#10094;</button>
+            <button class="arrow right">&#10095;</button>
+    
+            <div class="dots">
+                <span class="dot active" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <span class="dot" onclick="currentSlide(3)"></span>
+                <span class="dot" onclick="currentSlide(4)"></span>
+                <span class="dot" onclick="currentSlide(5)"></span>
+                <span class="dot" onclick="currentSlide(6)"></span>
+            </div>
+        </div>
+        <div class="brands">
+            <button>DIOR</button>
+            <button>CLARINS</button>
+            <button>GUERLAIN</button>
+            <button>ESTÉE LAUDER</button>
+            <button>HERMÈS</button>
+            <button>RITUALS</button>
+            <button>GIORGIO ARMANI</button>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container-advertise">
+            <div class="item">
+                <img src="/images/advertise-1.png">
+                <p>Luxury Perfume Collection</p>
+            </div>
+    
+            <div class="item">
+                <img src="/images/advertise-2.png">
+                <p>Haute Perfumerie</p>
+            </div>
+    
+            <div class="item">
+                <img src="/images/advertise-3.png" alt="Boss Perfume">
+                <p>Light Up The Holidays</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/css/index.js"></script>
+</body>
+</html>

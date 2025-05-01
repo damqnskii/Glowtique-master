@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/logged-header.css">
+    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/product-details.css">
+    <link rel="stylesheet" href="/css/toast.css">
+    <title th:text="${product.name}"></title>
+</head>
+<body>
+    <th:block th:insert="fragments/header-fragment :: header"></th:block>
+
+    <div class="container">
+        <div class="product">
+            <div class="product-image">
+                <img th:src="${product.image}" alt="Product Image">
+            </div>
+            <div class="product-info">
+                <h1 th:text="${product.name}"></h1>
+                <p th:text="${product.description}"></p>
+                <div th:if="${relatedProducts.size() > 0}"  class="menu-container">
+                    <div th:each="relatedProduct : ${relatedProducts}" class="menu-option">
+                        <a th:href="@{'/product/' + ${relatedProduct.id}}">
+                            <span th:text="${relatedProduct.volume} + ' мл.'"></span>
+                            <span th:text="${relatedProduct.price} + ' лв.'" class="price"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="stock-container">
+                    <p th:if="${product.quantity > 0}" class="in-stock">В наличност</p>
+                    <p th:unless="${product.quantity > 0}" class="out-of-stock">Не е в наличност</p>
+                </div>
+                <p th:text="${product.price} + ' лв.'" class="price"></p>
+                <p th:text="'Марка: ' + ${product.brand.name}" class="brand"></p>
+
+                <form th:action="@{/cart/add/{productId}(productId=${product.id})}" th:method="Post">
+                    <input type="hidden" name="quantity" value="1">
+                    <button th:if="${product.quantity > 0}" type="submit" class="add-to-cart" th:data-id="${product.id}">Добави в кошницата</button>
+                    <button th:unless="${product.quantity > 0}" disabled type="submit" class="add-to-cart" th:data-id="${product.id}">Добави в кошницата</button>
+                </form>
+                <div class="favorite-container">
+                    <button type="button" class="favorite-button"
+                            th:classappend="${#lists.contains(wishListed, product.id) ? 'wishlist-btn-liked' : 'wishlist-btn'}"
+                            th:data-id="${product.id}">
+                        <span class="heart-icon">&#10084;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <div class="tabs">
+            <button class="tab active">Описание</button>
+            <button class="tab">Състав</button>
+            <button class="tab">За марката</button>
+        </div>
+
+        <div class="tab-content">
+            <div class="product-description">
+                <h1 th:text="'Описание ' + ${product.name}"></h1>
+
+                <table class="product-table">
+                    <tr>
+                        <td>Глава</td>
+                        <td th:text="${fragrance.topNotes}"></td>
+                    </tr>
+                    <tr>
+                        <td>Сърце</td>
+                        <td th:text="${fragrance.heartNotes}"></td>
+                    </tr>
+                    <tr>
+                        <td>База</td>
+                        <td th:text="${fragrance.baseNotes}"></td>
+                    </tr>
+                    <tr>
+                        <td>Вид аромат</td>
+                        <td>
+                            <span th:each="fr : ${fragrance.type}"
+                                  th:value="${fr}"
+                                  th:text="${fr.value} + ' '">
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+
+                <p th:text="${product.description}" class="description-text"></p>
+            </div>
+        </div>
+        <div class="tab-content">
+            <div class="ingridient-contrainer">
+                <h1 class="second-content" th:text="'Състав ' + ${product.name}"></h1>
+                <div class="product-ingridients">
+                    <h4>Пълен списък съставките</h4>
+                    <p th:text="${product.ingredients}"></p>
+                </div>
+            </div>
+        </div>
+        <div class="tab-content">
+            <div class="brand-container">
+                <h1 class="third-content" th:text="'За марката ' + ${product.brand.name}">
+                    За марката narciso rodriguez
+                </h1>
+                <div class="brand-info">
+                    <p th:text="${product.brand.description}"></p>
+                </div>
+            </div>
+        </div>
+        <div id="toast" class="toast hidden">
+            <span id="toast-message"></span>
+        </div>
+    </main>
+
+    <script src="/css/product-details.js"></script>
+    <script src="/css/addwishlist.js"></script>
+    <script src="/css/removewishlist.js"></script>
+    <script src="/css/quantityUpdate.js"></script>
+
+</body>
+</html>

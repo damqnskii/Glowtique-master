@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/logged-header.css">
+    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/notification.css">
+    <title>Glowtique | Notifications</title>
+</head>
+<body>
+<th:block th:insert="fragments/header-fragment :: header"></th:block>
+
+<main class="main-content">
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Моят профил</h2>
+            <ul>
+                <li><a th:href="@{/profile}">Обща информация</a></li>
+                <li><a th:href="@{/orders}">Моите поръчки</a></li>
+                <li><a href="#">Заявки за връщане/рекламация</a></li>
+                <li><a th:href="@{/wishlist}">Любими продукти</a></li>
+                <li><a href="#">Моите промокодове</a></li>
+                <li><a href="#">Моите адреси</a></li>
+                <li><a th:href="@{/edit-profile}">Настройки на профила</a></li>
+                <li><a th:href="@{redirect:/notifications}" class="active">Нотификации</a></li>
+                <li><a href="#">Beauty Card</a></li>
+                <li><a href="#">Управление на лични данни</a></li>
+                <li><a href="#">Изход</a></li>
+            </ul>
+        </aside>
+        <div class="notifcation-container">
+            <div class="notification-preferences-box">
+                <h2>Нотификации</h2>
+                <p>Текущи настройки на нотификациите:</p>
+
+                <div class="details-section">
+                    <div class="details-section-container">
+                        <p th:text="'Вид на нотификациите: ' + ${#strings.toLowerCase(#strings.toUpperCase(notificationPreference.type))}"></p>
+                    </div>
+                </div>
+
+                <div class="details-section">
+                    <div class="details-section-container">
+                        <p th:text="'До: ' + ${#strings.isEmpty(notificationPreference.contactInfo) ? 'Добавете имейл' : notificationPreference.contactInfo}"></p>
+                    </div>
+                </div>
+
+
+                <div class="details-section">
+                    <div class="details-section-container">
+                        <strong>Получаване на нотификации: </strong>
+                        <p class="enabled-notification-status" th:if="${notificationPreference.enabled}">ВКЛЮЧЕНИ</p>
+                        <p class="disabled-notification-status" th:unless="${notificationPreference.enabled}">ИЗКЛЮЧЕНИ</p>
+                    </div>
+                </div>
+
+                <p>Промяна на нотификациите:</p>
+                <div class="allowed-notification-actions">
+                    <form th:action="@{/notifications/user-preference?enabled=false}" th:method="PUT" th:if="${notificationPreference.enabled}">
+                        <button class="profile-actions-button disable-notifications">
+                            <p>Изключване на нотификациите</p>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                      stroke-linejoin="round"></path>
+                            </svg>
+                        </button>
+                    </form>
+                    <form th:action="@{/notifications/user-preference?enabled=true}" th:method="PUT" th:unless="${notificationPreference.enabled}">
+                        <button class="profile-actions-button enable-notifications">
+                            <p>Включване на нотификациите</p>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                      stroke-linejoin="round"></path>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+                <div class="table-responsive">
+                    <table class="notification-table">
+                        <thead>
+                        <tr>
+                            <th>Относно</th>
+                            <th>Продукт</th>
+                            <th>Дата</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="notification : ${notificationHistory}">
+                            <td th:text="${notification.subject}"></td>
+                            <td th:text="${notification.body}"></td>
+                            <td th:text="${#temporals.format(notification.getCreatedOn(), 'yyyy-MM-dd')}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/payment.css">
+    <link rel="stylesheet" href="/css/font.css">
+    <title>Glowtique | Payment</title>
+</head>
+<body>
+<header>
+    <div class="top-bar">
+        <img src="/images/glowtique-logo.png" alt="photo">
+    </div>
+</header>
+
+<main>
+    <div class="checkout-container">
+        <h1>Плащане</h1>
+        <div class="checkout-content">
+            <div class="payment-options">
+                <h2>Метод на плащане</h2>
+                <form th:action="@{/payment/create}" th:method="Post">
+                    <div class="payment-method">
+                        <input type="radio" id="giftcard" name="payment" value="GIFT_CARD"
+                               onclick="toggleForms('giftcard-form')">
+                        <label for="giftcard">Плати с Gift Card</label>
+                    </div>
+
+
+                    <div class="payment-method">
+                        <input type="radio" id="easyPay" name="payment" value="EASY_PAY"
+                               onclick="toggleForms('easyPay-form')">
+                        <label for="easyPay">Easy Pay</label>
+                    </div>
+
+
+                    <div class="payment-method">
+                        <input type="radio" id="cash" name="payment" value="CASH" onclick="toggleForms('cash-form')">
+                        <label for="cash">Наложен платеж (1.99 лв.)</label>
+                    </div>
+
+
+                    <div class="payment-method">
+                        <input type="radio" id="creditCard" name="payment" value="BANK_TRANSFER" checked
+                               onclick="toggleForms('creditCard-form')">
+                        <label for="creditCard">С кредитна карта</label>
+                    </div>
+
+
+                    <div class="newsletter">
+                        <input type="checkbox" id="newsletter" name="newsletter">
+                        <label for="newsletter">Желая да се регистрирам за бюлетин и съм съгласен предоставените от мен
+                            данни да се обработва съобразно.
+                            Политиката за поверителност за всички посочени в нея цели.</label>
+                    </div>
+
+                    <div class="additional-forms">
+                        <div id="giftcard-form" class="hidden">
+                            <h3>Плащане с Gift Card</h3>
+                            <label for="giftcard-number">Въведете номер на Gift Card:</label>
+                            <input type="text" id="giftcard-number" placeholder="Gift Card Number">
+                        </div>
+
+                        <div id="easyPay-form" class="hidden">
+                            <h3>Easy Pay</h3>
+                            <p>Ще бъдете пренасочени към Easy Pay за осъществяване на плащането</p>
+                            <button class="easypay-redirection" type="submit">Пренасочване</button>
+                        </div>
+
+
+                        <div id="cash-form" class="hidden">
+                            <h3>Наложен платеж</h3>
+                            <p>Плащане на доставчика при получаване на поръчката (1.99 лв.)</p>
+                        </div>
+
+                        <div id="creditCard-form" class="hidden">
+                            <h3>Плащане с кредитна/дебитна карта</h3>
+                            <label for="card-number">Card Number:</label>
+                            <input type="text" id="card-number" placeholder="XXXX XXXX XXXX XXXX" maxlength="19"
+                                   pattern="\d{4} \d{4} \d{4} \d{4}" inputmode="numeric"
+                                   oninput="formatCardNumber(this)">
+                            <label for="expiry-date">Expiry Date:</label>
+                            <input type="text" id="expiry-date" placeholder="MM/YY" maxlength="5"
+                                   inputmode="numeric" oninput="formatExpiryDate(this)">
+
+                            <label for="cvc">CVC:</label>
+                            <input type="text" id="cvc" placeholder="CVC" maxlength="3" inputmode="numeric"
+                                   pattern="\d{3}" oninput="validateCVC(this)">
+                        </div>
+                        <script>
+                            function toggleForms(formId) {
+                                document.getElementById('giftcard-form').classList.add('hidden');
+                                document.getElementById('easyPay-form').classList.add('hidden');
+                                document.getElementById('cash-form').classList.add('hidden');
+                                document.getElementById('creditCard-form').classList.add('hidden');
+
+                                document.getElementById(formId).classList.remove('hidden');
+                            }
+
+                            function formatCardNumber(input) {
+                                let value = input.value.replace(/\D/g, '');
+                                value = value.replace(/(.{4})/g, '$1 ').trim();
+                                input.value = value;
+                            }
+
+                            function formatExpiryDate(input) {
+                                let value = input.value.replace(/\D/g, '');
+                                if (value.length > 4) value = value.substring(0, 4);
+                                if (value.length >= 2) value = value.substring(0, 2) + '/' + value.substring(2);
+                                input.value = value;
+                            }
+
+                            document.querySelector("form").addEventListener("submit", function (event) {
+                                const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+
+                                if (paymentMethod === "Credit/Debit Card") {
+                                    const cardNumber = document.getElementById("card-number").value;
+                                    const cardPattern = /^\d{4} \d{4} \d{4} \d{4}$/;
+                                    if (!cardPattern.test(cardNumber)) {
+                                        alert("Моля въведете валиден номер на карта");
+                                        event.preventDefault();
+                                        return;
+                                    }
+
+                                    const expiryDate = document.getElementById("expiry-date").value;
+                                    const expiryPattern = /^(0[1-9]|1[0-2])\/\d{2}$/;
+                                    if (!expiryPattern.test(expiryDate)) {
+                                        alert("Въведете валиден срок на картата.");
+                                        event.preventDefault();
+                                        return;
+                                    }
+
+                                    const cvc = document.getElementById("cvc").value;
+                                    if (!/^\d{3}$/.test(cvc)) {
+                                        alert("Моля, въведете валиден 3-цифрен CVC код.");
+                                        event.preventDefault();
+                                        return;
+                                    }
+                                }
+
+                            });
+                        </script>
+                    </div>
+                    <input type="hidden" id="paymentMethod" name="paymentMethod" value="">
+                    <button type="submit" class="complete-order-btn">Завърши поръчката</button>
+                </form>
+                    <form th:action="@{/checkout}" th:method="Get">
+                        <button type="submit" class="return-btn">Върни се назад</button>
+                    </form>
+            </div>
+            <form th:action="@{/payment}" th:method="Get" th:object="${user}">
+            <div class="order-summary">
+                <h2 style="text-align: center;">Преглед на поръчката</h2>
+                <div class="delivery-info">
+                    <p th:text="'Доставка до: ' + ${user.firstName} + ' ' + ${user.lastName}"></p>
+                    <p th:text="'Адрес: ' + ${currentOrder.shippingAddress} + ', '
+                    + ${currentOrder.town} + ', '
+                    + ${currentOrder.postalCode} + ', '
+                    + ${currentOrder.getUser().getCountry().name()}"></p>
+                    <p th:text="'Телефон: ' + ${currentOrder.orderPhoneNumber}"></p>
+                </div>
+
+                <div class="shipping-method">
+                    <p th:if="${currentOrder.orderMethod == T(com.glowtique.glowtique.order.model.OrderMethod).SPEEDY_POST}"
+                       style="text-align: center; font-weight: 600;"
+                       th:text="'Метод на доставка: Спиди - до автомат'"></p>
+                    <p th:if="${currentOrder.orderMethod == T(com.glowtique.glowtique.order.model.OrderMethod).SPEEDY_ADDRESS}"
+                       style="text-align: center; font-weight: 600;"
+                       th:text="'Метод на доставка: Спиди - до адрес'"></p>
+                    <p th:if="${currentOrder.orderMethod == T(com.glowtique.glowtique.order.model.OrderMethod).SPEEDY_OFFICE}"
+                       style="text-align: center; font-weight: 600;"
+                       th:text="'Метод на доставка: Спиди - до офис'"></p>
+                    <p th:if="${currentOrder.orderMethod == T(com.glowtique.glowtique.order.model.OrderMethod).ECONT_ADDRESS}"
+                       style="text-align: center; font-weight: 600;"
+                       th:text="'Метод на доставка: Еконт - до адрес'"></p>
+                    <p th:if="${currentOrder.orderMethod == T(com.glowtique.glowtique.order.model.OrderMethod).ECONT_OFFICE}"
+                       style="text-align: center; font-weight: 600;"
+                       th:text="'Метод на доставка: Спиди - до офис'"></p>
+                    <p th:if="${currentOrder.orderMethod == T(com.glowtique.glowtique.order.model.OrderMethod).EASY_BOX}"
+                       style="text-align: center; font-weight: 600;"
+                       th:text="'Метод на доставка: EasyBox'"></p>
+                </div>
+
+                <div class="order-review">
+                    <h3 style="text-align: center;">Продукти</h3>
+                    <div class="order-item" th:each="item : ${orderItems}">
+                        <a th:href="@{/product/{id}(id=${item.product.id})}"><img th:src="${item.product.image}" alt="Lip Balm Image"></a>
+                        <div class="product-details">
+                            <a th:href="@{/product/{id}(id=${item.product.id})}"><p th:text="${item.product.name}"></p></a>
+                            <p th:text="'Количество: ' + ${item.quantity}"></p>
+                            <p th:text="'Цена: ' + ${item.totalPrice} + ' лв.'"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="total-summary">
+                    <p th:text="'Цена: ' + ${user.getCart().totalPrice} + ' лв.'"></p>
+                    <p th:if="${user.getCart().totalPrice >= 200.00}" th:text="'Доставка: 0.00 лв.'"></p>
+                    <p th:unless="${user.getCart().totalPrice >= 200.00}" th:text="'Доставка: 7.00 лв.'"></p>
+                    <p th:if="${user.getCart().totalPrice >= 200.00}" th:text="'Общо: ' + ${user.getCart().totalPrice} + ' лв.'"></p>
+                    <p th:unless="${user.getCart().totalPrice >= 200.00}" th:text="'Общо: ' + ${user.getCart().totalPrice + 7.00    } + ' лв.'"></p>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</main>
+</body>
+
+<script>
+    function toggleForms(formId) {
+        document.querySelectorAll('.additional-forms > div').forEach(form => {
+            form.classList.add('hidden');
+        });
+
+        document.getElementById(formId).classList.remove('hidden');
+    }
+    window.onload = function () {
+        document.querySelectorAll('.additional-forms > div').forEach(form => {
+            form.classList.add('hidden');
+        });
+
+        const checkedPaymentMethod = document.querySelector('input[name="payment"]:checked');
+        if (checkedPaymentMethod) {
+            toggleForms(checkedPaymentMethod.id + '-form');
+        }
+    };
+</script>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/brand.css">
+    <link rel="stylesheet" href="/css/logged-header.css">
+  <title>Glowtique | Brands</title>
+</head>
+<body>
+    <th:block th:insert="fragments/header-fragment :: header"></th:block>
+    <main>
+      <div class="container">
+        <h1>Марки</h1>
+
+        <div class="alphabet-nav">
+          <span><a href="#A">A</a></span>
+          <span><a href="#B">B</a></span>
+          <span><a href="#C">C</a></span>
+          <span><a href="#D">D</a></span>
+          <span><a href="#E">E</a></span>
+          <span><a href="#F">F</a></span>
+          <span><a href="#G">G</a></span>
+          <span><a href="#H">H</a></span>
+          <span><a href="#I">I</a></span>
+          <span><a href="#J">J</a></span>
+          <span><a href="#K">K</a></span>
+          <span><a href="#L">L</a></span>
+          <span><a href="#M">M</a></span>
+          <span><a href="#N">N</a></span>
+          <span><a href="#O">O</a></span>
+          <span><a href="#P">P</a></span>
+          <span><a href="#Q">Q</a></span>
+          <span><a href="#R">R</a></span>
+          <span><a href="#S">S</a></span>
+          <span><a href="#T">T</a></span>
+          <span><a href="#U">U</a></span>
+          <span><a href="#V">V</a></span>
+          <span><a href="#W">W</a></span>
+          <span><a href="#X">X</a></span>
+          <span><a href="#Y">Y</a></span>
+          <span><a href="#Z">Z</a></span>
+        </div>
+
+        <div class="brands-list">
+          <div class="brand-section">
+            <h3 id="A">A</h3>
+            <ul th:each="brand : ${brands}">
+              <li  th:if="${brand.name.startsWith('A') || brand.name.startsWith('a')}">
+                <a th:href="@{/brand/{id}(id=${brand.id})}" th:text="${brand.name}"></a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="brand-section">
+            <h3 id="B">B</h3>
+            <ul th:each="brand : ${brands}">
+              <li  th:if="${brand.name.startsWith('B') || brand.name.startsWith('b')}">
+                <a th:href="@{/brand/{id}(id=${brand.id})}" th:text="${brand.name}"></a>
+              </li>
+            </ul>
+          </div>
+          <div class="brand-section">
+            <h3 id="C">C</h3>
+            <ul th:each="brand : ${brands}">
+              <li  th:if="${brand.name.startsWith('C') || brand.name.startsWith('c')}">
+                <a th:href="@{/brand/{id}(id=${brand.id})}" th:text="${brand.name}"></a>
+              </li>
+            </ul>
+          </div>
+          <div class="brand-section">
+            <h3 id="D">D</h3>
+            <ul th:each="brand : ${brands}">
+              <li  th:if="${brand.name.startsWith('D') || brand.name.startsWith('d')}">
+                <a th:href="@{/brand/{id}(id=${brand.id})}" th:text="${brand.name}"></a>
+              </li>
+            </ul>
+          </div>
+          <div class="brand-section">
+            <h3 id="E">E</h3>
+            <ul th:each="brand : ${brands}">
+              <li  th:if="${brand.name.startsWith('E') || brand.name.startsWith('e')}">
+                <a th:href="@{/brand/{id}(id=${brand.id})}" th:text="${brand.name}"></a>
+              </li>
+            </ul>
+          </div>
+          <div class="brand-section">
+            <h3 id="F">F</h3>
+            <ul th:each="brand : ${brands}">
+              <li  th:if="${brand.name.startsWith('F') || brand.name.startsWith('f')}">
+                <a th:href="@{/brand/{id}(id=${brand.id})}" th:text="${brand.name}"></a>
+              </li>
+            </ul>
+          </div>
+          <div class="brand-section">
+            <h3 id="G">G</h3>
+            <ul th:each="brand : ${brands}">
+              <li  th:if="${brand.name.startsWith('G') || brand.name.startsWith('g')}">
+                <a th:href="@{/brand/{id}(id=${brand.id})}" th:text="${brand.name}"></a>
+              </li>
+            </ul>
+          </div>
+          <div class="brand-section">
+            <h3 id="H">H</h3>
+            <ul th:each="brand : ${brands}">
+              <li  th:if="${brand.name.startsWith('H') || brand.name.startsWith('h')}">
+                <a th:href="@{/brand/{id}(id=${brand.id})}" th:text="${brand.name}"></a>
+              </li>
+            </ul>
+          </div>
+          <div class="brand-section">
+            <h3 id="I">I</h3>
+            <ul th:each="brand : ${brands}">
+              <li  th:if="${brand.name.startsWith('I') || brand.name.startsWith('I')}">
+                <a th:href="@{/brand/{id}(id=${brand.id})}" th:text="${brand.name}"></a>
+              </li>
+            </ul>
+          </div>
+          <div class="brand-section">
+            <h3 id="J">J</h3>
+            <ul th:each="brand : ${brands}">
+              <li  th:if="${brand.name.startsWith('J') || brand.name.startsWith('j')}">
+                <a th:href="@{/brand/{id}(id=${brand.id})}" th:text="${brand.name}"></a>
+              </li>
+            </ul>
+          </div>
+          <div class="brand-section">
+            <h3 id="K">K</h3>
+            <ul th:each="brand : ${brands}">
+              <li  th:if="${brand.name.startsWith('K') || brand.name.startsWith('k')}">
+                <a th:href="@{/brand/{id}(id=${brand.id})}" th:text="${brand.name}"></a>
+              </li>
+            </ul>
+          </div>
+          <div class="brand-section">
+            <h3 id="L">L</h3>
+            <ul th:each="brand : ${brands}">
+              <li  th:if="${brand.name.startsWith('L') || brand.name.startsWith('l')}">
+                <a th:href="@{/brand/{id}(id=${brand.id})}" th:text="${brand.name}"></a>
+              </li>
+            </ul>
+          </div>
+          <div class="brand-section">
+            <h3 id="M">M</h3>
+            <ul th:each="brand : ${brands}">
+              <li  th:if="${brand.name.startsWith('M') || brand.name.startsWith('m')}">
+                <a th:href="@{/brand/{id}(id=${brand.id})}" th:text="${brand.name}"></a>
+              </li>
+            </ul>
+          </div>
+          <div class="brand-section">
+            <h3 id="N">N</h3>
+            <ul th:each="brand : ${brands}">
+              <li  th:if="${brand.name.startsWith('N') || brand.name.startsWith('n')}">
+                <a th:href="@{/brand/{id}(id=${brand.id})}" th:text="${brand.name}"></a>
+              </li>
+            </ul>
+          </div>
+          <div class="brand-section">
+            <h3 id="O">O</h3>
+            <ul th:each="brand : ${brands}">
+              <li  th:if="${brand.name.startsWith('O') || brand.name.startsWith('o')}">
+                <a th:href="@{/brand/{id}(id=${brand.id})}" th:text="${brand.name}"></a>
+              </li>
+            </ul>
+          </div>
+          <div class="brand-section">
+            <h3 id="P">P</h3>
+            <ul th:each="brand : ${brands}">
+              <li  th:if="${brand.name.startsWith('P') || brand.name.startsWith('p')}">
+                <a th:href="@{/brand/{id}(id=${brand.id})}" th:text="${brand.name}"></a>
+              </li>
+            </ul>
+          </div>
+          <div class="brand-section">
+            <h3 id="Q">Q</h3>
+            <ul th:each="brand : ${brands}">
+              <li  th:if="${brand.name.startsWith('Q') || brand.name.startsWith('q')}">
+                <a th:href="@{/brand/{id}(id=${brand.id})}" th:text="${brand.name}"></a>
+              </li>
+            </ul>
+          </div>
+          <div class="brand-section">
+            <h3 id="R">R</h3>
+            <ul th:each="brand : ${brands}">
+              <li  th:if="${brand.name.startsWith('R') || brand.name.startsWith('r')}">
+                <a th:href="@{/brand/{id}(id=${brand.id})}" th:text="${brand.name}"></a>
+              </li>
+            </ul>
+          </div>
+          <div class="brand-section">
+            <h3 id="S">S</h3>
+            <ul th:each="brand : ${brands}">
+              <li  th:if="${brand.name.startsWith('S') || brand.name.startsWith('s')}">
+                <a th:href="@{/brand/{id}(id=${brand.id})}" th:text="${brand.name}"></a>
+              </li>
+            </ul>
+          </div>
+          <div class="brand-section">
+            <h3 id="T">T</h3>
+            <ul th:each="brand : ${brands}">
+              <li  th:if="${brand.name.startsWith('T') || brand.name.startsWith('t')}">
+                <a th:href="@{/brand/{id}(id=${brand.id})}" th:text="${brand.name}"></a>
+              </li>
+            </ul>
+          </div>
+          <div class="brand-section">
+            <h3 id="U">U</h3>
+            <ul th:each="brand : ${brands}">
+              <li  th:if="${brand.name.startsWith('U') || brand.name.startsWith('u')}">
+                <a th:href="@{/brand/{id}(id=${brand.id})}" th:text="${brand.name}"></a>
+              </li>
+            </ul>
+          </div>
+          <div class="brand-section">
+            <h3 id="V">V</h3>
+            <ul th:each="brand : ${brands}">
+              <li  th:if="${brand.name.startsWith('V') || brand.name.startsWith('v')}">
+                <a th:href="@{/brand/{id}(id=${brand.id})}" th:text="${brand.name}"></a>
+              </li>
+            </ul>
+          </div>
+          <div class="brand-section">
+            <h3 id="W">W</h3>
+            <ul th:each="brand : ${brands}">
+              <li  th:if="${brand.name.startsWith('W') || brand.name.startsWith('w')}">
+                <a th:href="@{/brand/{id}(id=${brand.id})}" th:text="${brand.name}"></a>
+              </li>
+            </ul>
+          </div>
+          <div class="brand-section">
+            <h3 id="X">X</h3>
+            <ul th:each="brand : ${brands}">
+              <li  th:if="${brand.name.startsWith('X') || brand.name.startsWith('x')}">
+                <a th:href="@{/brand/{id}(id=${brand.id})}" th:text="${brand.name}"></a>
+              </li>
+            </ul>
+          </div>
+          <div class="brand-section">
+            <h3 id="Y">Y</h3>
+            <ul th:each="brand : ${brands}">
+              <li  th:if="${brand.name.startsWith('Y') || brand.name.startsWith('y')}">
+                <a th:href="@{/brand/{id}(id=${brand.id})}" th:text="${brand.name}"></a>
+              </li>
+            </ul>
+          </div>
+          <div class="brand-section">
+            <h3 id="Z">Z</h3>
+            <ul th:each="brand : ${brands}">
+              <li  th:if="${brand.name.startsWith('Z') || brand.name.startsWith('z')}">
+                <a th:href="@{/brand/{id}(id=${brand.id})}" th:text="${brand.name}"></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </main>
+</body>
+</html>

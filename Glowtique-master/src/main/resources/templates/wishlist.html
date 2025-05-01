@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/logged-header.css">
+    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/wishlist.css">
+    <link rel="stylesheet" href="/css/wishlisted.css">
+    <link rel="stylesheet" href="/css/toast.css">
+
+    <title>Glowtique | Wishlist</title>
+</head>
+<body>
+<th:block th:insert="fragments/header-fragment :: header"></th:block>
+<main>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h2>Моят профил</h2>
+            <ul>
+                <li><a th:href="@{/profile}">Обща информация</a></li>
+                <li><a th:href="@{/orders}">Моите поръчки</a></li>
+                <li><a href="#">Заявки за връщане/рекламация</a></li>
+                <li><a th:href="@{redirect:/wishlist}" class="active">Любими продукти</a></li>
+                <li><a href="#">Моите промокодове</a></li>
+                <li><a href="#">Моите адреси</a></li>
+                <li><a th:href="@{/edit-profile}">Настройки на профила</a></li>
+                <li><a th:href="@{/notifications}">Нотификации</a></li>
+                <li><a href="#">Beauty Card</a></li>
+                <li><a href="#">Управление на лични данни</a></li>
+                <li><a th:href="@{/logout}">Изход</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="profile-content">
+            <h1>Любими продукти</h1>
+
+            <div class="banner">
+                <p>Тук ще намерите вашите любими продукти. Добавете ги към кошницата за лесна поръчка!</p>
+            </div>
+
+            <div th:if="${wishlistItems.size() == 0}">
+                <h3 style="text-align: center">Все още нямате харесани продукти.</h3>
+            </div>
+
+            <!-- Wishlist Products -->
+            <section class="wishlist">
+
+                <div class="product-container">
+
+                    <div class="product" th:each="item : ${wishlistItems}">
+                        <form  th:action="@{/wishlist}" th:method="POST">
+                            <button type="button" class="wishlist-btn-liked" th:data-id="${item.id}">
+                                <span class="heart-icon">&#10084;</span>
+                            </button>
+                        </form>
+
+                        <span th:if="${item.quantity > 0}" class="stock-status-ready">В наличност</span>
+                        <span th:unless="${item.quantity > 0}" class="stock-status-out">Не е в наличност</span>
+                        <a th:href="@{/product/{id}(id=${item.id})}" class="product-link">
+                            <img th:src="${item.image}" alt="Product Image">
+                            <h3 th:text="${item.name}" class="product-name"></h3>
+                            <h6 th:text="${item.description} + ' ' + ${item.volume} + ' мл.'" class="product-details"></h6>
+                        </a>
+                        <div class="product-details">
+                            <p th:text="${item.price} +  ' лв.'" class="price"></p>
+                        </div>
+                        <form th:action="@{/cart/add/{productId}(productId=${item.id})}" th:method="Post">
+                            <input type="hidden" name="quantity" value="1">
+                            <button th:if="${item.quantity > 0}" type="submit" class="add-to-cart" th:data-id="${item.id}">Добави в кошницата</button>
+                            <button th:unless="${item.quantity > 0}" disabled type="submit" class="add-to-cart" th:data-id="${item.id}">Добави в кошницата</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+            <div th:classappend="${wishlistItems.size() <= 0 ? 'pagination-hidden' : 'pagination'}">
+                <ul>
+                    <li th:if="${currentPage > 0}">
+                        <a th:href="@{/wishlist(size=${12}, pages=${currentPage - 1})}">Предишна</a>
+                    </li>
+                    <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+                        <a th:href="@{/wishlist(size=${12}, pages=${i})}"
+                           th:classappend="${i == currentPage} ? 'active' : ''"
+                           th:text="${i + 1}"></a>
+                    </li>
+                    <li th:if="${currentPage < totalPages - 1}">
+                        <a th:href="@{/wishlist(size=${12}, pages=${currentPage + 1})}">Следваща</a>
+                    </li>
+                </ul>
+            </div>
+
+        </main>
+    </div>
+    <div id="toast" class="toast hidden">
+        <span id="toast-message"></span>
+    </div>
+</main>
+
+<script src="/css/addwishlist.js"></script>
+<script src="/css/removewishlist.js"></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/register.css">
+    <title>Glowtique | Register</title>
+</head>
+<body>
+<header>
+    <div class="top-bar">
+        <img src="/images/glowtique-logo.png" alt="photo">
+    </div>
+</header>
+<main>
+    <div class="registration-container">
+        <h2>Регистрация</h2>
+        <form th:action="@{/register}" th:method="POST" th:object="${registerRequest}">
+            <div class="form-group">
+                <label for="firstname">Име</label>
+                <input th:field="*{firstName}" type="text" id="firstname" name="firstname" placeholder="Въведете първо име" required>
+                <p class="alert-warning" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></p>
+            </div>
+            <div class="form-group">
+                <label for="lastname">Фамилия</label>
+                <input th:field="*{lastName}" type="text" id="lastname" name="lastname" placeholder="Въведете фамилия" required>
+                <p class="alert-warning" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></p>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input th:field="*{email}" type="email" id="email" name="email" placeholder="Въведете имейл" required>
+                <p class="alert-warning" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+                <p class="alert-warning" th:if="${alreadyRegisteredEmailMessage}" th:text="${alreadyRegisteredEmailMessage}"></p>
+            </div>
+            <div class="form-group">
+                <label for="gender">Пол</label>
+                <select th:field="*{gender}" id="gender" name="gender">
+                    <option value="" selected>Select a gender</option>
+                    <option th:each="gender : ${T(com.glowtique.glowtique.user.model.UserGender).values()}"
+                            th:value="${gender}"
+                            th:text="${#strings.capitalize(#strings.toLowerCase(gender))}">
+                    </option>
+                </select>
+                <p class="alert-warning" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></p>
+            </div>
+            <div class="form-group">
+                <label for="birthday">Рожденна дата</label>
+                <input th:field="*{birthday}" type="date" id="birthday" name="dateOfBirth">
+                <p class="alert-warning" th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}"></p>
+            </div>
+            <div class="form-group">
+                <label for="password">Парола</label>
+                <input th:field="*{password}" type="password" id="password" name="password" placeholder="Въведете парола" required>
+                <p class="alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">Повторете паролата</label>
+                <input th:field="*{confirmPassword}" type="password" id="confirm-password" name="confirmPassword" placeholder="Въведете парола" required>
+                <p class="alert-warning" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></p>
+            </div>
+
+            <button type="submit" class="register-button">Регистриране</button>
+            <div class="already-registered">
+                <a th:href="@{/login}">Вече имате регистрация?</a>
+            </div>
+        </form>
+    </div>
+</main>
+</body>
+</html>

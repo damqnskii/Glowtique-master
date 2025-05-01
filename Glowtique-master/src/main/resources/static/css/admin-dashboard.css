@@ -1,0 +1,104 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.container-user {
+    width: 100%;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding-bottom: 2rem;
+}
+
+table {
+    width: 70%;
+    border-collapse: collapse;
+    overflow: hidden;
+    border-radius: 10px;
+    margin: auto;
+}
+
+
+th, td {
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #333;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 12px;
+    padding: 20px;
+}
+td {
+    max-width: 100px;
+    padding: 10px;
+    border: 1px solid black;
+    transition: width 0.3s ease;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.role {
+    transition:none;
+}
+
+.role:hover {
+    max-width: 100px;
+    padding: 10px;
+    border: 1px solid black;
+    transition: width 0.3s ease;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+td:hover {
+    width: 400px;
+    overflow: visible;
+    white-space: normal;
+    z-index: 1;
+    padding: 5px;
+}
+
+input {
+    max-width: 100px;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+    transition: background 0.2s ease-in-out;
+}
+
+
+.edit-section {
+    display: flex;
+    align-items: center;
+    padding: 2rem;
+    justify-content: center;
+
+}
+.edit {
+    width: 100%;
+    background-color: #8B5E3C;
+    color: white;
+    padding: 0.8rem;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.edit:hover {
+    background-color: #5e3310;
+}

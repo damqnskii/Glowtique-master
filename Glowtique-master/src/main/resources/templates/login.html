@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/font.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glowtique | Login</title>
+</head>
+<body>
+    <header>
+        <div class="top-bar">  
+            <img src="/images/glowtique-logo.png" alt="photo">
+        </div>
+    </header>
+    <main>
+        <div class="login-container">
+            <h2>Вход</h2>
+            <form th:action="@{/login}" th:method="POST" th:object="${loginRequest}">
+                <div class="form-group">
+                    <label for="email">Имейл адрес</label>
+                    <input th:field="*{email}" type="email" id="email" name="email" placeholder="Въведете имейл адрес" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Парола</label>
+                    <input th:field="*{password}" type="password" id="password" name="password" placeholder="Въведете парола" required>
+                </div>
+                <button type="submit" class="login-button">Login</button>
+                <p class="alert-warning" th:if="${errorMessage}" th:text="${errorMessage}"></p>
+            </form>
+            <div class="forgot-password">
+                <a href="">Забравили сте си паролата?</a>
+                <a th:href="@{/register}">Създадете профил</a>
+            </div>
+
+        </div>
+    </main>
+</body>
+</html>

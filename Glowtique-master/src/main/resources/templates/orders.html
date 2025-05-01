@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/logged-header.css">
+  <link rel="stylesheet" href="/css/orders.css">
+  <link rel="stylesheet" href="/css/font.css">
+  <title>Glowtique | My Orders</title>
+</head>
+<body>
+<th:block th:insert="fragments/header-fragment :: header"></th:block>
+<main>
+  <div class="container">
+    <aside class="sidebar">
+      <h2>Моят профил</h2>
+      <ul>
+        <li><a th:href="@{/profile}">Обща информация</a></li>
+        <li><a th:href="@{redirect:/orders}" class="active">Моите поръчки</a></li>
+        <li><a href="#">Заявки за връщане/рекламация</a></li>
+        <li><a th:href="@{/wishlist}">Любими продукти</a></li>
+        <li><a href="#">Моите промокодове</a></li>
+        <li><a href="#">Моите адреси</a></li>
+        <li><a th:href="@{/edit-profile}">Настройки на профила</a></li>
+        <li><a th:href="@{/notifications}">Нотификации</a></li>
+        <li><a href="#">Beauty Card</a></li>
+        <li><a href="#">Управление на лични данни</a></li>
+        <li><a th:href="@{/logout}">Изход</a></li>
+      </ul>
+    </aside>
+
+    <main class="profile-content">
+      <h1>Моите поръчки</h1>
+      <h2 th:if="${orders.size() == 0 || orders == null}">Все още нямате напревени поръчки в профила</h2>
+      <table th:unless="${orders.size() == 0 || orders == null}">
+        <thead>
+        <tr>
+          <th>Поръчка №</th>
+          <th>Дата</th>
+          <th>Лице за Контакт</th>
+          <th>Общо</th>
+          <th>Статус</th>
+          <th>Метод на плащане</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${orders}">
+          <td th:text="${order.trackingNumber}"></td>
+          <td th:text="${#temporals.format(order.orderDate, 'yyyy-MM-dd')}"></td>
+          <td th:text="${order.user.firstName} + ' ' + ${order.user.lastName}"></td>
+          <td th:text="${order.totalPrice} + ' лв.'"></td>
+          <td   th:if="${order.orderStatus.name() == 'ORDER_CONFIRMED'}"
+                  th:text="'Приета'"></td>
+          <td   th:if="${order.orderStatus.name() == 'DECLINED'}"
+                th:text="'Отказана'"></td>
+          <td   th:if="${order.orderStatus.name() == 'COMPLETED'}"
+                th:text="'Завършена'"></td>
+          <td   th:if="${order.orderStatus.name() == 'DELIVERED'}"
+                th:text="'Доставена'"></td>
+          <td   th:if="${order.orderStatus.name() == 'REFUNDED'}"
+                th:text="'Върната'"></td>
+          <td   th:if="${order.orderStatus.name() == 'PENDING'}"
+                th:text="'Чакаща одобрение'"></td>
+          <td   th:if="${order.orderStatus.name() == 'AWAITING_PICKUP'}"
+                th:text="'В очакване на вземане'"></td>
+
+          <td   th:if="${order.payment.paymentMethod.name() == 'CASH'}"
+                  th:text="'Наложен платеж'"></td>
+          <td   th:if="${order.payment.paymentMethod.name() == 'BANK_TRANSFER'}"
+                th:text="'Кредитна/Дебитна карта'"></td>
+          <td   th:if="${order.payment.paymentMethod.name() == 'EASY_PAY'}"
+                th:text="'Easy Pay'"></td>
+          <td   th:if="${order.payment.paymentMethod.name() == 'GIFT_CARD'}"
+                th:text="'Gift Card'"></td>
+
+        </tr>
+        </tbody>
+      </table>
+    </main>
+  </div>
+</main>
+</body>
+</html>

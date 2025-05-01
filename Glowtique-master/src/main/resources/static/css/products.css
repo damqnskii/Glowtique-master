@@ -1,0 +1,378 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+}
+
+/* Layout */
+.container {
+    display: flex;
+    max-width: 1200px;
+    margin: 20px auto;
+    align-items: flex-start;
+}
+
+.sidebar {
+    width: 250px;
+    background: white;
+    padding: 20px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h4 {
+    margin-bottom: -0.25rem;
+}
+
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 0.625rem;
+}
+
+.search-section input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+}
+.filter-section {
+    max-height: 200px; /* Set a fixed height for scrolling */
+    overflow-y: auto;  /* Enables vertical scrolling */
+    padding: 0 0.625rem 0 0.625rem;
+}
+.gender-filter {
+    padding: 0 0.625rem 0.625rem 0.625rem;
+}
+.filter-section::-webkit-scrollbar {
+    width: 6px;
+}
+
+.filter-section::-webkit-scrollbar-thumb {
+    background-color: #aaa;
+    border-radius: 3px;
+}
+
+.filter-section::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.apply-filters {
+    display: block;
+    width: 100%;
+    background: #8B5E3C;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.apply-filters:hover {
+    background: #6d472c;
+}
+
+.reset-filters {
+    display: block;
+    width: 100%;
+    background: #8B5E3C;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.reset-filters:hover {
+    background: #6d472c;
+}
+
+/* Product Grid */
+.product-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    width: 100%;
+}
+
+.product {
+    position: relative;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Ensures spacing */
+    height: 95%; /* Ensures equal height */
+}
+
+.product a {
+    text-decoration: none;
+    color: black;
+}
+
+
+.product a img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.product a h3 {
+    font-size: 16px;
+    margin: 20px 0;
+    flex-grow: 1; /* Pushes the button to the bottom */
+}
+
+.product .price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.product-name {
+    font-size: 16px;
+    margin: 10px 0;
+    flex-grow: 1; /* Pushes price & button to the bottom */
+}
+
+.product-details {
+    margin-bottom: 10px;
+}
+
+.stock-status-out {
+    background: rgb(143, 0, 0);
+    color: white;
+    padding: 5px 10px;
+    font-size: 12px;
+    position: absolute;
+    margin: -5px -10px 0 0;
+
+}
+
+.stock-status-ready {
+    background: green;
+    color: white;
+    padding: 5px 10px;
+    font-size: 12px;
+    position: absolute;
+    margin: -5px -10px 0 0;
+
+}
+/* Add to Cart Button */
+.add-to-cart {
+    background: #8B5E3C;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+    margin-top: auto; /* Pushes it to the bottom */
+    border-radius: 5px;
+}
+
+.add-to-cart:hover {
+    background: #6d472c;
+}
+
+.wishlist {
+    max-width: 350px;
+    margin: auto;
+}
+
+h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+h2 span {
+    font-weight: normal;
+    color: gray;
+    font-size: 14px;
+}
+
+#wishlist-items {
+    list-style: none;
+    padding: 0;
+}
+
+.wishlist-item {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+    position: relative;
+}
+
+#wishlist-items li img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.item-details-side {
+    flex-grow: 1;
+}
+
+.item-name-side {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+    color: black;
+    text-decoration: none;
+}
+
+.item-name-side:hover {
+    color: #007bff;
+}
+
+.price-side {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.add-to-cart-side {
+    display: inline-block;
+    color: #8B5E3C;
+    font-size: 12px;
+    text-decoration: none;
+    background: transparent;
+    border: none;
+}
+
+.add-to-cart-side:hover {
+    text-decoration: underline;
+}
+
+.remove-side {
+    font-size: 20px;
+    color: gray;
+    cursor: pointer;
+    padding: 0;
+    position: absolute;
+    right: -1.25rem;
+}
+
+.remove-side:hover {
+    color: red;
+}
+
+.pagination ul {
+    list-style: none;
+    display: flex;
+    gap: 10px;
+    padding: 20px 0;
+}
+
+.pagination a {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    text-decoration: none;
+    color: #333;
+    border-radius: 4px;
+}
+
+.pagination a.active {
+    background-color: #8B5E3C;
+    color: #fff;
+    border-color: #8B5E3C;
+}
+.pagination {
+    display: flex;
+    justify-content: center;
+}
+.all-wishlist a {
+    text-decoration: none;
+    color: #8B5E3C;
+    font-size: 1rem;
+    text-align: center;
+}
+.all-wishlist {
+    text-align: center;
+    padding: 1.25rem;
+}
+.all-wishlist a:hover {
+    color: #6d472c;
+}
+.all-wishlist-hidden {
+    display: none;
+}
+
+#bottom {
+    margin-top: -1.25rem;
+}
+#top {
+    padding-top: 1.25rem;
+}
+.additional-filter {
+    display: flex;
+    justify-content: center;
+}
+
+.price-range {
+    font-family: Arial, sans-serif;
+    margin-bottom: 1rem;
+}
+
+.filter-title {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.price-inputs {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.price-inputs input {
+    width: 6.25rem;
+    padding: 0.75rem;
+    text-align: center;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+.volume-filter {
+    padding: 0 0.625rem 0.625rem 0.625rem;
+}
+.volume-filter div {
+    max-height: 10rem; /* or whatever height fits your design */
+    overflow-y: auto;
+    padding-right: 0.5rem; /* optional: for scrollbar spacing */
+}
+.volume-filter div::-webkit-scrollbar {
+    width: 0.375rem;
+}
+
+.volume-filter div::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 0.625rem;
+}
+
+@media screen and (max-width: 768px) {
+    .volume-filter div {
+        max-height: 44vh; /* or whatever height fits your design */
+        overflow-y: auto;
+        padding-right: 0.5rem; /* optional: for scrollbar spacing */
+    }
+}

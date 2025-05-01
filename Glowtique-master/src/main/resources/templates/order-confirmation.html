@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/logged-header.css">
+    <link rel="stylesheet" href="/css/confirmation-order.css">
+    <title>Title</title>
+</head>
+<body>
+    <th:block th:insert="fragments/header-fragment :: header"></th:block>
+
+    <main>
+        <div class="container">
+            <h1>Поръчката Ви беше успешно потвърдена!</h1>
+            <div class="redirection"><a th:href="@{/home}">Връщане към основната страница</a></div>
+        </div>
+    </main>
+</body>
+</html>

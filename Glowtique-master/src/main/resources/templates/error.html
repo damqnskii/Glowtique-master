@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oops! Something went wrong!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif; text-align: center; margin: 50px;
+        }
+        .error-container {
+            max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; background: #f8d7da; color: #721c24;
+        }
+        .error-title {
+            font-size: 24px; font-weight: bold;
+        }
+        .error-message {
+            margin-top: 10px; font-size: 18px;
+        }
+        .error-timestamp {
+            font-size: 14px; color: #555; margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="error-container">
+    <div class="error-title">Oops! Something went wrong. We couldn't find that.</div>
+    <div class="error-message">If you need any further assistance with your query, please don't hesitate to reach out to our support team. We're here to help!</div>
+    <div class="error-timestamp" th:text="${timestamp}"></div>
+    <a th:href="@{/home}" class="home-link">Go Back to Home</a>
+</div>
+</body>
+</html>

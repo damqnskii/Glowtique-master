@@ -1,0 +1,220 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    display: flex;
+    max-width: 1200px;
+    height: 98%;
+    margin: 20px auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar {
+    width: 250px;
+    padding: 20px;
+    background: #fff;
+
+}
+
+.profile-content h1 {
+    text-align: center;
+}
+
+.sidebar h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    display: block;
+    padding: 5px;
+}
+
+.sidebar ul li a.active,
+.sidebar ul li a:hover {
+    color: #02665c;
+    font-weight: bold;
+    transition-duration: 0.2s;
+}
+
+
+.notification-preferences-box h2 {
+    text-align: center;
+    font-size: 24px;
+}
+.notification-preferences-box p {
+    font-size: 18px;
+    padding: 12px;
+}
+
+.notification-preferences-box {
+    padding: 80px 60px;
+    border-radius: 12px;
+    background: #fff;;
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+    margin-left: 3rem;
+}
+
+.notification-preferences-box::before,
+.notification-preferences-box::after {
+    content: '';
+    position: absolute;
+    border-radius: 90%;
+    opacity: 0.7;
+    filter: blur(40px);
+    z-index: 1;
+}
+
+.notification-preferences-box::before {
+    width: 350px;
+    height: 190px;
+    background: #fff;
+    top: -90px;
+    left: -100px;
+}
+
+.notification-preferences-box::after {
+    width: 400px;
+    height: 130px;
+    background: #fff;
+    bottom: -40px;
+    right: -180px;
+}
+
+
+.details-section {
+    align-items: start;
+}
+
+.enabled-notification-status {
+    backdrop-filter: blur(8px);
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    background-color: #e0f7e9;
+    color: #2e7d32;
+    box-shadow: 0 4px 8px rgba(0, 153, 51, 0.15);
+    margin: 0.75rem;
+}
+
+.disabled-notification-status {
+    background-color: #fbe9e7;
+    color: #c62828;
+    letter-spacing: 0.03em;
+    box-shadow: 0 4px 8px rgba(255, 103, 103, 0.2);
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 0.75rem;
+}
+
+.allowed-notification-actions {
+    display: flex;
+    gap: 20px;
+}
+
+.profile-actions-button {
+    width: auto;
+    margin: 0.75rem 0.75rem 0 0.75rem;
+}
+
+.profile-actions-button.disable-notifications:hover {
+    background: radial-gradient(circle at 90% top, #ff9090 0%, #ff8383 10%, #ff7676 20%, #ff6a6a 30%, #ff5d5d 40%, #ff5151 100%);
+    color: white;
+    border-radius: 5px;
+    border: none;
+    font-weight: 300;
+    transition: background 0.9s ease-in-out;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-actions-button.enable-notifications:hover {
+    background: radial-gradient(circle at 90% top, rgba(120, 240, 100, 0.6) 0%, rgba(110, 230, 90, 0.6) 10%, rgba(100, 220, 80, 0.6) 20%, rgba(90, 210, 70, 0.6) 30%, rgba(80, 200, 60, 0.6) 40%, rgba(70, 190, 50, 0.6) 50%, rgba(60, 180, 40, 0.6) 60%, rgba(50, 170, 30, 0.6) 70%, rgba(40, 160, 20, 0.6) 80%, rgba(30, 150, 10, 0.6) 90%, rgba(20, 140, 0, 0.6) 100%);
+    color: white;
+    border-radius: 5px;
+    border: none;
+    font-weight: 300;
+    transition: background 0.9s ease-in-out;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.default-label-box p {
+    background: transparent;
+}
+
+.status.succeeded {
+    color: #3f9f43;
+}
+.status.failed {
+    color: #ff6363;
+}
+
+.styled-table tbody td {
+    text-align: center;
+}
+
+.styled-table {
+    background: transparent;
+}
+
+.small-informative-text-bottom {
+    font-size: 12px;
+    justify-self: end;
+    text-align: center;
+    margin-top: auto;
+}
+.table-responsive {
+    overflow-x: auto;
+}
+
+.notification-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+}
+
+.notification-table th {
+    width: 35%;
+
+}
+
+.notification-table th,
+.notification-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+.notification-table th {
+    background-color: #8B5E3C;
+    color: white;
+}
+
+.notification-table tbody tr:hover {
+    background-color: #e9ecef;
+}

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/products.css">
+    <link rel="stylesheet" href="/css/logged-header.css">
+    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/wishlisted.css">
+    <link rel="stylesheet" href="/css/toast.css">
+    <title th:text="'Glowtique | ' + ${brand.name} + ' продукти'"></title>
+</head>
+<body>
+<th:block th:insert="fragments/header-fragment :: header"></th:block>
+<h1 style="text-align: center; text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5); font-size: 2.5rem;" th:text="'Продукти на ' + ${brand.name}"></h1>
+<div class="container">
+
+    <aside class="sidebar">
+        <h3>Категории</h3>
+        <form th:action="@{/product-brand/{brandId}(brandId=${brand.id})}" th:method="Get"  th:id="filterForm" th:attr="data-brand-id=${brand.id}">
+            <h4>Вид</h4>
+            <div class="filter-section">
+                <ul>
+                    <li th:each="category : ${categoryList}">
+                        <input type="checkbox"
+                               name="category"
+                               th:value="${category.id}"
+                               th:checked="${selectedCategoryIds != null} ? ${selectedCategoryIds.contains(category.id)} : false">
+                        <span th:text="${#strings.capitalize(#strings.toLowerCase(category.categoryType))}"></span>
+                    </li>
+                </ul>
+            </div>
+
+            <h4>Пол</h4>
+            <div class="gender-filter">
+                <ul>
+                    <li th:each="gender:  ${T(com.glowtique.glowtique.product.model.ProductGender).values()}">
+                        <input type="checkbox"
+                               name="gender"
+                               th:value="${gender.name}"
+                               th:checked="${selectedGender != null} ? ${selectedGender.contains(gender.name())} : false">
+                        <span th:text="${#strings.capitalize(#strings.toLowerCase(gender.name))}"></span>
+                    </li>
+                </ul>
+            </div>
+            <h4 style="margin-bottom: 0.625rem">Ценови диапазон</h4>
+            <div class="additional-filter">
+                <div class="price-range">
+                    <div class="price-inputs">
+                        <input type="number" name="minPrice" placeholder="0 лв." min="0" step="any" th:value="${minPrice}">
+                        <span>-</span>
+                        <input type="number" name="maxPrice" placeholder="5920 лв." min="0" step="any" th:value="${maxPrice}">
+                    </div>
+                </div>
+            </div>
+            <h4>Обем</h4>
+            <div class="volume-filter">
+                <div>
+                    <ul>
+                        <li th:each="vol : ${allVolumes}">
+                            <input type="checkbox" name="volume"
+                                   th:value="${vol}"
+                                   th:checked="${selectedVolume != null} ? ${selectedVolume.contains(vol)} : false">
+                            <span th:text="${vol} + ' мл.'"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <button type="submit" class="apply-filters">Приложи филтрите</button>
+            <button type="button" class="reset-filters" id="resetFilterBtn">Изчисти филтрите</button>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const form = document.getElementById('filterForm');
+                    if (!form) return;
+
+                    form.addEventListener('submit', function (e) {
+                        e.preventDefault();
+
+                        const selectedCategories = Array.from(
+                            form.querySelectorAll('input[name="category"]:checked')
+                        ).map(cb => cb.value);
+
+                        const selectedGenders = Array.from(
+                            form.querySelectorAll('input[name="gender"]:checked')
+                        ).map(cb => cb.value);
+
+                        const minPrice = form.querySelector('input[name="minPrice"]').value;
+                        const maxPrice = form.querySelector('input[name="maxPrice"]').value;
+
+                        const selectedVolumes = Array.from(form.querySelectorAll('input[name="volume"]:checked')
+                        ).map(cb => cb.value);
+
+                        const params = new URLSearchParams();
+
+                        selectedCategories.forEach(cat => params.append("categories", cat));
+                        selectedGenders.forEach(g => params.append("genders", g));
+                        selectedVolumes.forEach(v => params.append("volume", v));
+                        if (minPrice) params.append("minPrice", minPrice);
+                        if (maxPrice) params.append("maxPrice", maxPrice);
+
+                        const brandId = form.dataset.brandId;
+
+                        window.location.href = `/product-brand/${brandId}?` + params.toString();
+                    });
+                });
+                document.addEventListener('DOMContentLoaded', function () {
+                    const resetBtn = document.getElementById('resetFilterBtn');
+                    const form = document.getElementById('filterForm');
+
+                    resetBtn.addEventListener('click', function () {
+                        form.querySelectorAll('input[type="checked"]').forEach(cb => cb.checked = false);
+
+                        form.querySelectorAll('input[type="number"]').forEach(input => input.value = '');
+
+                        const brandId = form.dataset.brandId;
+                        window.location.href = `/product-brand/${brandId}`;
+                    });
+                });
+                </script>
+            </form>
+        <h4>Любими Продукти</h4>
+        <div th:if="${wishlistItems.size() <= 0}" class="empty-wishlist">Нямате любими продукти</div>
+        <div class="wishlist" th:each="item : ${wishlistItems}">
+            <ul th:unless="${wishlistItems.size() <= 0}" id="wishlist-items">
+                <li class="wishlist-item">
+                    <img th:src="${item.product.image}" alt="product-image">
+                    <div class="item-details-side">
+                        <a th:href="@{/product/{id}(id=${item.product.id})}" class="item-name-side" th:text="${item.product.name}"></a>
+                        <p th:text="${item.product.price} + ' лв.'" class="price-side"></p>
+                        <form th:action="@{/cart/add/{productId}(productId=${item.product.id})}" method="post">
+                            <input type="hidden" name="quantity" value="1">
+                            <button  th:if="${item.product.quantity > 0}" type="submit" class="add-to-cart-side" th:data-id="${item.product.id}">
+                                Добави в кошницата
+                            </button>
+                            <button th:unless="${item.product.quantity > 0}" disabled class="add-to-cart-side" th:data-id="${item.product.id}">
+                                Добави в кошницата
+                            </button>
+                        </form>
+                    </div>
+
+                    <button type="button" class="wishlist-btn-liked" th:data-id="${item.product.id}">
+                        <span id="remove" class="remove-side">×</span>
+                    </button>
+                    <script>
+                        document.addEventListener("click", function(event) {
+                            if (event.target.classList.contains("remove-side")) {
+                                event.target.parentElement.remove();
+                            }
+                        });
+                    </script>
+                </li>
+            </ul>
+        </div>
+        <div class="all-wishlist">
+            <p><a th:href="@{/wishlist}">Вижте всички харесани продукти</a></p>
+        </div>
+    </aside>
+
+    <main class="product-container">
+        <div th:each="product : ${products}" class="product">
+            <button type="button"
+                    th:classappend="${#lists.contains(wishListed, product.id) ? 'wishlist-btn-liked' : 'wishlist-btn'}"
+                    th:data-id="${product.id}">
+                <span class="heart-icon">&#10084;</span>
+            </button>
+            <span th:if="${product.quantity > 0}" class="stock-status-ready">В наличност</span>
+            <span th:unless="${product.quantity > 0}" class="stock-status-out">Не е в наличност</span>
+            <a th:href="@{/product/{id}(id=${product.id})}" class="product-link">
+                <img th:src="${product.image}" alt="Product 1">
+                <h3 th:text="${product.name}" class="product-name"></h3>
+                <h6 th:text="${product.description} + ' ' + ${product.volume} + ' мл.'" class="product-details"></h6>
+            </a>
+            <div class="product-details">
+                <p th:text="${product.price} + ' лв.'" class="price"></p>
+            </div>
+            <form th:action="@{/cart/add/{productId}(productId=${product.id})}" method="post">
+                <input type="hidden" name="quantity" value="1">
+                <button  th:if="${product.quantity > 0}" type="submit" class="add-to-cart" th:data-id="${product.id}">
+                    Добави в кошницата
+                </button>
+                <button th:unless="${product.quantity > 0}" disabled class="add-to-cart" th:data-id="${product.id}">
+                    Добави в кошницата
+                </button>
+            </form>
+
+        </div>
+    </main>
+    <div id="toast" class="toast hidden">
+        <span id="toast-message"></span>
+    </div>
+</div>
+<script src="/css/products.js"></script>
+<script src="/css/addwishlist.js"></script>
+<script src="/css/removewishlist.js"></script>
+</body>
+</html>

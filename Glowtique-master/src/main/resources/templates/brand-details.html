@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/logged-header.css">
+    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/brand-details.css">
+    <title th:text="'Glowtique | ' + ${brand.name}"></title>
+</head>
+<body>
+<th:block th:insert="fragments/header-fragment :: header"></th:block>
+<main>
+    <div class="container">
+        <h1 class="title-head" th:text="${brand.name.toUpperCase()}"></h1>
+
+        <div class="banner">
+            <img th:src="${brand.logo}" alt="Promo Banner" class="banner-img">
+        </div>
+
+        <div class="promo-text" style="background-image: url(/images/close-up-white-marble-texture-background.jpg)">
+            <h1 th:text="${brand.name}"></h1>
+            <p th:text="${brand.description}"></p>
+            <form th:action="@{/product-brand/{brandId}(brandId=${brand.id})}" th:method="Get">
+                <button class="promo-btn" type="submit">Открийте повече</button>
+            </form>
+        </div>
+
+        <div class="products">
+            <div class="product">
+                <a href=""><img src="/images/man-fragrance-1.png" alt="Product 1"> </a>
+                <a href=""><p>Мъжка Парфюмерия</p></a>
+            </div>
+            <div class="product">
+                <a href=""><img src="https://www.xerjoff.com/extraeu/img/cms/Collection/NEW/Oud-stars-Alexandria-Orientale.jpg" alt="Product 2"> </a>
+                <a href=""><p>Женска Парфюмерия</p></a>
+            </div>
+            <div class="product">
+                <a href=""><img src="https://burst.shopifycdn.com/photos/makeup-beauty-flatlay.jpg?width=1000&format=pjpg&exif=0&iptc=0" alt="Product 2"> </a>
+                <a href=""><p>Козметика</p></a>
+            </div>
+
+        </div>
+    </div>
+</main>
+</body>
+</html>

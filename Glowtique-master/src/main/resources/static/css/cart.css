@@ -1,0 +1,240 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;600;700&display=swap');
+
+* {
+    font-family: 'Mulish', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h2 {
+    padding-top: 1.5rem;
+    text-align: center;
+    font-weight: 400;
+    font-size: 2rem;
+}
+
+.cart-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 960px;
+    margin: auto;
+}
+
+.cart-header {
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.free-shipping {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: green;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.free-shipping img {
+    margin-right: 8px;
+}
+.item-details p {
+    padding-top: 10px;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ddd;
+    padding: 15px 0 0 30px;
+}
+
+.cart-item img {
+    width: 10rem;
+    height: auto;
+}
+
+.item-info {
+    flex: 1;
+}
+
+.item-info h3 {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.item-info p {
+    font-size: 14px;
+    color: #555;
+}
+
+.item-price {
+    font-size: 16px;
+    font-weight: 600;
+    text-align: right;
+}
+
+.remove-item {
+    color: red;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.quantity {
+    display: flex;
+    overflow: hidden;
+    justify-content: center;
+}
+
+.quantity button {
+    background-color: #8B5E3C;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    width: 30px;
+    height: auto;
+    text-align: center;
+    transition: background-color 0.2s;
+}
+
+.quantity button:hover {
+    background-color: #351b01;
+}
+.input-box[type="number"] {
+    -moz-appearance: textfield;
+}
+.input-box {
+    text-align: center;
+}
+
+.total-price {
+    font-size: 18px;
+    font-weight: 700;
+    text-align: right;
+}
+
+.checkout-button {
+    background-color: #8B5E3C;
+    color: white;
+    padding: 0.8rem;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+}
+
+.checkout-button:hover {
+    background-color: #5e3310;
+}
+.checkout-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+
+}
+.final-price-container {
+    display:flex;
+    background-color: rgb(247, 247, 247);
+    padding: 1.25rem;
+    justify-content: end;
+}
+
+.redirect {
+    background-color: #f5f5f5;
+    color: #000;
+    border: 1px solid #000;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.redirect:hover {
+    background-color: #e0e0e0;
+}
+
+.voucher-container {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    margin: 2rem 0 2rem 0;
+    gap: 10px;
+}
+
+.voucher-label {
+    font-size: 16px;
+    color: #333;
+}
+
+.voucher-input {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 250px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.voucher-input:focus {
+    border-color: #007bff;
+}
+
+.voucher-button {
+    background-color: #f5f5f5;
+    color: #000;
+    border: 1px solid #000;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.voucher-button:hover {
+    background-color: #e0e0e0;
+}
+
+.remove-item {
+    display: flex;
+    justify-content: center;
+}
+.remove {
+    color: gray;
+    cursor: pointer;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    font-size: 2rem;
+}
+.remove:hover {
+    color: red;
+}
+
+.empty-cart {
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+    font-size: 2.5rem;
+}
+.product-link {
+    text-decoration: none;
+    font-weight: 700;
+    color: black;
+}
+.product-link:visited {
+    text-decoration: none;
+}
+.product-link:hover {
+    color: #8B5E3C;
+    transition: ease-in 0.2s;
+}
+.product-link a:visited {
+    text-decoration: none;
+}

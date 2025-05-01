@@ -1,0 +1,209 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
+* {
+    font-family: "Mulish", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+body {
+    margin: 0;
+    padding-top: 1em;
+
+    font-family: Arial, sans-serif;
+}
+
+header {
+    border-bottom: 1px solid #ccc;
+}
+.search {
+    display: flex;
+    align-items: center;
+
+}
+
+.search span {
+    margin-right: 8px;
+    font-size: 18px;
+}
+
+.cart {
+    top: 20px;
+}
+
+.search input {
+    border: none;
+    outline: none;
+    font-size: 14px;
+    width: 250px;
+    background-color: inherit;
+}
+
+.icons a {
+    text-decoration: none;
+}
+
+.icons span {
+    margin-left: 25px;
+    font-size: 18px;
+    cursor: pointer;
+
+}
+
+.menu {
+    background-color: lightgray;
+    position: relative;
+    z-index: 1000;
+}
+
+.brands {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px auto;
+}
+
+.brands button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.brands button:hover {
+    border-color: black;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+h2 {
+    text-align: center;
+    padding: 15px;
+}
+.container {
+    display: flex;
+    max-width: 1200px;
+    margin: 20px auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar {
+        width: 250px;
+        padding: 20px;
+        background: #fff;
+
+}
+
+.profile-content h1 {
+    text-align: center;
+}
+
+.sidebar h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    display: block;
+    padding: 5px;
+}
+
+.sidebar ul li a.active,
+.sidebar ul li a:hover {
+    color: #02665c;
+    font-weight: bold;
+    transition-duration: 0.2s;
+}
+
+.profile-content {
+    flex: 1;
+    padding: 20px;
+}
+
+.profile-content h1 {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.banner {
+    background: #e0f7fa;
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.profile-info {
+    margin-bottom: 20px;
+}
+
+.profile-info h2 {
+    font-size: 18px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.info-grid {
+    display: flex;
+    gap: 20px;
+}
+
+.info-block {
+    flex: 1;
+    background: #fff;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.info-block h3 {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.info-block p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.info-block a {
+    font-size: 14px;
+    color: #009688;
+    text-decoration: none;
+}
+
+.info-block a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+        border-right: none;
+    }
+    .info-grid {
+        flex-direction: column;
+    }
+}
+

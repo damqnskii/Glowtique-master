@@ -1,0 +1,342 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding-bottom: 20px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+.product {
+    background-color: white;
+    padding: 20px;
+    width: 70%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.product-info {
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid darkgray;
+    padding-left: 2rem;
+}
+
+.product-info h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+.price {
+    font-size: 28px;
+    color: #333;
+    margin: 1.5rem;
+}
+
+.product-info .stock {
+    color: green;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.product-info .sku {
+    margin: 5px 0;
+}
+
+.menu-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 7px;
+}
+.menu-option a {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit the color from parent */
+    display: inherit;
+    width: 100%; /* Ensure it takes full width */
+    height: 100%; /* Ensure it takes full height */
+    padding: 5px; /* Remove any default padding */
+    margin: 0;
+    /* Remove any default margin */
+}
+
+
+.menu-option {
+    padding: 8px 8px 3px 8px;
+    border: 1px solid black;
+    cursor: pointer;
+    text-align: center;
+    width: 100px;
+    position: relative;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+
+.menu-option .price {
+    display: block;
+    font-size: 12px;
+    color: grey;
+}
+
+.qty-container {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.qty-container input {
+    width: 40px;
+    text-align: center;
+    padding: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.qty-container button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.add-to-cart {
+    background: #8B5E3C;
+    color: white;
+    border: none;
+    padding: 15px;
+    width: 100%;
+    cursor: pointer;
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+    border-radius: 5px;
+}
+
+.favorite-container {
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    height: auto; /* Set height for demonstration */
+}
+.wishlist-btn-liked {
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 36px;
+    color: #dd2020;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.wishlist-btn {
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 36px;
+    color: #000000;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+.wishlist-btn-liked:hover {
+    color: #000000;
+}
+.wishlist-btn:hover {
+    color: #dd2020;
+}
+
+
+.add-to-cart:hover {
+    background-color: #5e3310;
+}
+
+.quantity {
+    display: flex;
+    overflow: hidden;
+    padding-bottom: 20px;
+    justify-content: center;
+}
+
+.quantity button {
+    background-color: #8B5E3C;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    width: 30px;
+    height: auto;
+    text-align: center;
+    transition: background-color 0.2s;
+}
+
+.quantity button:hover {
+    background-color: #351b01;
+}
+
+.input-box {
+    width: 40px;
+    text-align: center;
+    border: none;
+    padding: 8px 10px;
+    font-size: 16px;
+    outline: none;
+}
+
+/* Hide the number input spin buttons */
+.input-box::-webkit-inner-spin-button,
+.input-box::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.input-box[type="number"] {
+    -moz-appearance: textfield;
+}
+.tabs {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+    justify-content: center;
+}
+
+.tab {
+    background: none;
+    border: none;
+    font-size: 16px;
+    padding: 10px 20px;
+    cursor: pointer;
+    color: #333;
+}
+
+.tab.active {
+    font-weight: bold;
+    border-bottom: 2px solid black;
+}
+
+.product-description {
+    background: inherit;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+h1 {
+    font-size: 24px;
+    text-transform: capitalize;
+    text-align: center;
+}
+
+.product-table {
+    width: 50%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    margin: auto;
+    box-shadow: 0 0 5px 0;
+}
+
+.product-table td {
+    width: 25%; /* Each column takes up half the table width */
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.product-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.description-text {
+    margin-top: 20px;
+    font-size: 16px;
+    color: #555;
+    text-align: center;
+}
+
+h2 {
+    font-size: 18px;
+    margin-top: 40px;
+}
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+.ingridient-container {
+    background: inherit;
+    padding: 40px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+
+.product-ingridients {
+    width: 50%;
+    padding: 10px;
+    margin: auto;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    box-shadow: 0 0 5px 0;
+}
+.second-content {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.product-ingridients  h4, p {
+    text-align: center;
+}
+.product-ingridients p {
+    margin-top: 1rem;
+}
+
+.brand-info {
+    width: 50%;
+    padding: 40px;
+    margin:auto;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    box-shadow: 0 0 5px 0;
+}
+.third-content {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.in-stock {
+    background: green;
+    color: white;
+    padding: 5px 10px;
+    font-size: 12px;
+    margin: -5px 0 0 0;
+}
+.out-of-stock {
+    background: rgb(143, 0, 0);
+    color: white;
+    padding: 5px 10px;
+    font-size: 12px;
+    margin: -5px 0 0 0;
+}
+.stock-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+
+

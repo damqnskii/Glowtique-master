@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Glowtique | Profile</title>
+    <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/logged-header.css">
+</head>
+<body>
+    <th:block th:insert="fragments/header-fragment :: header"></th:block>
+<main>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h2>Моят профил</h2>
+            <ul>
+                <li><a th:href="@{redirect:/profile}" class="active">Обща информация</a></li>
+                <li><a th:href="@{/orders}">Моите поръчки</a></li>
+                <li><a href="#">Заявки за връщане/рекламация</a></li>
+                <li><a th:href="@{/wishlist}">Любими продукти</a></li>
+                <li><a href="#">Моите промокодове</a></li>
+                <li><a href="#">Моите адреси</a></li>
+                <li><a th:href="@{/edit-profile}">Настройки на профила</a></li>
+                <li><a th:href="@{/notifications}">Нотификации</a></li>
+                <li><a href="#">Beauty Card</a></li>
+                <li><a href="#">Управление на лични данни</a></li>
+                <li><a th:href="@{/logout}">Изход</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="profile-content">
+            <h1>Моят профил</h1>
+
+            <div class="banner">
+                <p><strong>Добавете вашата карта</strong> през меню "Beauty Card" - бутон <strong>"ДИГИТАЛИЗИРАЙ ФИЗИЧЕСКА КАРТА"</strong>, или заявете нова карта - бутон <strong>"ЗАЯВИ НОВА КАРТА"</strong>.</p>
+            </div>
+
+            <section class="profile-info">
+                <h2>ИНФОРМАЦИЯ ЗА ПРОФИЛА</h2>
+                <div class="info-grid">
+                    <div class="info-block">
+                        <h3>Информация за контакт</h3>
+                        <p th:text="${user.firstName} + ' ' + ${user.lastName}"></p>
+                        <p th:text="${user.email}"></p>
+                        <a th:href="@{/edit-profile}"><img width="16" height="15" src="https://img.icons8.com/material-outlined/24/pencil--v2.png" alt="pencil--v2"/> Редактирай</a>
+                    </div>
+                    <div class="info-block">
+                        <h3>Натрупани точки</h3>
+                        <p th:text="${user.loyaltyPoints}"></p>
+                        <a th:href="@{/loyalty-points}">Как да ги спечелим?</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Addresses -->
+            <section class="profile-info">
+                <h2>МОИТЕ АДРЕСИ</h2>
+                <div class="info-grid">
+                    <div class="info-block">
+                        <h3>По подразбиране адрес за фактуриране</h3>
+                        <p th:if="${user.factureAddress != null}" th:text="${user.factureAddress}"></p>
+                        <p th:unless="${user.factureAddress != null}">Не сте задали основен адрес за фактуриране.</p>
+                        <a href="#"><img width="16" height="15" src="https://img.icons8.com/material-outlined/24/pencil--v2.png" alt="pencil--v2"/> Промени адрес</a>
+                    </div>
+                    <div class="info-block">
+                        <h3>Адрес за доставка по подразбиране</h3>
+                        <p th:if="${user.shippingAddress != null}" th:text="${user.shippingAddress}"></p>
+                        <p th:unless="${user.shippingAddress != null}">Не сте задали адрес за доставка.</p>
+                        <a href="#"><img width="16" height="15" src="https://img.icons8.com/material-outlined/24/pencil--v2.png" alt="pencil--v2"/> Промени адрес</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+</main>
+</body>
+</html>

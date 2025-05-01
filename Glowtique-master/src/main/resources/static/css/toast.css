@@ -1,0 +1,22 @@
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    z-index: 1000;
+    pointer-events: none; /* Ensure it doesn't block clicks */
+}
+
+.toast.show {
+    opacity: 1;
+}
+
+.toast.hidden {
+    opacity: 0;
+}
