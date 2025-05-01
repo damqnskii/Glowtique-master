@@ -77,9 +77,9 @@
                         <div class="price-range">
 
                             <div class="price-inputs">
-                                <input type="number" name="minPrice" placeholder="0 лв." min="0" step="any" th:value="${minPrice}">
+                                <input type="number" name="minPrice" placeholder="0 лв." min="0" step="any" th:value="${minPrice} + ' лв.'">
                                 <span>-</span>
-                                <input type="number" name="maxPrice" placeholder="5920 лв." min="0" step="any" th:value="${maxPrice}">
+                                <input type="number" name="maxPrice" placeholder="5920 лв." min="0" step="any" th:value="${maxPrice} + ' лв.'">
                             </div>
                         </div>
                     </div>

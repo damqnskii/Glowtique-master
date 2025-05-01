@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/admin-edit-prod.css">
+    <title>EDIT PRODUCTS</title>
+</head>
+<body>
+    <div class="container">
+        <form th:action="@{/admin-dashboard/product/create}" th:method="POST" th:object="${productInsertionRequest}">
+            <label>Name</label>
+            <input type="text" th:field="*{productName}" placeholder="Name">
+
+            <label>Description</label>
+            <input th:field="*{description}" placeholder="Description">
+
+            <label>Price</label>
+            <input type="text" th:field="*{price}" placeholder="Price">
+
+            <label>Discount Price</label>
+            <input type="text" th:field="*{discountPrice}" placeholder="Discount Price">
+
+            <label>Image URL</label>
+            <input type="text" th:field="*{image}" placeholder="Image URL">
+
+            <label>Gender</label>
+            <select th:field="*{productGender}">
+                <option th:each="gender : ${productGender}"
+                        th:value="${gender}"
+                        th:text="${gender.name()}">Gender</option>
+            </select>
+
+            <label>Quantity</label>
+            <input type="number" th:field="*{quantity}" placeholder="Quantity">
+
+            <label>Brand ID</label>
+            <input type="text" th:field="*{brandId}" placeholder="Brand ID">
+
+            <label>Category ID</label>
+            <input type="text" th:field="*{categoryId}" placeholder="Category ID">
+
+            <label>Fragrance ID</label>
+            <input type="text" th:field="*{fragranceId}" placeholder="Fragrance ID">
+
+            <label>Small Description</label>
+            <input type="text" th:field="*{smallDescription}" placeholder="Small Description">
+
+            <label>Ingredients</label>
+            <input type="text" th:field="*{ingredients}" placeholder="Ingredients">
+
+            <label>Volume</label>
+            <input type="number" th:field="*{volume}" placeholder="Volume (ml)">
+
+            <button type="submit">Create</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -5,18 +5,23 @@ import com.glowtique.glowtique.brand.service.BrandService;
 import com.glowtique.glowtique.category.service.CategoryService;
 import com.glowtique.glowtique.product.model.Fragrance;
 import com.glowtique.glowtique.product.model.Product;
+import com.glowtique.glowtique.product.model.ProductGender;
 import com.glowtique.glowtique.product.service.FragranceService;
 import com.glowtique.glowtique.product.service.ProductService;
 import com.glowtique.glowtique.security.AuthenticationMetadata;
 import com.glowtique.glowtique.user.model.User;
 import com.glowtique.glowtique.user.service.UserService;
+import com.glowtique.glowtique.web.dto.ProductInsertionRequest;
 import com.glowtique.glowtique.wishlistitem.model.WishlistItem;
 import com.glowtique.glowtique.wishlistitem.service.WishlistItemService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -41,6 +46,29 @@ public class ProductController {
         this.brandService = brandService;
         this.categoryService = categoryService;
         this.fragranceService = fragranceService;
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping("/admin-dashboard/products")
+    public ModelAndView getProductInsertion(ProductInsertionRequest productInsertionRequest) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("admin-edit-products");
+        modelAndView.addObject("productInsertionRequest", new ProductInsertionRequest());
+        modelAndView.addObject("productGender", ProductGender.values());
+
+        return modelAndView;
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PostMapping("/admin-dashboard/product/create")
+    public ModelAndView createProduct(@Valid ProductInsertionRequest productInsertionRequest, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return new ModelAndView("admin-edit-products");
+        }
+
+        productService.createProduct(productInsertionRequest);
+        return new ModelAndView("admin-dashboard");
+
     }
 
 

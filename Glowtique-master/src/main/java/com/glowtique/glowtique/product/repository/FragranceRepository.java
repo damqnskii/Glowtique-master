@@ -11,5 +11,5 @@ import java.util.UUID;
 
 @Repository
 public interface FragranceRepository extends JpaRepository<Fragrance, UUID> {
-
+    Fragrance getFragranceById(UUID id);
 }

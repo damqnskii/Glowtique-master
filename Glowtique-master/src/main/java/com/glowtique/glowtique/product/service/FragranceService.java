@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class FragranceService {
@@ -19,5 +20,8 @@ public class FragranceService {
 
     public List<Fragrance> getAllFragranceTypes() {
         return null;
+    }
+    public Fragrance getFragranceById(UUID id) {
+        return fragranceRepository.getFragranceById(id);
     }
 }

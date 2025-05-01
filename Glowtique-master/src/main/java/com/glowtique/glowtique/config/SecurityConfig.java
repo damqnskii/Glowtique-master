@@ -24,6 +24,8 @@ public class SecurityConfig {
                                 .ignoringRequestMatchers("/payment/**"))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/admin-dashboard").hasRole("ADMIN")
+                        .requestMatchers("/admin-dashboard/products").hasRole("ADMIN")
+                        .requestMatchers("/admin-dashboard/**").hasRole("ADMIN")
                         .requestMatchers("/", "/register", "/login").permitAll()
                         .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
                         .requestMatchers("/wishlist/**").permitAll()
