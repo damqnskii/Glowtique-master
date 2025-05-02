@@ -3,7 +3,6 @@ package com.glowtique.glowtique.web;
 import com.glowtique.glowtique.brand.model.Brand;
 import com.glowtique.glowtique.brand.service.BrandService;
 import com.glowtique.glowtique.category.service.CategoryService;
-import com.glowtique.glowtique.product.model.Fragrance;
 import com.glowtique.glowtique.product.model.Product;
 import com.glowtique.glowtique.product.model.ProductGender;
 import com.glowtique.glowtique.product.service.FragranceService;
@@ -49,10 +48,17 @@ public class ProductController {
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
-    @GetMapping("/admin-dashboard/products")
-    public ModelAndView getProductInsertion(ProductInsertionRequest productInsertionRequest) {
+    @GetMapping("/admin-dashboard/product")
+    public ModelAndView getProductOperations() {
+        return new ModelAndView("admin-product");
+    }
+
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping("/admin-dashboard/product/creation")
+    public ModelAndView getProductInsertion() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("admin-edit-products");
+        modelAndView.setViewName("product-creation");
         modelAndView.addObject("productInsertionRequest", new ProductInsertionRequest());
         modelAndView.addObject("productGender", ProductGender.values());
 
@@ -60,14 +66,14 @@ public class ProductController {
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
-    @PostMapping("/admin-dashboard/product/create")
+    @PostMapping("/admin-dashboard/product/creation/create")
     public ModelAndView createProduct(@Valid ProductInsertionRequest productInsertionRequest, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return new ModelAndView("admin-edit-products");
+            return new ModelAndView("product-creation");
         }
 
         productService.createProduct(productInsertionRequest);
-        return new ModelAndView("admin-dashboard");
+        return new ModelAndView("admin-product");
 
     }
 

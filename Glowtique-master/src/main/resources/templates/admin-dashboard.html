@@ -3,11 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/admin-dashboard.css">
+    <link rel="stylesheet" href="/css/font.css">
     <title>ADMIN-DASHBOARD</title>
 </head>
 <body>
     <div class="container-user">
         <h2 style="text-align: center;">Admin Dashboard</h2>
+        <div class="creation-section">
+            <a th:href="@{/admin-dashboard/product}">Product Operations</a>
+            <a th:href="@{/admin-dashboard/brand}">Brand Operations</a>
+            <a th:href="@{/admin-dashboard/fragrance}">Fragrance Operations</a>
+            <a th:href="@{/admin-dashboard/category}">Category Operations</a>
+        </div>
             <table>
                 <thead>
                 <tr>

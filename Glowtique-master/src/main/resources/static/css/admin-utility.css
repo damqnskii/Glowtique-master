@@ -1,3 +1,30 @@
+.utility {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px auto;
+}
+
+.utility a {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+h1 {
+    text-align: center;
+}
+
+.utility button:hover {
+    border-color: black;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f6f9;
@@ -28,18 +55,7 @@ input, select, textarea {
     width: 100%;
     box-sizing: border-box;
 }
-button {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    padding: 12px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 6px;
-}
-button:hover {
-    background-color: #218838;
-}
+
 label {
     font-weight: bold;
     display: block;

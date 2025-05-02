@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/brand-list.css">
+    <link rel="stylesheet" href="/css/font.css">
+    <title>BRAND LIST</title>
+</head>
+<body>
+    <div class="container">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Logo</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+            <tr th:each="brand : ${brandList}">
+                <td th:text="${brand.id}"></td>
+                <td th:text="${brand.name}"></td>
+                <td th:text="${brand.description}"></td>
+                <td th:text="${brand.logo}"></td>
+                <td class="update"><a th:href="@{/admin-dashboard/brand/edit/{id}(id=${brand.id})}">Update</a></td>
+                <td class="update"><a th:href="@{/admin-dashboard/brand/edit/{id}(id=${brand.id})}">Delete</a></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

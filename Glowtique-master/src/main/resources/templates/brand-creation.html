@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/admin-edit-prod.css">
+    <title>BRAND CREATION</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Brand Creation</h1>
+        <form th:action="@{/admin-dashboard/brand/creation/create}" th:method="Post" th:object="${brandRequest}">
+            <label>Name</label>
+            <input type="text" th:field="*{name}" placeholder="Name">
+            <p class="alert-warning" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+
+            <label>Description</label>
+            <input type="text" th:field="*{description}" placeholder="Description">
+            <p class="alert-warning" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>
+
+            <label>Logo</label>
+            <input type="text" th:field="*{logo}" placeholder="Logo">
+            <p class="alert-warning" th:if="${#fields.hasErrors('logo')}" th:errors="*{logo}"></p>
+
+            <button type="submit">Create</button>
+        </form>
+    </div>
+</body>
+</html>

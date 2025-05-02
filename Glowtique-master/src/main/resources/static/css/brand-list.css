@@ -6,14 +6,13 @@ body {
     display: flex;
     justify-content: center;
 }
-.creation-section {
+.update {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     gap: 10px;
-    margin: 20px auto;
 }
-.creation-section a {
+.update a {
     padding: 10px 20px;
     font-size: 1rem;
     border: 1px solid #ccc;
@@ -33,7 +32,7 @@ body {
 }
 
 table {
-    width: 70%;
+    width: 100%;
     border-collapse: collapse;
     overflow: hidden;
     border-radius: 10px;
@@ -55,7 +54,7 @@ th {
     padding: 20px;
 }
 td {
-    max-width: 100px;
+    max-width: 350px;
     padding: 10px;
     border: 1px solid black;
     transition: width 0.3s ease;
@@ -90,12 +89,20 @@ input {
 }
 
 tr:nth-child(even) {
-    background-color: #f9f9f9;
+    background-color: #ccc;
 }
 
 tr:hover {
     background-color: #f1f1f1;
     transition: background 0.2s ease-in-out;
+    transition: background-color 0.4s ease, transform 0.3s ease;
+}
+td:nth-child(2):hover {
+    all: unset;
+
+}
+td:nth-child(5):hover {
+    width: 100%;
 }
 
 

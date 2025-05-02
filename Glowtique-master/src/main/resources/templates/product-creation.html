@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/admin-edit-prod.css">
+    <link rel="stylesheet" href="/css/font.css">
     <title>EDIT PRODUCTS</title>
 </head>
 <body>
     <div class="container">
-        <form th:action="@{/admin-dashboard/product/create}" th:method="POST" th:object="${productInsertionRequest}">
+        <h1>Product Creation</h1>
+        <form th:action="@{/admin-dashboard/product/creation/create}" th:method="POST" th:object="${productInsertionRequest}">
             <label>Name</label>
             <input type="text" th:field="*{productName}" placeholder="Name">
 
