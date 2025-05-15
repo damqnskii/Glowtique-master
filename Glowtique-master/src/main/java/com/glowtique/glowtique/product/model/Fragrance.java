@@ -2,10 +2,7 @@ package com.glowtique.glowtique.product.model;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.List;
@@ -14,6 +11,7 @@ import java.util.UUID;
 
 @Entity
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -34,5 +32,15 @@ public class Fragrance {
     @Enumerated(EnumType.STRING)
     @Column(name = "type")
     private Set<FragranceType> type = new HashSet<>();
+
+    @Transient
+    public String getTypeValuesCommaSeparated() {
+        return type.stream()
+                .map(FragranceType::getValue)
+                .sorted()
+                .reduce((a, b) -> a + ", " + b)
+                .orElse("");
+    }
+
 
 }

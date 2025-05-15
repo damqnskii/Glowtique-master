@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/admin-edit-prod.css">
+    <title>FRAGRANCE CREATION</title>
+</head>
+<body>
+    <div class="container">
+        <form th:action="@{/admin-dashboard/fragrance/create}" th:method="Post" th:object="${fragranceRequest}">
+            <h1>Fragrance Creation</h1>
+                <label>Base Notes</label>
+                <input type="text" th:field="*{baseNotes}" placeholder="Name">
+                <p class="alert-warning" th:if="${#fields.hasErrors('baseNotes')}" th:errors="*{baseNotes}"></p>
+
+                <label>Heart Notes</label>
+                <input type="text" th:field="*{heartNotes}" placeholder="Description">
+                <p class="alert-warning" th:if="${#fields.hasErrors('heartNotes')}" th:errors="*{heartNotes}"></p>
+
+                <label>Top Notes</label>
+                <input type="text" th:field="*{topNotes}" placeholder="Top Notes">
+                <p class="alert-warning" th:if="${#fields.hasErrors('topNotes')}" th:errors="*{topNotes}"></p>
+
+                <label>Fragrance Type</label>
+                <select id="typeId" th:field="*{types}" multiple style="height: 350px">
+                    <option th:each="t : ${fragranceTypes}" th:value="${t}" th:text="${t.value}"></option>
+                </select>
+
+                <button type="submit">Create</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,27 +1,27 @@
 package com.glowtique.glowtique.web.dto;
 
+import com.glowtique.glowtique.product.model.FragranceType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.*;
+
+import java.util.Set;
 
 @Data
 @Getter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
-public class BrandRequest {
+@Builder
+public class FragranceRequest {
     @NotNull(message = "This field cannot be null!")
     @NotBlank(message = "This field cannot be blank!")
-    private String logo;
+    private String topNotes;
+    @NotNull(message = "This field cannot be null!")
+    @NotBlank(message = "This field cannot be blank!")
+    private String heartNotes;
+    @NotNull(message = "This field cannot be null!")
+    @NotBlank(message = "This field cannot be blank!")
+    private String baseNotes;
 
-    @NotNull(message = "This field cannot be null!")
-    @NotBlank(message = "This field cannot be blank!")
-    private String name;
-
-    @NotNull(message = "This field cannot be null!")
-    @NotBlank(message = "This field cannot be blank!")
-    @Size(message = "Brand's description can be max 750 characters", max = 750)
-    private String description;
+    private Set<FragranceType> types;
 }

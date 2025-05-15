@@ -21,11 +21,11 @@ public class OrderRequest {
     private String phoneNumber;
     @NotBlank(message = "Въведете личен адрес !")
     private String shippingAddress;
-    @NotBlank(message = "Въведете пощенски код !")
-    @Pattern(regexp = "^[0-9]{4}$", message = "Въведете валиден пощенски код!")
+    @NotBlank()
+    @Pattern(regexp = "^[0-9]{4}$", message = "Въведете валиден пощенски код !")
     private String postCode;
     @NotBlank(message = "Въведете град !")
-    @Pattern(regexp = "^[A-Za-zА-Яа-яЁё\\s]+$", message = "Градът трябва да съдържа само букви!")
+    @Pattern(regexp = "^[A-Za-zА-Яа-яЁё\\s]+$", message = "Градът трябва да съдържа само букви !")
     private String town;
     private String officeAddress;
     @NotNull(message = "Изберете начин на доставка !")

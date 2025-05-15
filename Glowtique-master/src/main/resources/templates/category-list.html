@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/category-list.css">
+    <title>CATEGORY LIST</title>
+</head>
+<body>
+    <h1 style="text-align: center"><a th:href="@{/admin-dashboard/category}">RETURN</a> Category List</h1>
+    <table>
+        <tr>
+            <th>#</th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th colspan="2">Action</th>
+        </tr>
+
+        <tr th:each="category, i : ${categoryList}">
+            <td th:text="${i.index + 1}"></td>
+            <td th:text="${category.id}"></td>
+            <td th:text="${category.name}"></td>
+            <td th:text="${category.description}"></td>
+            <td th:text="${category.categoryType.name()}"></td>
+            <td class="update"><a th:href="@{/admin-dashboard/category/edit/{id}(id=${category.id})}">Update</a></td>
+            <td class="delete">
+                <form th:action="@{/admin-dashboard/category/delete/{id}(id=${category.id})}" th:method="Post">
+                    <button type="submit">
+                        <input type="hidden" name="_method" value="delete">
+                        Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

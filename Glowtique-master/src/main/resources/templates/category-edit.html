@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/admin-edit-prod.css">
+    <title>CATEGORY EDIT</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Category Update</h1>
+        <form th:action="@{/admin-dashboard/category/edit/update}" th:method="post" th:object="${categoryRequest}">
+            <input type="hidden" name="_method" value="put" />
+            <input type="hidden" th:field="*{id}" />
+
+            <label>Name</label>
+            <input type="text" th:field="*{name}" placeholder="Enter brand name" />
+            <p class="alert-warning" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+
+            <label>Description</label>
+            <textarea th:field="*{description}" rows="4" cols="50" placeholder="Enter brand description"></textarea>
+            <p class="alert-warning" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>
+
+            <label>Type</label>
+            <select th:field="*{type}" name="categoryType" id="typeId">
+                <option th:each="t : ${categoryTypes}" th:value="${t.name()}" th:text="${t.name()}"></option>
+            </select>
+            <p class="alert-warning" th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></p>
+
+            <button type="submit">Update</button>
+        </form>
+
+    </div>
+</body>
+</html>

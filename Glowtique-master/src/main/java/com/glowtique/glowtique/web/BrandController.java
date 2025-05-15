@@ -79,6 +79,13 @@ public class BrandController {
         return new ModelAndView("admin-brand");
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping("/admin-dashboard/brand/delete/{id}")
+    public ModelAndView deleteBrand(@PathVariable UUID id) {
+        brandService.deleteBrand(id);
+        return new ModelAndView("admin-brand");
+    }
+
     @GetMapping("/brands")
     public ModelAndView getBrandsPage() {
 

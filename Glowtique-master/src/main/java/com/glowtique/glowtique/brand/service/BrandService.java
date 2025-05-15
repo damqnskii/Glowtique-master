@@ -25,12 +25,13 @@ public class BrandService {
     }
 
     public List<Brand> getAllBrands() {
-        return brandRepository.findAll();
+        return brandRepository.findAllByOrderByNameAsc();
     }
 
     public Brand getBrandByName(String name) {
         return brandRepository.findBrandByName(name).orElseThrow(() -> new RuntimeException("There is no brand with this name"));
     }
+
     @Transactional
     public Brand createBrand(BrandRequest request) {
         Brand brand = new Brand();

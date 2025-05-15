@@ -4,17 +4,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const inputs = document.querySelectorAll("input, select");
 
     editBtn.addEventListener("click", function (event) {
-        event.preventDefault(); // Prevent form submission
+        event.preventDefault();
 
-        // Enable all input fields
         inputs.forEach(input => {
             input.removeAttribute("disabled");
         });
 
-        // Enable the save button
         saveBtn.removeAttribute("disabled");
 
-        // Hide the edit button
         editBtn.style.display = "none";
     });
 });

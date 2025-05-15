@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/fragrance-list.css">
+    <title>FRAGRANCE LIST</title>
+</head>
+<body>
+    <h1 style="text-align: center"><a th:href="@{/admin-dashboard/fragrance}">RETURN</a> Fragrance List</h1>
+    <table>
+        <tr>
+            <th>#</th>
+            <th>ID</th>
+            <th>Top Notes</th>
+            <th>Heart Notes</th>
+            <th>Base Notes</th>
+            <th>Scent</th>
+            <th colspan="2">Action</th>
+        </tr>
+        <tr th:each="fragrance, i : ${fragrances}">
+            <td th:text="${i.index + 1}"></td>
+            <td th:text="${fragrance.id}"></td>
+            <td th:text="${fragrance.topNotes}"></td>
+            <td th:text="${fragrance.heartNotes}"></td>
+            <td th:text="${fragrance.baseNotes}"></td>
+            <td th:text="${fragrance.getTypeValuesCommaSeparated()}"></td>
+            <td class="update"><a th:href="@{/admin-dashboard/fragrance/edit/{id}(id=${fragrance.id})}">Update</a></td>
+            <td class="delete"><form th:action="@{/admin-dashboard/fragrance/delete/{id}(id=${fragrance.id})}" th:method="Post">
+                <button type="submit">
+                    <input type="hidden" name="_method" value="delete">
+                    Delete
+                </button>
+            </form></td>
+        </tr>
+    </table>
+</body>
+</html>

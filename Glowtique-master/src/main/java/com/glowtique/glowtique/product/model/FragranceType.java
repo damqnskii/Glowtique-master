@@ -7,19 +7,19 @@ public enum FragranceType {
     ALDEHYDIC("Алдехидни"),
     AROMATIC("Ароматни"),
     AQUATIC("Водни"),
-    GOURMAND("Гурме"),
-    OTHER("Други"),
-    WOODY("Дървесни"),
+    CITRUS("Цитрусови"),
+    CHYPRE("Шипрови"),
     GREEN("Зелени"),
+    FLORAL("Цветни"),
+    FOUGERE("Фужерен"),
+    FRUITY("Плодови"),
+    GOURMAND("Гурме"),
     LEATHER("Кожени"),
     MUSKY("Мускусен"),
     ORIENTAL("Ориенталски"),
+    OTHER("Други"),
     SPICY("Пикантни"),
-    FRUITY("Плодови"),
-    FOUGERE("Фужерен"),
-    FLORAL("Цветни"),
-    CITRUS("Цитрусови"),
-    CHYPRE("Шипрови");
+    WOODY("Дървесни");
 
     private String value;
 

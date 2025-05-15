@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/admin-edit-prod.css">
+    <title>CATEGORY CREATION</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Category Creation</h1>
+        <form th:action="@{/admin-dashboard/category/creation/create}" th:method="Post" th:object="${categoryRequest}">
+            <label>Name</label>
+            <input type="text" th:field="*{name}" placeholder="Name">
+            <p class="alert-warning" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+
+            <label>Description</label>
+            <input type="text" th:field="*{description}" placeholder="Description">
+            <p class="alert-warning" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>
+
+            <label>Type</label>
+            <select id="typeId" th:field="*{type}">
+                <option th:each="t : ${types}" th:value="${t.name()}" th:text="${t.name()}"></option>
+            </select>
+            <p class="alert-warning" th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></p>
+
+            <button type="submit">Create</button>
+        </form>
+    </div>
+</body>
+</html>

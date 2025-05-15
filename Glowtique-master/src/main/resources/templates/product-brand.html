@@ -25,7 +25,16 @@
                                name="category"
                                th:value="${category.id}"
                                th:checked="${selectedCategoryIds != null} ? ${selectedCategoryIds.contains(category.id)} : false">
-                        <span th:text="${#strings.capitalize(#strings.toLowerCase(category.categoryType))}"></span>
+                        <span   th:if="${#strings.equals(category.categoryType, 'BODY')}"
+                                th:text="${'Козметика за тяло'}"></span>
+                        <span   th:if="${#strings.equals(category.categoryType, 'NICHE')}"
+                                th:text="${'Нишови'}"></span>
+                        <span   th:if="${#strings.equals(category.categoryType, 'PERFUME')}"
+                                th:text="${'Парфюми'}"></span>
+                        <span   th:if="${#strings.equals(category.categoryType, 'TESTER')}"
+                                th:text="${'Тестери'}"></span>
+                        <span   th:if="${#strings.equals(category.categoryType, 'SETS')}"
+                                th:text="${'Комплекти'}"></span>
                     </li>
                 </ul>
             </div>
@@ -38,7 +47,12 @@
                                name="gender"
                                th:value="${gender.name}"
                                th:checked="${selectedGender != null} ? ${selectedGender.contains(gender.name())} : false">
-                        <span th:text="${#strings.capitalize(#strings.toLowerCase(gender.name))}"></span>
+                        <span   th:if="${#strings.equals(gender.name(), 'MALE')}"
+                                th:text="${'Мъже'}"></span>
+                        <span   th:if="${#strings.equals(gender.name(), 'FEMALE')}"
+                                th:text="${'Жени'}"></span>
+                        <span   th:if="${#strings.equals(gender.name(), 'UNISEX')}"
+                                th:text="${'Унисекс'}"></span>
                     </li>
                 </ul>
             </div>
@@ -48,7 +62,7 @@
                     <div class="price-inputs">
                         <input type="number" name="minPrice" placeholder="0 лв." min="0" step="any" th:value="${minPrice}">
                         <span>-</span>
-                        <input type="number" name="maxPrice" placeholder="5920 лв." min="0" step="any" th:value="${maxPrice}">
+                        <input type="number" name="maxPrice" th:placeholder="${expensivePrice} + ' лв.'" min="0" step="any" th:value="${maxPrice}">
                     </div>
                 </div>
             </div>

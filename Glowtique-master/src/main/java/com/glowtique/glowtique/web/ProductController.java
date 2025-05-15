@@ -111,6 +111,7 @@ public class ProductController {
         modelAndView.addObject("minPrice", minPrice);
         modelAndView.addObject("maxPrice", maxPrice);
         modelAndView.addObject("selectedVolume", volume);
+        modelAndView.addObject("expensiveProduct", productService.maxPrice(filteredProducts));
         modelAndView.addObject("allVolumes", productService.findAllVolumes());
 
 
@@ -179,6 +180,7 @@ public class ProductController {
         modelAndView.addObject("selectedCategoryIds", categories);
         modelAndView.addObject("selectedVolume", volume);
         modelAndView.addObject("allVolumes", productService.findAllVolumes());
+        modelAndView.addObject("expensivePrice", productService.maxPrice(filteredProducts));
 
         return modelAndView;
 

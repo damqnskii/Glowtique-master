@@ -103,6 +103,26 @@
                             <span th:if="${cart.totalPrice < 200.00 && method == T(com.glowtique.glowtique.order.model.OrderMethod).ECONT_ADDRESS}"
                                   th:text="'Доставка до адрес с Еконт - 7.00 лв'"></span>
                         </label>
+                        <script>
+                            document.addEventListener('DOMContentLoaded', () => {
+                                const shippingOptions = document.querySelectorAll('.shipping-option input[type="radio"]');
+
+                                shippingOptions.forEach((input) => {
+                                    input.addEventListener('change', () => {
+                                        document.querySelectorAll('.shipping-option').forEach(option => {
+                                            option.classList.remove('selected');
+                                        });
+                                        input.closest('.shipping-option').classList.add('selected');
+                                    });
+                                });
+
+                                const checked = document.querySelector('.shipping-option input[type="radio"]:checked');
+                                if (checked) {
+                                    checked.closest('.shipping-option').classList.add('selected');
+                                }
+                            });
+                        </script>
+
                     </div>
                     <script>
                         document.addEventListener("DOMContentLoaded", function() {

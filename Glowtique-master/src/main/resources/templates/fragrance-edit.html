@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/admin-edit-prod.css">
+    <title>FRAGRANCE EDIT</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Category Update</h1>
+        <form th:action="@{/admin-dashboard/fragrance/edit/update}" th:method="post" th:object="${fragranceEditRequest}">
+            <input type="hidden" name="_method" value="put" />
+            <input type="hidden" th:field="*{id}" />
+
+            <label>Base Notes</label>
+            <input type="text" th:field="*{baseNotes}" placeholder="Enter base notes" />
+            <p class="alert-warning" th:if="${#fields.hasErrors('baseNotes')}" th:errors="*{baseNotes}"></p>
+
+            <label>Heart Notes</label>
+            <input th:field="*{heartNotes}" placeholder="Enter heart notes">
+            <p class="alert-warning" th:if="${#fields.hasErrors('heartNotes')}" th:errors="*{heartNotes}"></p>
+
+            <label>Top Notes</label>
+            <input th:field="*{topNotes}" placeholder="Enter top notes">
+            <p class="alert-warning" th:if="${#fields.hasErrors('topNotes')}" th:errors="*{topNotes}"></p>
+
+            <label>Type</label>
+            <select th:field="*{types}" name="fragranceType" id="typeId" multiple>
+                <option th:each="t : ${fragranceTypes}" th:value="${t.name()}" th:text="${t.value}"></option>
+            </select>
+            <p class="alert-warning" th:if="${#fields.hasErrors('types')}" th:errors="*{types}"></p>
+
+            <button type="submit">Update</button>
+        </form>
+    </div>
+</body>
+</html>

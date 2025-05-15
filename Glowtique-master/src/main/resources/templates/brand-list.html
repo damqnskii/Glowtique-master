@@ -7,23 +7,32 @@
     <title>BRAND LIST</title>
 </head>
 <body>
+    <h1 style="text-align: center">Brand List</h1>
     <div class="container">
         <table>
             <tr>
+                <th>#</th>
                 <th>ID</th>
                 <th>Name</th>
                 <th>Description</th>
                 <th>Logo</th>
                 <th>Update</th>
-                <th>Delete</th>
             </tr>
-            <tr th:each="brand : ${brandList}">
+            <tr th:each="brand, i : ${brandList}">
+                <td th:text="${i.index + 1}"></td>
                 <td th:text="${brand.id}"></td>
                 <td th:text="${brand.name}"></td>
                 <td th:text="${brand.description}"></td>
                 <td th:text="${brand.logo}"></td>
                 <td class="update"><a th:href="@{/admin-dashboard/brand/edit/{id}(id=${brand.id})}">Update</a></td>
-                <td class="update"><a th:href="@{/admin-dashboard/brand/edit/{id}(id=${brand.id})}">Delete</a></td>
+                <td class="delete">
+                    <form th:action="@{/admin-dashboard/brand/delete/{id}(id=${brand.id})}" th:method="Post">
+                        <button type="submit">
+                            <input type="hidden" name="_method" value="delete">
+                            Delete
+                        </button>
+                    </form>
+                </td>
             </tr>
         </table>
     </div>

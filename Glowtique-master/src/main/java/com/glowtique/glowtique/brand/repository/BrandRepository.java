@@ -13,4 +13,5 @@ import java.util.UUID;
 public interface BrandRepository extends JpaRepository<Brand, UUID> {
     Optional<Brand> findBrandById(UUID id);
     Optional<Brand> findBrandByName(String name);
+    List<Brand> findAllByOrderByNameAsc();
 }
