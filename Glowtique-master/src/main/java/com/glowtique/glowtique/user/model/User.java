@@ -2,6 +2,7 @@ package com.glowtique.glowtique.user.model;
 
 import com.glowtique.glowtique.cart.model.Cart;
 import com.glowtique.glowtique.order.model.Order;
+import com.glowtique.glowtique.voucher.model.Voucher;
 import com.glowtique.glowtique.wishlistitem.model.WishlistItem;
 import jakarta.persistence.*;
 import lombok.*;
@@ -10,6 +11,7 @@ import lombok.Builder;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -78,4 +80,7 @@ public class User {
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Cart cart;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Voucher> vouchers;
 }

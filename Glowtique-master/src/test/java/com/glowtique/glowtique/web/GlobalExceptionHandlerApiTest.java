@@ -1,7 +1,5 @@
 package com.glowtique.glowtique.web;
 
-import com.glowtique.glowtique.cart.model.Cart;
-import com.glowtique.glowtique.cart.model.CartItem;
 import com.glowtique.glowtique.cart.service.CartService;
 import com.glowtique.glowtique.exception.*;
 import com.glowtique.glowtique.product.model.Product;
@@ -9,8 +7,6 @@ import com.glowtique.glowtique.security.AuthenticationMetadata;
 import com.glowtique.glowtique.user.model.UserRole;
 import com.glowtique.glowtique.user.service.UserService;
 import com.glowtique.glowtique.web.dto.AdminRequest;
-import com.glowtique.glowtique.web.dto.EditProfileRequest;
-import com.glowtique.glowtique.web.dto.OrderRequest;
 import com.glowtique.glowtique.web.dto.RegisterRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,17 +15,12 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.validation.BeanPropertyBindingResult;
-import org.springframework.validation.BindingResult;
 import com.glowtique.glowtique.user.model.User;
-import java.nio.file.AccessDeniedException;
-import java.util.List;
+
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;

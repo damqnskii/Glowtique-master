@@ -2,17 +2,16 @@ package com.glowtique.glowtique.web;
 
 import com.glowtique.glowtique.cart.model.Cart;
 import com.glowtique.glowtique.cart.model.CartItem;
-import com.glowtique.glowtique.exception.CartNotExisting;
 import com.glowtique.glowtique.order.model.OrderMethod;
 import com.glowtique.glowtique.order.service.OrderService;
 import com.glowtique.glowtique.security.AuthenticationMetadata;
 import com.glowtique.glowtique.user.service.UserService;
+import com.glowtique.glowtique.voucher.service.VoucherService;
 import com.glowtique.glowtique.web.dto.OrderRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,11 +25,13 @@ import java.util.List;
 public class OrderController {
     private final UserService userService;
     private final OrderService orderService;
+    private final VoucherService voucherService;
 
     @Autowired
-    public OrderController(UserService userService, OrderService orderService) {
+    public OrderController(UserService userService, OrderService orderService, VoucherService voucherService) {
         this.userService = userService;
         this.orderService = orderService;
+        this.voucherService = voucherService;
     }
 
     @GetMapping("/checkout")
@@ -47,6 +48,7 @@ public class OrderController {
         modelAndView.addObject("cart", cart);
 
         List<CartItem> cartItems = cart.getCartItems();
+        modelAndView.addObject("voucher", voucherService.getLastUsedVoucher(user));
         modelAndView.addObject("cartItems", cartItems);
         modelAndView.addObject("orderRequest", new OrderRequest());
         modelAndView.addObject("orderMethods", OrderMethod.values());

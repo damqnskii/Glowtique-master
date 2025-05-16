@@ -8,7 +8,6 @@ import com.glowtique.glowtique.payment.model.PaymentStatus;
 import com.glowtique.glowtique.payment.service.PaymentService;
 import com.glowtique.glowtique.product.repository.ProductRepository;
 import com.glowtique.glowtique.user.model.User;
-import com.glowtique.glowtique.user.repository.UserRepository;
 import com.glowtique.glowtique.user.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,7 +31,7 @@ public class PaymentServiceUTest {
     @Mock
     private CartService cartService;
     @Mock
-    private UserRepository userRepository;
+    private com.glowtique.glowtique.user.repository.UserRepository userRepository;
     @Mock
     private ProductRepository productRepository;
 

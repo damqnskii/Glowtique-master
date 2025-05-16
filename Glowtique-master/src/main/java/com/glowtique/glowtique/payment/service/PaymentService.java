@@ -6,7 +6,6 @@ import com.glowtique.glowtique.payment.model.Payment;
 import com.glowtique.glowtique.payment.model.PaymentMethod;
 import com.glowtique.glowtique.payment.model.PaymentStatus;
 import com.glowtique.glowtique.product.repository.ProductRepository;
-import com.glowtique.glowtique.user.repository.UserRepository;
 import com.glowtique.glowtique.user.service.UserService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -23,10 +22,10 @@ public class PaymentService {
     private final UserService userService;
     private final OrderService orderService;
     private final CartService cartService;
-    private final UserRepository userRepository;
+    private final com.glowtique.glowtique.user.repository.UserRepository userRepository;
     private final ProductRepository productRepository;
 
-    public PaymentService(UserService userService, OrderService orderService, CartService cartService, UserRepository userRepository, ProductRepository productRepository) {
+    public PaymentService(UserService userService, OrderService orderService, CartService cartService, com.glowtique.glowtique.user.repository.UserRepository userRepository, ProductRepository productRepository) {
         this.userService = userService;
         this.orderService = orderService;
         this.cartService = cartService;

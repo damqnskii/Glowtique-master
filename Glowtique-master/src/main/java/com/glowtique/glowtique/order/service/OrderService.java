@@ -6,6 +6,7 @@ import com.glowtique.glowtique.cart.repository.CartItemRepository;
 import com.glowtique.glowtique.cart.repository.CartRepository;
 import com.glowtique.glowtique.exception.CartNotExisting;
 import com.glowtique.glowtique.exception.NotEnoughProductStock;
+import com.glowtique.glowtique.exception.VoucherNotExistingException;
 import com.glowtique.glowtique.order.model.Order;
 import com.glowtique.glowtique.order.model.OrderItem;
 import com.glowtique.glowtique.order.model.OrderStatus;
@@ -13,6 +14,8 @@ import com.glowtique.glowtique.order.repository.OrderItemRepository;
 import com.glowtique.glowtique.order.repository.OrderRepository;
 import com.glowtique.glowtique.product.model.Product;
 import com.glowtique.glowtique.product.repository.ProductRepository;
+import com.glowtique.glowtique.voucher.model.Voucher;
+import com.glowtique.glowtique.voucher.repository.VoucherRepository;
 import com.glowtique.glowtique.web.dto.OrderRequest;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -26,16 +29,14 @@ import java.util.*;
 public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderItemRepository orderItemRepository;
-    private final CartRepository cartRepository;
-    private final CartItemRepository cartItemRepository;
     private final ProductRepository productRepository;
+    private final VoucherRepository voucherRepository;
 
-    public OrderService(OrderRepository orderRepository, OrderItemRepository orderItemRepository, CartRepository cartRepository, CartItemRepository cartItemRepository, ProductRepository productRepository) {
+    public OrderService(OrderRepository orderRepository, OrderItemRepository orderItemRepository, ProductRepository productRepository, VoucherRepository voucherRepository) {
         this.orderRepository = orderRepository;
         this.orderItemRepository = orderItemRepository;
-        this.cartRepository = cartRepository;
-        this.cartItemRepository = cartItemRepository;
         this.productRepository = productRepository;
+        this.voucherRepository = voucherRepository;
     }
     private String customTrackingNumber(String firstName, String lastName) {
         final Random random = new Random();
@@ -125,7 +126,7 @@ public class OrderService {
             product.setQuantity(newQuantity);
             productRepository.save(product);
         }
-
+        terminateVoucher(user);
         order.setOrderStatus(OrderStatus.ORDER_CONFIRMED);
     }
 
@@ -136,6 +137,16 @@ public class OrderService {
     public List<Order> allDeliveredOrdersBefore30min() {
         LocalDateTime thirtyMinutesAgo = LocalDateTime.now().minusMinutes(30);
         return orderRepository.getAllOrderByOrderStatusAndOrderDateBefore(OrderStatus.DELIVERED, thirtyMinutesAgo);
+    }
+
+    private void terminateVoucher(User user) {
+        Optional<Voucher> voucherOptional = voucherRepository.getVoucherByUserAndUsedAfterAt(user);
+        if (voucherOptional.isEmpty()) {
+            throw new VoucherNotExistingException("Voucher is not existing !");
+        }
+        Voucher voucher = voucherOptional.get();
+        voucher.setUsed(true);
+        voucherRepository.save(voucher);
     }
 
 }

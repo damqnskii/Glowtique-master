@@ -8,7 +8,6 @@ import com.glowtique.glowtique.security.AuthenticationMetadata;
 import com.glowtique.glowtique.user.model.UserRole;
 import com.glowtique.glowtique.user.service.UserService;
 import com.glowtique.glowtique.wishlistitem.service.WishlistItemService;
-import lombok.With;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

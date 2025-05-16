@@ -6,7 +6,6 @@ import com.glowtique.glowtique.cart.service.CartService;
 import com.glowtique.glowtique.product.model.Product;
 import com.glowtique.glowtique.product.repository.ProductRepository;
 import com.glowtique.glowtique.user.model.UserGender;
-import com.glowtique.glowtique.user.repository.UserRepository;
 import com.glowtique.glowtique.user.service.UserService;
 import com.glowtique.glowtique.web.dto.RegisterRequest;
 import com.glowtique.glowtique.wishlistitem.repository.WishlistRepository;
@@ -47,7 +46,7 @@ public class CreateOrderITest {
     @Autowired
     private CartService cartService;
     @Autowired
-    private UserRepository userRepository;
+    private com.glowtique.glowtique.user.repository.UserRepository userRepository;
 
     @Test
     void testAddToWishlistProductCorrectly() {

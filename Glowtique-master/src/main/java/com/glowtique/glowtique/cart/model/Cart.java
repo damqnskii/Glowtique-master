@@ -1,6 +1,7 @@
 package com.glowtique.glowtique.cart.model;
 
 import com.glowtique.glowtique.user.model.User;
+import com.glowtique.glowtique.voucher.model.Voucher;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,6 +27,9 @@ public class Cart {
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
     private List<CartItem> cartItems = new ArrayList<>();
+
+    @OneToOne
+    private Voucher usedVoucher;
 
     private BigDecimal totalPrice = BigDecimal.ZERO;
 

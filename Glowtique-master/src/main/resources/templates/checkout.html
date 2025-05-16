@@ -165,6 +165,7 @@
                         <div class="total-price-container">
                             <p th:unless="${user.cart.totalPrice == 0}" th:if="${cart.totalPrice >= 200}" th:text="'Крайна цена: ' + ${cart.totalPrice} + ' лв.'" class="total-price"></p>
                             <p th:unless="${cart.totalPrice >= 200}" th:text="'Крайна цена: ' + ${cart.totalPrice + 7.00} + ' лв.'" class="total-price"></p>
+                            <p th:text="${'Използван ваучер: ' + voucher.name}" class="total-price" style="color: green"></p>
 
                             <p th:if="${cart.totalPrice >= 200}" class="total-price-delivery-free">Безплатна доставка</p>
                             <p th:unless="${cart.totalPrice >= 200}" class="total-price-delivery">Доставка в цената</p>

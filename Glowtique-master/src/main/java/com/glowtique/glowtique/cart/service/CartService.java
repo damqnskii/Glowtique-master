@@ -4,34 +4,40 @@ import com.glowtique.glowtique.cart.model.Cart;
 import com.glowtique.glowtique.cart.model.CartItem;
 import com.glowtique.glowtique.cart.repository.CartItemRepository;
 import com.glowtique.glowtique.cart.repository.CartRepository;
-import com.glowtique.glowtique.exception.CartNotExisting;
-import com.glowtique.glowtique.exception.ProductNotfoundException;
-import com.glowtique.glowtique.exception.UserNotExisting;
+import com.glowtique.glowtique.exception.*;
 import com.glowtique.glowtique.product.model.Product;
 import com.glowtique.glowtique.product.repository.ProductRepository;
+import com.glowtique.glowtique.product.service.ProductService;
 import com.glowtique.glowtique.user.repository.UserRepository;
+import com.glowtique.glowtique.user.service.UserService;
+import com.glowtique.glowtique.voucher.model.Voucher;
+import com.glowtique.glowtique.voucher.repository.VoucherRepository;
+import com.glowtique.glowtique.voucher.service.VoucherService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.glowtique.glowtique.user.model.User;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
 
 @Service
 public class CartService {
     private final CartRepository cartRepository;
-    private final ProductRepository productRepository;
-    private final UserRepository userRepository;
     private final CartItemRepository cartItemRepository;
+    private final UserRepository userRepository;
+    private final ProductRepository productRepository;
+    private final VoucherRepository voucherRepository;
 
     @Autowired
-    public CartService(CartRepository cartRepository, ProductRepository productRepository, UserRepository userRepository, CartItemRepository cartItemRepository) {
+    public CartService(CartRepository cartRepository, CartItemRepository cartItemRepository, UserRepository userRepository, ProductRepository productRepository, VoucherRepository voucherRepository) {
         this.cartRepository = cartRepository;
-        this.productRepository = productRepository;
-        this.userRepository = userRepository;
         this.cartItemRepository = cartItemRepository;
+        this.userRepository = userRepository;
+        this.productRepository = productRepository;
+        this.voucherRepository = voucherRepository;
     }
 
     public Cart createCart(User user) {
@@ -46,11 +52,10 @@ public class CartService {
 
     @Transactional
     public Cart addItemToCart(UUID userId, UUID productId, int quantity) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotExisting("User with " + userId + " not found"));
 
         Cart cart = cartRepository.findByUserId(userId).orElseThrow(() -> new CartNotExisting("Cart not found"));
 
-        Product product = productRepository.findById(productId).orElseThrow(() -> new ProductNotfoundException("Product with " + productId + " not found"));
+        Product product = productRepository.findById(productId).orElseThrow(() -> new ProductNotfoundException("Product not found"));
         CartItem existingCartItem = getCartItem(cart, product);
 
         if (existingCartItem != null) {
@@ -69,6 +74,7 @@ public class CartService {
 
         return cartRepository.save(cart);
     }
+
     public CartItem getCartItem(Cart cart, Product product) {
         return cart.getCartItems()
                 .stream()
@@ -77,8 +83,7 @@ public class CartService {
     }
 
     public Cart getCartByUser(UUID userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotExisting("User with ID " + userId + " not found"));
+        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotExisting("User not found"));
 
         return cartRepository.findByUser(user)
                 .orElseGet(() -> createCart(user));
@@ -89,6 +94,7 @@ public class CartService {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
         cart.setTotalPrice(totalPrice);
     }
+
     @Transactional
     public Cart removeItemFromCart(UUID userId, UUID productId) {
         Cart cart = cartRepository.findByUserId(userId).orElseThrow(() -> new CartNotExisting("Cart not found"));
@@ -105,6 +111,7 @@ public class CartService {
         updateTotalPrice(cart);
         return cartRepository.save(cart);
     }
+
     @Transactional
     public Cart updateQuantity(UUID userId, UUID productId, int quantity) {
         Cart cart = cartRepository.findByUserId(userId).orElseThrow(() -> new CartNotExisting("Cart not found"));
@@ -120,6 +127,32 @@ public class CartService {
         updateTotalPrice(cart);
         return cartRepository.save(cart);
     }
+
+    public void applyVoucher(UUID userId, String voucherName) {
+        Cart cart = cartRepository.findByUserId(userId).orElseThrow(() -> new CartNotExisting("Cart not found"));
+        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotExisting("User not found"));
+        Voucher voucher = voucherRepository.getVoucherByNameAndUserId(voucherName, user.getId()).orElseThrow(() -> new VoucherNotExistingException("Няма такъв код за отсъпка !"));
+
+        if (voucher.isUsed()) {
+            throw new VoucherAlreadyUsed("Кодът за отсъпка вече е бил използван !");
+        }
+
+        if (voucher.getPercentageDiscount() == null) {
+            cart.setTotalPrice(cart.getTotalPrice().subtract(voucher.getPriceDiscount()));
+            cartRepository.save(cart);
+        }
+        if (voucher.getPriceDiscount() == null) {
+            BigDecimal percentage = voucher.getPercentageDiscount();
+            BigDecimal discount = cart.getTotalPrice().multiply(percentage.divide(BigDecimal.valueOf(100)));
+            cart.setTotalPrice(cart.getTotalPrice().subtract(discount));
+            cartRepository.save(cart);
+        }
+        voucher.setUsedAt(LocalDateTime.now());
+        cart.setUsedVoucher(voucher);
+        voucherRepository.save(voucher);
+        cartRepository.save(cart);
+    }
+
     public void clearCart(User user) {
         Cart cart = user.getCart();
         if (cart != null && cart.getCartItems() != null) {

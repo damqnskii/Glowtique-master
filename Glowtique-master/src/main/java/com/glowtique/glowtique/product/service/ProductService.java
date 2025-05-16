@@ -43,7 +43,7 @@ public class ProductService {
 
 
     public Product getProductById(UUID id) {
-        return productRepository.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
+        return productRepository.findById(id).orElseThrow(() -> new ProductNotfoundException("Product not found"));
     }
 
     public List<Product> getProductsByName(String name) {

@@ -4,7 +4,6 @@ import com.glowtique.glowtique.security.AuthenticationMetadata;
 import com.glowtique.glowtique.user.service.UserService;
 import com.glowtique.glowtique.web.dto.AdminRequest;
 import com.glowtique.glowtique.web.dto.EditProfileRequest;
-import com.glowtique.glowtique.web.dto.ProductInsertionRequest;
 import com.glowtique.glowtique.web.dto.ProductRequest;
 import com.glowtique.glowtique.web.mapper.DtoMapper;
 import com.glowtique.glowtique.wishlistitem.service.WishlistItemService;

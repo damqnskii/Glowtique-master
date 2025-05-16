@@ -11,7 +11,6 @@ import com.glowtique.glowtique.order.model.Order;
 import com.glowtique.glowtique.order.model.OrderStatus;
 import com.glowtique.glowtique.user.model.Country;
 import com.glowtique.glowtique.user.model.UserRole;
-import com.glowtique.glowtique.user.repository.UserRepository;
 import com.glowtique.glowtique.web.dto.AdminRequest;
 import com.glowtique.glowtique.web.dto.EditProfileRequest;
 import com.glowtique.glowtique.web.dto.LoginRequest;
@@ -30,13 +29,13 @@ import java.util.*;
 @Slf4j
 public class UserService {
 
-    private final UserRepository userRepository;
+    private final com.glowtique.glowtique.user.repository.UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final CartService cartService;
     private final NotificationService notificationService;
 
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, CartService cartService, NotificationService notificationService) {
+    public UserService(com.glowtique.glowtique.user.repository.UserRepository userRepository, PasswordEncoder passwordEncoder, CartService cartService, NotificationService notificationService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.cartService = cartService;

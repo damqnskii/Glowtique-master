@@ -1,6 +1,5 @@
 package com.glowtique.glowtique.user;
 
-import com.glowtique.glowtique.cart.model.Cart;
 import com.glowtique.glowtique.cart.service.CartService;
 import com.glowtique.glowtique.exception.AlreadyRegEmailException;
 import com.glowtique.glowtique.exception.ExistingPhoneNumber;
@@ -12,7 +11,6 @@ import com.glowtique.glowtique.order.model.OrderStatus;
 import com.glowtique.glowtique.user.model.Country;
 import com.glowtique.glowtique.user.model.UserGender;
 import com.glowtique.glowtique.user.model.UserRole;
-import com.glowtique.glowtique.user.repository.UserRepository;
 import com.glowtique.glowtique.user.service.UserService;
 import com.glowtique.glowtique.web.dto.AdminRequest;
 import com.glowtique.glowtique.web.dto.EditProfileRequest;
@@ -26,7 +24,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -39,7 +36,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class UserServiceUTest {
     @Mock
-    private UserRepository userRepository;
+    private com.glowtique.glowtique.user.repository.UserRepository userRepository;
     @Mock
     private PasswordEncoder passwordEncoder;
     @Mock

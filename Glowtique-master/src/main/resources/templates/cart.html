@@ -49,14 +49,19 @@
                     <input type="text" class="voucher-input" placeholder="Въведете номер на купона">
                     <button class="voucher-button">OK</button>
                 </div>
-                <div th:unless="${user.cart.getCartItems().size() == 0}" class="voucher-container">
-                    <label for="voucher-code" class="voucher-label">Код на ваучера или отстъпката:</label>
-                    <input type="text" id="voucher-code" class="voucher-input" placeholder="Въведете номер на купона">
-                    <button class="voucher-button">OK</button>
-                </div>
+                    <form th:action="@{/cart/voucher-use}" method="post">
+                        <input type="hidden" name="_method" value="put"/>
+
+                        <div th:unless="${user.cart.getCartItems().size() == 0}" class="voucher-container">
+                            <label for="voucher-code" class="voucher-label">Код на ваучера или отстъпката:</label>
+                            <input type="text" id="voucher-code" name="voucher-name" class="voucher-input" placeholder="Въведете номер на купона">
+                            <button type="submit" class="voucher-button">OK</button>
+                        </div>
+                    </form>
 
 
-                <div class="final-price-container" th:if="${user.cart.getCartItems().size == 0}" style="visibility: hidden">
+
+                    <div class="final-price-container" th:if="${user.cart.getCartItems().size == 0}" style="visibility: hidden">
                     <p class="total-price">Крайна цена с ДДС: <strong th:text="${cart.totalPrice} + ' лв.'"></strong></p>
                 </div>
                 <div class="final-price-container" th:unless="${user.cart.getCartItems().size() == 0}">
@@ -74,6 +79,7 @@
                 </form>
             </div>
         </main>
+    <script src="/css/voucher-apply.js"></script>
     <script src="/css/quantityUpdate.js"></script>
 </body>
 </html>

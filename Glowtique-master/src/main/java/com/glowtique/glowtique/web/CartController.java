@@ -79,4 +79,23 @@ public class CartController {
 
         return ResponseEntity.ok(response);
     }
+
+    @PutMapping("/cart/voucher-use")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> voucherUse(@AuthenticationPrincipal AuthenticationMetadata authenticationMetadata,
+                                                          @RequestParam("voucher-name") String voucherName) {
+        if (authenticationMetadata == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "User is not authenticated!"));
+        }
+
+        cartService.applyVoucher(authenticationMetadata.getUserId(), voucherName);
+
+        Cart cart = cartService.getCartByUser(authenticationMetadata.getUserId());
+
+        return ResponseEntity.ok(Map.of(
+                "success", true,
+                "newTotalPrice", cart.getTotalPrice()
+        ));
+    }
+
 }
