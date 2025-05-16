@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/category-list.css">
+    <title>PRODUCT LIST</title>
+</head>
+<body>
+    <h1 style="text-align: center"><a th:href="@{/admin-dashboard/fragrance}">RETURN</a> Fragrance List</h1>
+    <table>
+        <tr>
+            <th>#</th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Brand</th>
+            <th>Gender</th>
+            <th>Volume</th>
+        </tr>
+        <tr th:each="p, i : ${products}"
+            th:attr="onclick=|window.location.href='/admin-dashboard/product-edit/${p.id}'|"
+            style="cursor: pointer;">
+
+        <td th:text="${i.index + 1}"></td>
+            <td th:text="${p.id}"></td>
+            <td th:text="${p.name}"></td>
+            <td th:text="${p.price}"></td>
+            <td th:text="${p.brand.name}"></td>
+            <td th:text="${p.productGender}"></td>
+            <td th:text="${p.volume}"></td>
+        </tr>
+    </table>
+
+</body>
+</html>

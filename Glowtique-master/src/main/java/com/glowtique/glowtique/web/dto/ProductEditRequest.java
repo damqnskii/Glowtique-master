@@ -13,10 +13,12 @@ import java.util.UUID;
 @Data
 @Getter
 @Setter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductInsertionRequest {
+@Builder
+public class ProductEditRequest {
+    private UUID id;
+
     @NotBlank(message = "This field cannot be blank!")
     private String productName;
 
@@ -25,8 +27,6 @@ public class ProductInsertionRequest {
 
     @NotNull(message = "This field cannot be null!")
     private BigDecimal price;
-
-    private LocalDateTime createdAt;
 
     private BigDecimal discountPrice;
 
@@ -39,10 +39,11 @@ public class ProductInsertionRequest {
     private int quantity;
 
     private LocalDateTime updatedAt;
+
     @NotBlank(message = "This field cannot be blank!")
     private String brandName;
 
-    @NotNull(message = "Category is required!")
+    @NotNull(message = "This field cannot be blank!")
     private CategoryType type;
 
     @NotNull(message = "This field cannot be null!")
@@ -54,5 +55,8 @@ public class ProductInsertionRequest {
     @NotBlank(message = "This field cannot be blank!")
     private String ingredients;
 
+    private LocalDateTime createdAt;
+
     private int volume;
 }
+

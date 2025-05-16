@@ -2,6 +2,7 @@ package com.glowtique.glowtique.web;
 
 import com.glowtique.glowtique.brand.model.Brand;
 import com.glowtique.glowtique.brand.service.BrandService;
+import com.glowtique.glowtique.category.model.CategoryType;
 import com.glowtique.glowtique.category.service.CategoryService;
 import com.glowtique.glowtique.product.model.Product;
 import com.glowtique.glowtique.product.model.ProductGender;
@@ -10,6 +11,7 @@ import com.glowtique.glowtique.product.service.ProductService;
 import com.glowtique.glowtique.security.AuthenticationMetadata;
 import com.glowtique.glowtique.user.model.User;
 import com.glowtique.glowtique.user.service.UserService;
+import com.glowtique.glowtique.web.dto.ProductEditRequest;
 import com.glowtique.glowtique.web.dto.ProductInsertionRequest;
 import com.glowtique.glowtique.wishlistitem.model.WishlistItem;
 import com.glowtique.glowtique.wishlistitem.service.WishlistItemService;
@@ -61,6 +63,7 @@ public class ProductController {
         modelAndView.setViewName("product-creation");
         modelAndView.addObject("productInsertionRequest", new ProductInsertionRequest());
         modelAndView.addObject("productGender", ProductGender.values());
+        modelAndView.addObject("categoryType", CategoryType.values());
 
         return modelAndView;
     }
@@ -69,7 +72,11 @@ public class ProductController {
     @PostMapping("/admin-dashboard/product/creation/create")
     public ModelAndView createProduct(@Valid ProductInsertionRequest productInsertionRequest, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return new ModelAndView("product-creation");
+            ModelAndView modelAndView = new ModelAndView("product-creation");
+            modelAndView.addObject("productInsertionRequest", productInsertionRequest);
+            modelAndView.addObject("productGender", ProductGender.values());
+            modelAndView.addObject("categoryType", CategoryType.values());
+            return modelAndView;
         }
 
         productService.createProduct(productInsertionRequest);
@@ -77,6 +84,56 @@ public class ProductController {
 
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping("/admin-dashboard/product-list")
+    public ModelAndView getProductList() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("product-list");
+        modelAndView.addObject("products", productService.getAllProducts());
+        return modelAndView;
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping("/admin-dashboard/product-edit/{id}")
+    public ModelAndView getProductEdit(@PathVariable UUID id) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("product-edit");
+        Product product = productService.getProductById(id);
+        modelAndView.addObject("product", product);
+        modelAndView.addObject("categoryType", CategoryType.values());
+        modelAndView.addObject("productEditRequest", new ProductEditRequest(
+                product.getId(),
+                product.getName(),
+                product.getDescription(),
+                product.getPrice(),
+                product.getDiscountPrice(),
+                product.getImage(),
+                product.getProductGender(),
+                product.getQuantity(),
+                product.getUpdatedAt(),
+                product.getBrand().getName(),
+                product.getCategory().getCategoryType(),
+                product.getFragrance().getId(),
+                product.getSmallDescription(),
+                product.getIngredients(),
+                product.getCreatedAt(),
+                product.getVolume()));
+        modelAndView.addObject("productGender", ProductGender.values());
+        return modelAndView;
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PutMapping("/admin-dashboard/product/edit/update")
+    public ModelAndView updateProduct(@Valid @ModelAttribute ProductEditRequest productEditRequest, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            ModelAndView mav = new ModelAndView("product-edit");
+            mav.addObject("productGender", ProductGender.values());
+            mav.addObject("categoryType", CategoryType.values());
+            return mav;
+        }
+        productService.updateProduct(productEditRequest, productEditRequest.getId());
+        return new ModelAndView("admin-product");
+    }
 
 
     @GetMapping("/products")

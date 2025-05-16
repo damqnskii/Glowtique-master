@@ -4,26 +4,32 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/admin-edit-prod.css">
     <link rel="stylesheet" href="/css/font.css">
-    <title>EDIT PRODUCTS</title>
+    <title>PRODUCT CREATION</title>
 </head>
 <body>
     <div class="container">
         <h1>Product Creation</h1>
         <form th:action="@{/admin-dashboard/product/creation/create}" th:method="POST" th:object="${productInsertionRequest}">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
             <label>Name</label>
             <input type="text" th:field="*{productName}" placeholder="Name">
+            <p class="alert-warning" th:if="${#fields.hasErrors('productName')}" th:errors="*{productName}"></p>
 
             <label>Description</label>
             <input th:field="*{description}" placeholder="Description">
+            <p class="alert-warning" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>
 
             <label>Price</label>
             <input type="text" th:field="*{price}" placeholder="Price">
+            <p class="alert-warning" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p>
 
             <label>Discount Price</label>
             <input type="text" th:field="*{discountPrice}" placeholder="Discount Price">
+            <p class="alert-warning" th:if="${#fields.hasErrors('discountPrice')}" th:errors="*{discountPrice}"></p>
 
             <label>Image URL</label>
             <input type="text" th:field="*{image}" placeholder="Image URL">
+            <p class="alert-warning" th:if="${#fields.hasErrors('image')}" th:errors="*{image}"></p>
 
             <label>Gender</label>
             <select th:field="*{productGender}">
@@ -34,24 +40,35 @@
 
             <label>Quantity</label>
             <input type="number" th:field="*{quantity}" placeholder="Quantity">
+            <p class="alert-warning" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></p>
 
-            <label>Brand ID</label>
-            <input type="text" th:field="*{brandId}" placeholder="Brand ID">
+            <label>Brand Name</label>
+            <input type="text" th:field="*{brandName}" placeholder="Brand Name">
+            <p class="alert-warning" th:if="${#fields.hasErrors('brandName')}" th:errors="*{brandName}"></p>
 
-            <label>Category ID</label>
-            <input type="text" th:field="*{categoryId}" placeholder="Category ID">
+            <label>Category Name</label>
+            <select th:field="*{type}" id="typeId">
+                <option th:each="category : ${categoryType}"
+                        th:value="${category}"
+                        th:text="${category.name()}"></option>
+            </select>
+            <p class="alert-warning" th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></p>
 
             <label>Fragrance ID</label>
             <input type="text" th:field="*{fragranceId}" placeholder="Fragrance ID">
+            <p class="alert-warning" th:if="${#fields.hasErrors('fragranceId')}" th:errors="*{fragranceId}"></p>
 
             <label>Small Description</label>
             <input type="text" th:field="*{smallDescription}" placeholder="Small Description">
+            <p class="alert-warning" th:if="${#fields.hasErrors('smallDescription')}" th:errors="*{smallDescription}"></p>
 
             <label>Ingredients</label>
             <input type="text" th:field="*{ingredients}" placeholder="Ingredients">
+            <p class="alert-warning" th:if="${#fields.hasErrors('ingredients')}" th:errors="*{ingredients}"></p>
 
             <label>Volume</label>
             <input type="number" th:field="*{volume}" placeholder="Volume (ml)">
+            <p class="alert-warning" th:if="${#fields.hasErrors('volume')}" th:errors="*{volume}"></p>
 
             <button type="submit">Create</button>
         </form>

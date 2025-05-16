@@ -7,13 +7,17 @@ import com.glowtique.glowtique.product.repository.FragranceRepository;
 import com.glowtique.glowtique.web.dto.FragranceEditRequest;
 import com.glowtique.glowtique.web.dto.FragranceRequest;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
 @Service
+@Slf4j
 public class FragranceService {
     private FragranceRepository fragranceRepository;
 
@@ -39,6 +43,8 @@ public class FragranceService {
                 .type(request.getTypes())
                 .build();
 
+        log.info("Fragrance was created at: {}", LocalDateTime.now());
+
         return fragranceRepository.save(fragrance);
     }
 
@@ -47,6 +53,8 @@ public class FragranceService {
             throw new FragranceNotFound("Fragrance not found");
         }
         fragranceRepository.deleteById(id);
+        log.info("Fragrance with id {} deleted", id);
+        log.info("Fragrance was deleted at {}", LocalDateTime.now());
     }
 
     @Transactional
@@ -59,6 +67,10 @@ public class FragranceService {
         fragrance.setBaseNotes(request.getBaseNotes());
         fragrance.setHeartNotes(request.getHeartNotes());
         fragrance.setTopNotes(request.getTopNotes());
+
+        log.info("Updated fragrance: {}", fragrance);
+        log.info("Updated fragrance with Id: {} ", fragrance.getId());
+        log.info("Updated at: {}", LocalDateTime.now());
         return fragranceRepository.save(fragrance);
     }
 }

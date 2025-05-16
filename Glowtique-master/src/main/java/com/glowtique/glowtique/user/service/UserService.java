@@ -60,6 +60,9 @@ public class UserService {
             throw new RuntimeException("Wrong logging details");
         }
 
+        log.info("User with email " + user.getEmail() + " logged in");
+        log.info("Logged at: {} ", LocalDateTime.now());
+
         return user;
 
     }
@@ -97,6 +100,9 @@ public class UserService {
         Cart cart = cartService.createCart(user);
         user.setCart(cart);
 
+        log.info("User with email " + user.getEmail() + " created");
+        log.info("Created at: {}", LocalDateTime.now());
+
         userRepository.save(user);
 
         notificationService.saveNotificationPreference(user.getId(), user.getEmail());
@@ -130,6 +136,9 @@ public class UserService {
         user.setFactureAddress(editProfileRequest.getFactureAddress());
         user.setShippingAddress(editProfileRequest.getShippingAddress());
         user.setUpdatedAt(LocalDateTime.now());
+
+        log.info("User with email " + user.getEmail() + " updated");
+        log.info("Updated at: {}", LocalDateTime.now());
 
         return userRepository.save(user);
     }
