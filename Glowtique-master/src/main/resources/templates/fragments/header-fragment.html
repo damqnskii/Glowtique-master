@@ -7,7 +7,7 @@
 </head>
 <body>
         <header th:fragment="header" class="header">
-            <div class="top-bar">
+            <div class="top-bar" id="top-bar-id">
                 <div class="search">
                 <span><svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="31px" height="30px" viewBox="0 0 32 32" version="1.1">
                     <title>search</title>
@@ -87,10 +87,10 @@
                 </div>
             </div>
 
-            <div class="menu">
+            <div class="menu" id="menu-id">
                 <ul class="menu-sections">
                     <li>
-                        <a th:href="@{/brands}" class="brands-menu">МАРКИ</a>
+                        <a th:href="@{/brands}" class="brands-menu"><p>МАРКИ</p></a>
                         <ul class="dropdown">
                             <li><a th:href="@{/brand/0221173b-83be-4158-aa4d-7a40c4693349}">Dior</a></li>
                             <li><a th:href="@{/brand/79b9aeac-bdff-4449-aba7-95dbd2d334f3}">BVLGARI</a></li>
@@ -101,7 +101,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a th:href="@{/products}" class="face-menu">ПРОДУКТИ</a>
+                        <a th:href="@{/products}" class="face-menu"><p>ПРОДУКТИ</p></a>
                         <ul class="dropdown">
                             <li><a th:href="@{/products?categories=a875da6b-ebe3-42ec-a14a-176e81821b44}">Парфюми</a></li>
                             <li><a th:href="@{/products?categories=816feb52-3424-4ab9-8627-eb0cbf13100a}">Тестери</a></li>
@@ -113,5 +113,21 @@
                 </ul>
             </div>
         </header>
+
 </body>
+<script>
+    let lastScroll = window.scrollY;
+    const topBar = document.getElementById('top-bar-id');
+    const menu = document.getElementById('menu-id');
+
+    window.addEventListener('scroll', () => {
+
+        if (window.scrollY > lastScroll) {
+            menu.style.position = 'fixed';
+        } else {
+            menu.style.position = 'none';
+        }
+        lastScroll = window.scrollY;
+    });
+</script>
 </html>

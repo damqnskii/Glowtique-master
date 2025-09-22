@@ -15,6 +15,6 @@ public interface VoucherRepository extends JpaRepository<Voucher, UUID> {
 
     Optional<Voucher> getVoucherByName(String name);
     Optional<Voucher> getVoucherByNameAndUserId(String voucherName, UUID userId);
-    @Query("SELECT v FROM Voucher v WHERE v.user = :user ORDER BY v.usedAt DESC LIMIT 1")
+    @Query("SELECT v FROM Voucher v WHERE v.user = :user ORDER BY v.appliedAt DESC LIMIT 1")
     Optional<Voucher> getVoucherByUserAndUsedAfterAt(User user);
 }

@@ -44,6 +44,9 @@ h2 {
 .item-details p {
     padding-top: 10px;
 }
+.item-details {
+    width: 35%;
+}
 
 .cart-item {
     display: flex;
@@ -114,7 +117,7 @@ h2 {
 
 .total-price {
     font-size: 18px;
-    font-weight: 700;
+    font-weight: 700f;
     text-align: right;
 }
 
@@ -238,3 +241,5 @@ h2 {
 .product-link a:visited {
     text-decoration: none;
 }
+
+

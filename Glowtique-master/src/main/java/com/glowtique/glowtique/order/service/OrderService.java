@@ -138,6 +138,10 @@ public class OrderService {
         LocalDateTime thirtyMinutesAgo = LocalDateTime.now().minusMinutes(30);
         return orderRepository.getAllOrderByOrderStatusAndOrderDateBefore(OrderStatus.DELIVERED, thirtyMinutesAgo);
     }
+    public List<Order> allPendingOrdersBeforeOneDay() {
+        LocalDateTime oneDayAgo = LocalDateTime.now().minusDays(1);
+        return orderRepository.getAllOrderByOrderStatusAndOrderDateBefore(OrderStatus.PENDING, oneDayAgo);
+    }
 
     private void terminateVoucher(User user) {
         Optional<Voucher> voucherOptional = voucherRepository.getVoucherByUserAndUsedAfterAt(user);

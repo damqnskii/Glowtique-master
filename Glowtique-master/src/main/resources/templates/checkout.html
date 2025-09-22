@@ -154,7 +154,7 @@
                     <div th:unless="${cartItems == null || #lists.isEmpty(cartItems)}">
                         <h2>Преглед на поръчката</h2>
                         <div th:each="item : ${cartItems}" class="order-item">
-                            <a th:href="@{/product/{id}(id=${item.product.id})}"><img th:src="${item.product.image}" alt="КОМПЛЕКТ JEAN PAUL GAULTIER Scandal"> </a>
+                            <a th:href="@{/product/{id}(id=${item.product.id})}"><img th:src="${item.product.image}" alt="item-product-image"> </a>
                             <div class=ordered>
                                 <a th:href="@{/product/{id}(id=${item.product.id})}" class="order-item-img"><p th:text="${item.product.name}"></p></a>
                                 <p th:text="'Количество: ' + ${item.quantity}" class="quantity"></p>
@@ -165,7 +165,8 @@
                         <div class="total-price-container">
                             <p th:unless="${user.cart.totalPrice == 0}" th:if="${cart.totalPrice >= 200}" th:text="'Крайна цена: ' + ${cart.totalPrice} + ' лв.'" class="total-price"></p>
                             <p th:unless="${cart.totalPrice >= 200}" th:text="'Крайна цена: ' + ${cart.totalPrice + 7.00} + ' лв.'" class="total-price"></p>
-                            <p th:text="${'Използван ваучер: ' + voucher.name}" class="total-price" style="color: green"></p>
+                            <p th:if="${voucher != null}" th:text="${'Използван ваучер: ' + voucher.name}" class="total-price" style="color: green"></p>
+                            <p th:unless="${voucher != null}" th:text="${'Не е използван ваучер'}" class="total-price" style="color: #831b1b"></p>
 
                             <p th:if="${cart.totalPrice >= 200}" class="total-price-delivery-free">Безплатна доставка</p>
                             <p th:unless="${cart.totalPrice >= 200}" class="total-price-delivery">Доставка в цената</p>

@@ -54,7 +54,7 @@
         } catch (err) {
             console.error('Voucher apply error:', err);
             messageElement.style.color = '#b91919';
-            messageElement.textContent = 'Грешка при връзката със сървъра.';
+            messageElement.textContent = 'Невалиден или използван код.';
         } finally {
             voucherButton.disabled = false;
         }

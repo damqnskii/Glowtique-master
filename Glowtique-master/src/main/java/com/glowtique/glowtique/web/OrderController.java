@@ -48,7 +48,7 @@ public class OrderController {
         modelAndView.addObject("cart", cart);
 
         List<CartItem> cartItems = cart.getCartItems();
-        modelAndView.addObject("voucher", voucherService.getLastUsedVoucher(user));
+        modelAndView.addObject("voucher", cart.getUsedVoucher());
         modelAndView.addObject("cartItems", cartItems);
         modelAndView.addObject("orderRequest", new OrderRequest());
         modelAndView.addObject("orderMethods", OrderMethod.values());

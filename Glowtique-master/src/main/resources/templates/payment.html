@@ -149,60 +149,60 @@
                         <button type="submit" class="return-btn">Върни се назад</button>
                     </form>
             </div>
-            <form th:action="@{/payment}" th:method="Get" th:object="${user}">
             <div class="order-summary">
-                <h2 style="text-align: center;">Преглед на поръчката</h2>
-                <div class="delivery-info">
-                    <p th:text="'Доставка до: ' + ${user.firstName} + ' ' + ${user.lastName}"></p>
-                    <p th:text="'Адрес: ' + ${currentOrder.shippingAddress} + ', '
-                    + ${currentOrder.town} + ', '
-                    + ${currentOrder.postalCode} + ', '
-                    + ${currentOrder.getUser().getCountry().name()}"></p>
-                    <p th:text="'Телефон: ' + ${currentOrder.orderPhoneNumber}"></p>
-                </div>
+                <form th:action="@{/payment}" th:method="Get" th:object="${user}">
+                    <h2 style="text-align: center;">Преглед на поръчката</h2>
+                    <div class="delivery-info">
+                        <p th:text="'Доставка до: ' + ${user.firstName} + ' ' + ${user.lastName}"></p>
+                        <p th:text="'Адрес: ' + ${currentOrder.shippingAddress} + ', '
+                        + ${currentOrder.town} + ', '
+                        + ${currentOrder.postalCode} + ', '
+                        + ${currentOrder.getUser().getCountry().name()}"></p>
+                        <p th:text="'Телефон: ' + ${currentOrder.orderPhoneNumber}"></p>
+                    </div>
 
-                <div class="shipping-method">
-                    <p th:if="${currentOrder.orderMethod == T(com.glowtique.glowtique.order.model.OrderMethod).SPEEDY_POST}"
-                       style="text-align: center; font-weight: 600;"
-                       th:text="'Метод на доставка: Спиди - до автомат'"></p>
-                    <p th:if="${currentOrder.orderMethod == T(com.glowtique.glowtique.order.model.OrderMethod).SPEEDY_ADDRESS}"
-                       style="text-align: center; font-weight: 600;"
-                       th:text="'Метод на доставка: Спиди - до адрес'"></p>
-                    <p th:if="${currentOrder.orderMethod == T(com.glowtique.glowtique.order.model.OrderMethod).SPEEDY_OFFICE}"
-                       style="text-align: center; font-weight: 600;"
-                       th:text="'Метод на доставка: Спиди - до офис'"></p>
-                    <p th:if="${currentOrder.orderMethod == T(com.glowtique.glowtique.order.model.OrderMethod).ECONT_ADDRESS}"
-                       style="text-align: center; font-weight: 600;"
-                       th:text="'Метод на доставка: Еконт - до адрес'"></p>
-                    <p th:if="${currentOrder.orderMethod == T(com.glowtique.glowtique.order.model.OrderMethod).ECONT_OFFICE}"
-                       style="text-align: center; font-weight: 600;"
-                       th:text="'Метод на доставка: Спиди - до офис'"></p>
-                    <p th:if="${currentOrder.orderMethod == T(com.glowtique.glowtique.order.model.OrderMethod).EASY_BOX}"
-                       style="text-align: center; font-weight: 600;"
-                       th:text="'Метод на доставка: EasyBox'"></p>
-                </div>
+                    <div class="shipping-method">
+                        <p th:if="${currentOrder.orderMethod == T(com.glowtique.glowtique.order.model.OrderMethod).SPEEDY_POST}"
+                           style="text-align: center; font-weight: 600;"
+                           th:text="'Метод на доставка: Спиди - до автомат'"></p>
+                        <p th:if="${currentOrder.orderMethod == T(com.glowtique.glowtique.order.model.OrderMethod).SPEEDY_ADDRESS}"
+                           style="text-align: center; font-weight: 600;"
+                           th:text="'Метод на доставка: Спиди - до адрес'"></p>
+                        <p th:if="${currentOrder.orderMethod == T(com.glowtique.glowtique.order.model.OrderMethod).SPEEDY_OFFICE}"
+                           style="text-align: center; font-weight: 600;"
+                           th:text="'Метод на доставка: Спиди - до офис'"></p>
+                        <p th:if="${currentOrder.orderMethod == T(com.glowtique.glowtique.order.model.OrderMethod).ECONT_ADDRESS}"
+                           style="text-align: center; font-weight: 600;"
+                           th:text="'Метод на доставка: Еконт - до адрес'"></p>
+                        <p th:if="${currentOrder.orderMethod == T(com.glowtique.glowtique.order.model.OrderMethod).ECONT_OFFICE}"
+                           style="text-align: center; font-weight: 600;"
+                           th:text="'Метод на доставка: Спиди - до офис'"></p>
+                        <p th:if="${currentOrder.orderMethod == T(com.glowtique.glowtique.order.model.OrderMethod).EASY_BOX}"
+                           style="text-align: center; font-weight: 600;"
+                           th:text="'Метод на доставка: EasyBox'"></p>
+                    </div>
 
-                <div class="order-review">
-                    <h3 style="text-align: center;">Продукти</h3>
-                    <div class="order-item" th:each="item : ${orderItems}">
-                        <a th:href="@{/product/{id}(id=${item.product.id})}"><img th:src="${item.product.image}" alt="Lip Balm Image"></a>
-                        <div class="product-details">
-                            <a th:href="@{/product/{id}(id=${item.product.id})}"><p th:text="${item.product.name}"></p></a>
-                            <p th:text="'Количество: ' + ${item.quantity}"></p>
-                            <p th:text="'Цена: ' + ${item.totalPrice} + ' лв.'"></p>
+                    <div class="order-review">
+                        <h3 style="text-align: center;">Продукти</h3>
+                        <div class="order-item" th:each="item : ${orderItems}">
+                            <a th:href="@{/product/{id}(id=${item.product.id})}"><img th:src="${item.product.image}" alt="Lip Balm Image"></a>
+                            <div class="product-details">
+                                <a th:href="@{/product/{id}(id=${item.product.id})}"><p th:text="${item.product.name}"></p></a>
+                                <p th:text="'Количество: ' + ${item.quantity}"></p>
+                                <p th:text="'Цена: ' + ${item.totalPrice} + ' лв.'"></p>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="total-summary">
-                    <p th:text="'Цена: ' + ${user.getCart().totalPrice} + ' лв.'"></p>
-                    <p th:if="${user.getCart().totalPrice >= 200.00}" th:text="'Доставка: 0.00 лв.'"></p>
-                    <p th:unless="${user.getCart().totalPrice >= 200.00}" th:text="'Доставка: 7.00 лв.'"></p>
-                    <p th:if="${user.getCart().totalPrice >= 200.00}" th:text="'Общо: ' + ${user.getCart().totalPrice} + ' лв.'"></p>
-                    <p th:unless="${user.getCart().totalPrice >= 200.00}" th:text="'Общо: ' + ${user.getCart().totalPrice + 7.00    } + ' лв.'"></p>
-                </div>
+                    <div class="total-summary">
+                        <p th:text="'Цена: ' + ${user.getCart().totalPrice} + ' лв.'"></p>
+                        <p th:if="${user.getCart().totalPrice >= 200.00}" th:text="'Доставка: 0.00 лв.'"></p>
+                        <p th:unless="${user.getCart().totalPrice >= 200.00}" th:text="'Доставка: 7.00 лв.'"></p>
+                        <p th:if="${user.getCart().totalPrice >= 200.00}" th:text="'Общо: ' + ${user.getCart().totalPrice} + ' лв.'"></p>
+                        <p th:unless="${user.getCart().totalPrice >= 200.00}" th:text="'Общо: ' + ${user.getCart().totalPrice + 7.00    } + ' лв.'"></p>
+                    </div>
+                </form>
             </div>
-            </form>
         </div>
     </div>
 </main>

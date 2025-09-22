@@ -7,9 +7,11 @@ import com.glowtique.glowtique.payment.model.PaymentMethod;
 import com.glowtique.glowtique.payment.model.PaymentStatus;
 import com.glowtique.glowtique.product.repository.ProductRepository;
 import com.glowtique.glowtique.user.service.UserService;
+import com.glowtique.glowtique.voucher.service.VoucherService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import com.glowtique.glowtique.user.model.User;
+import com.glowtique.glowtique.voucher.model.Voucher;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -22,15 +24,15 @@ public class PaymentService {
     private final UserService userService;
     private final OrderService orderService;
     private final CartService cartService;
-    private final com.glowtique.glowtique.user.repository.UserRepository userRepository;
     private final ProductRepository productRepository;
+    private final VoucherService voucherService;
 
-    public PaymentService(UserService userService, OrderService orderService, CartService cartService, com.glowtique.glowtique.user.repository.UserRepository userRepository, ProductRepository productRepository) {
+    public PaymentService(UserService userService, OrderService orderService, CartService cartService, ProductRepository productRepository, VoucherService voucherService) {
         this.userService = userService;
         this.orderService = orderService;
         this.cartService = cartService;
-        this.userRepository = userRepository;
         this.productRepository = productRepository;
+        this.voucherService = voucherService;
     }
     @Transactional
     public String processPayment(PaymentMethod paymentMethod, String cardNumber,
@@ -55,8 +57,13 @@ public class PaymentService {
 
         loyaltyPointsUpdate(user);
 
+        if (orderService.getCurrentOrder(user.getId()).getTotalPrice().compareTo(BigDecimal.valueOf(1000)) >= 0) {
+            Voucher voucher = voucherService.createPriceVoucher(user, "glowtique-2025", BigDecimal.valueOf(100));
+            voucherService.saveVoucher(voucher);
+        }
 
-        userRepository.save(user);
+
+        userService.saveUser(user);
         orderService.completeOrder(user);
         cartService.clearCart(user);
         return "order-confirmation";

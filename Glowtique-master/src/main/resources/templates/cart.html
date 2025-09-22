@@ -59,7 +59,10 @@
                         </div>
                     </form>
 
-
+                    <div class="used-voucher">
+                        <p th:if="${cart.getUsedVoucher() == null}" th:text="${'Не е използвана отсъпка'}"></p>
+                        <p th:unless="${cart.getUsedVoucher() == null}" th:text="${'Използван е ваучер: '} + ${cart.getUsedVoucher().name}"></p>
+                    </div>
 
                     <div class="final-price-container" th:if="${user.cart.getCartItems().size == 0}" style="visibility: hidden">
                     <p class="total-price">Крайна цена с ДДС: <strong th:text="${cart.totalPrice} + ' лв.'"></strong></p>

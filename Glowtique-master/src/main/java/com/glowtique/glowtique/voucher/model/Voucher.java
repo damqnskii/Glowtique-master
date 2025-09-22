@@ -30,7 +30,7 @@ public class Voucher {
 
     private BigDecimal priceDiscount;
 
-    private LocalDateTime usedAt;
+    private LocalDateTime appliedAt;
 
     private LocalDateTime createdAt;
 

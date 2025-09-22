@@ -30,6 +30,10 @@ public class VoucherService {
         return voucherRepository.getVoucherByNameAndUserId(voucherName, userId).orElseThrow(() -> new VoucherNotExistingException("Не съществува такъв код за отсъпка !"));
     }
 
+    public void saveVoucher(Voucher voucher) {
+        voucherRepository.save(voucher);
+    }
+
     public Voucher createPercentageVoucher(User user, String name, BigDecimal percent) {
         Voucher voucher = Voucher.builder()
                 .user(user)
@@ -38,7 +42,8 @@ public class VoucherService {
                 .percentageDiscount(percent)
                 .isUsed(false)
                 .createdAt(LocalDateTime.now())
-                .usedAt(LocalDateTime.now())
+                .appliedAt(LocalDateTime.now())
+                .cart(user.getCart())
                 .build();
 
         return voucherRepository.save(voucher);
@@ -52,7 +57,8 @@ public class VoucherService {
                 .percentageDiscount(null)
                 .isUsed(false)
                 .createdAt(LocalDateTime.now())
-                .usedAt(LocalDateTime.now())
+                .appliedAt(LocalDateTime.now())
+                .cart(user.getCart())
                 .build();
 
         return voucherRepository.save(voucher);

@@ -14,6 +14,7 @@ import com.glowtique.glowtique.voucher.model.Voucher;
 import com.glowtique.glowtique.voucher.repository.VoucherRepository;
 import com.glowtique.glowtique.voucher.service.VoucherService;
 import jakarta.transaction.Transactional;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.glowtique.glowtique.user.model.User;
@@ -133,24 +134,37 @@ public class CartService {
         User user = userRepository.findById(userId).orElseThrow(() -> new UserNotExisting("User not found"));
         Voucher voucher = voucherRepository.getVoucherByNameAndUserId(voucherName, user.getId()).orElseThrow(() -> new VoucherNotExistingException("Няма такъв код за отсъпка !"));
 
-        if (voucher.isUsed()) {
-            throw new VoucherAlreadyUsed("Кодът за отсъпка вече е бил използван !");
+        BigDecimal newPrice = getBigDecimal(voucher, cart);
+
+        cart.setTotalPrice(newPrice);
+        cart.setUsedVoucher(voucher);
+        cartRepository.save(cart);
+
+        voucher.setAppliedAt(LocalDateTime.now());
+        voucher.setUsed(true);
+        voucherRepository.save(voucher);
+    }
+
+    private static @NotNull BigDecimal getBigDecimal(Voucher voucher, Cart cart) {
+        if (voucher.isUsed() || voucher.equals(cart.getUsedVoucher())) {
+            throw new VoucherAlreadyUsed("Кодът за отсъпка вече е използван !");
         }
 
-        if (voucher.getPercentageDiscount() == null) {
-            cart.setTotalPrice(cart.getTotalPrice().subtract(voucher.getPriceDiscount()));
-            cartRepository.save(cart);
-        }
-        if (voucher.getPriceDiscount() == null) {
+        BigDecimal originalPrice = cart.getTotalPrice();
+        BigDecimal discountAmount = BigDecimal.ZERO;
+
+        if (voucher.getPercentageDiscount() != null) {
             BigDecimal percentage = voucher.getPercentageDiscount();
-            BigDecimal discount = cart.getTotalPrice().multiply(percentage.divide(BigDecimal.valueOf(100)));
-            cart.setTotalPrice(cart.getTotalPrice().subtract(discount));
-            cartRepository.save(cart);
+            discountAmount = originalPrice.multiply(percentage.divide(BigDecimal.valueOf(100)));
+        } else if (voucher.getPriceDiscount() != null) {
+            discountAmount = voucher.getPriceDiscount();
         }
-        voucher.setUsedAt(LocalDateTime.now());
-        cart.setUsedVoucher(voucher);
-        voucherRepository.save(voucher);
-        cartRepository.save(cart);
+
+        BigDecimal newPrice = originalPrice.subtract(discountAmount);
+        if (newPrice.compareTo(BigDecimal.ZERO) < 0) {
+            newPrice = BigDecimal.ZERO;
+        }
+        return newPrice;
     }
 
     public void clearCart(User user) {

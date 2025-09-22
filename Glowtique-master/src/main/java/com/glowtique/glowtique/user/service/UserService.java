@@ -46,6 +46,10 @@ public class UserService {
         return userRepository.findById(id).orElseThrow(() -> new UserNotExisting("User not found"));
     }
 
+    public void saveUser(User user) {
+        userRepository.save(user);
+    }
+
 
     public User login (LoginRequest loginRequest) {
         Optional<User> optionalUser = userRepository.findUserByEmail(loginRequest.getEmail());

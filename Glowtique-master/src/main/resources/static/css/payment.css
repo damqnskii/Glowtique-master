@@ -43,11 +43,9 @@ h1 {
     display: flex;
     gap: 30px;
 }
-.order-summary {
-    width: 70%;
-}
+
 .payment-options {
-    width: 40%;
+    width: 16.25rem;
     margin-top: 1rem;
 }
 
@@ -71,9 +69,9 @@ h1, h2, h3 {
 
 
 .newsletter {
-    font-size: 12px;
-    margin-top: 20px;
-    max-width: 320px;
+    font-size: 0.75rem;
+    margin-top: 1.25rem;
+    max-width: 80%;
 
 }
 
