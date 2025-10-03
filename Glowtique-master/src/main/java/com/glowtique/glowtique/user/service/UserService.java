@@ -11,6 +11,7 @@ import com.glowtique.glowtique.order.model.Order;
 import com.glowtique.glowtique.order.model.OrderStatus;
 import com.glowtique.glowtique.user.model.Country;
 import com.glowtique.glowtique.user.model.UserRole;
+import com.glowtique.glowtique.voucher.model.Voucher;
 import com.glowtique.glowtique.web.dto.AdminRequest;
 import com.glowtique.glowtique.web.dto.EditProfileRequest;
 import com.glowtique.glowtique.web.dto.LoginRequest;

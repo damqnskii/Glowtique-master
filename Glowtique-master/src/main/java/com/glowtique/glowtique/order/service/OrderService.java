@@ -126,8 +126,11 @@ public class OrderService {
             product.setQuantity(newQuantity);
             productRepository.save(product);
         }
-        terminateVoucher(user);
         order.setOrderStatus(OrderStatus.ORDER_CONFIRMED);
+    }
+
+    public List<Order> allCompletedOrders() {
+        return orderRepository.getAllCompletedOrders();
     }
 
     public List<Order> allConfirmedOrdersBeforeTwoDays() {

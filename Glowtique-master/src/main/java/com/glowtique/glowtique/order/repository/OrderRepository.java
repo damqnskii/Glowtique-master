@@ -18,4 +18,6 @@ public interface OrderRepository extends JpaRepository<Order, UUID> {
     Optional<Order> getLastOrderByUserId(@Param("userId")UUID userId);
 
     List<Order> getAllOrderByOrderStatusAndOrderDateBefore(OrderStatus orderStatus, LocalDateTime orderDate);
+
+    List<Order> getAllCompletedOrders();
 }

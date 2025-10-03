@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -33,6 +34,7 @@ public class VoucherService {
     public void saveVoucher(Voucher voucher) {
         voucherRepository.save(voucher);
     }
+
 
     public Voucher createPercentageVoucher(User user, String name, BigDecimal percent) {
         Voucher voucher = Voucher.builder()

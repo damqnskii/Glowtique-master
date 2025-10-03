@@ -5,6 +5,7 @@ import com.glowtique.glowtique.payment.model.PaymentMethod;
 import com.glowtique.glowtique.payment.service.PaymentService;
 import com.glowtique.glowtique.security.AuthenticationMetadata;
 import com.glowtique.glowtique.user.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ public class PaymentController {
     private final OrderService orderService;
     private final PaymentService paymentService;
 
+    @Autowired
     public PaymentController(UserService userService, OrderService orderService, PaymentService paymentService) {
         this.userService = userService;
         this.orderService = orderService;
@@ -48,6 +50,8 @@ public class PaymentController {
         if (authenticationMetadata == null) {
             return "redirect:/login";
         }
+        System.out.println("paymentMethodStr: " + paymentMethodStr);
+
         User user = userService.getUserById(authenticationMetadata.getUserId());
         PaymentMethod paymentMethod = PaymentMethod.valueOf(paymentMethodStr);
         return paymentService.processPayment(paymentMethod, cardNumber, expiryDate, cvc, giftCardNumber, user);

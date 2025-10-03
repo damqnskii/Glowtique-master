@@ -34,10 +34,13 @@ public class PaymentService {
         this.productRepository = productRepository;
         this.voucherService = voucherService;
     }
+
     @Transactional
     public String processPayment(PaymentMethod paymentMethod, String cardNumber,
                                  String expiryDate, String cvc, String giftCardNumber, User user) {
+        System.out.println(">>> Processing payment method: " + paymentMethod);
         switch (paymentMethod) {
+
             case CASH:
                 return cashProcessPayment(user);
             default:
@@ -49,19 +52,13 @@ public class PaymentService {
     private String cashProcessPayment(User user) {
          orderService.getCurrentOrder(user.getId()).setPayment(Payment.builder()
                         .order(orderService.getCurrentOrder(user.getId()))
-                        .status(PaymentStatus.COMPLETED)
+                        .status(PaymentStatus.PENDING)
                         .transactionId(UUID.randomUUID().toString())
                         .createdAt(LocalDateTime.now())
                         .paymentMethod(PaymentMethod.CASH)
                 .build());
 
         loyaltyPointsUpdate(user);
-
-        if (orderService.getCurrentOrder(user.getId()).getTotalPrice().compareTo(BigDecimal.valueOf(1000)) >= 0) {
-            Voucher voucher = voucherService.createPriceVoucher(user, "glowtique-2025", BigDecimal.valueOf(100));
-            voucherService.saveVoucher(voucher);
-        }
-
 
         userService.saveUser(user);
         orderService.completeOrder(user);
@@ -72,8 +69,10 @@ public class PaymentService {
     private void loyaltyPointsUpdate(User user) {
         BigDecimal totalPrice = orderService.getCurrentOrder(user.getId()).getTotalPrice();
         int currentLoyaltyPoints = user.getLoyaltyPoints();
-        BigDecimal obtainedAmount = totalPrice.divide(BigDecimal.valueOf(10.0)).round(new MathContext(0, RoundingMode.CEILING));
+
+        BigDecimal obtainedAmount = totalPrice.divide(BigDecimal.TEN, RoundingMode.CEILING);
         user.setLoyaltyPoints(obtainedAmount.intValue() + currentLoyaltyPoints);
     }
+
 
 }

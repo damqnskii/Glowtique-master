@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/vouchers.css">
+    <link rel="stylesheet" href="/css/logged-header.css">
+    <link rel="stylesheet" href="/css/font.css">
+    <title>Glowtique | Vouchers</title>
+</head>
+<body>
+<th:block th:insert="fragments/header-fragment :: header"></th:block>
+
+<main class="main-content">
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Моят профил</h2>
+            <ul>
+                <li><a th:href="@{/profile}">Обща информация</a></li>
+                <li><a th:href="@{/orders}">Моите поръчки</a></li>
+                <li><a href="#">Заявки за връщане/рекламация</a></li>
+                <li><a th:href="@{/wishlist}">Любими продукти</a></li>
+                <li><a th:href="@{redirect:/vouchers}" class="active">Моите промокодове</a></li>
+                <li><a href="#">Моите адреси</a></li>
+                <li><a th:href="@{redirect:/edit-profile}">Настройки на профила</a></li>
+                <li><a th:href="@{/notifications}">Нотификации</a></li>
+                <li><a href="#">Beauty Card</a></li>
+                <li><a href="#">Управление на лични данни</a></li>
+                <li><a href="#">Изход</a></li>
+            </ul>
+        </aside>
+        <main class="profile-content">
+            <h1>Моите промокодове</h1>
+            <h3 th:if="${vouchers == null || vouchers.size() == 0}">Направете поръчка, за да получите възможност за промокод</h3>
+
+            <table th:unless="${vouchers == null || vouchers.size() == 0}">
+                <thead>
+                <tr>
+                    <th>Име</th>
+                    <th>Отстъпка</th>
+                    <th>Използван</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="voucher : ${vouchers}" th:classappend="${voucher.isUsed()} ? 'used' : 'notUsed'">
+                    <td th:text="${voucher.getName()}"></td>
+                    <td th:if="${voucher.percentageDiscount != null}" th:text="${voucher.getPercentageDiscount() + ' %'}"></td>
+                    <td th:unless="${voucher.percentageDiscount != null}" th:text="${voucher.priceDiscount  + ' лв.'}"></td>
+                    <td th:if="${voucher.isUsed() == true}" th:text="${'Да'}"></td>
+                    <td th:unless="${voucher.isUsed() == true}" th:text="${'Не'}" ></td>
+                </tr>
+                </tbody>
+            </table>
+        </main>
+    </div>
+
+</main>
+</body>
+</html>
