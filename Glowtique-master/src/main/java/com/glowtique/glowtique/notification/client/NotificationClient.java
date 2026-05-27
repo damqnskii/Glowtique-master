@@ -19,7 +19,7 @@ public interface NotificationClient {
     @PostMapping("/preferences")
     ResponseEntity<Void> upsertNotificationPreference(@RequestBody UpsertNotificationPreference notificationPreference);
 
-    @PostMapping
+    @PostMapping()
     ResponseEntity<Void> sendNotification(@RequestBody NotificationRequest notificationRequest);
 
     @PutMapping("/preferences")

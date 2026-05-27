@@ -23,7 +23,7 @@
                     <div th:each="relatedProduct : ${relatedProducts}" class="menu-option">
                         <a th:href="@{'/product/' + ${relatedProduct.id}}">
                             <span th:text="${relatedProduct.volume} + ' мл.'"></span>
-                            <span th:text="${relatedProduct.price} + ' лв.'" class="price"></span>
+                            <span th:text="${relatedProduct.price} + ' €'" class="price"></span>
                         </a>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                     <p th:if="${product.quantity > 0}" class="in-stock">В наличност</p>
                     <p th:unless="${product.quantity > 0}" class="out-of-stock">Не е в наличност</p>
                 </div>
-                <p th:text="${product.price} + ' лв.'" class="price"></p>
+                <p th:text="${product.price} + ' €'" class="price"></p>
                 <p th:text="'Марка: ' + ${product.brand.name}" class="brand"></p>
 
                 <form th:action="@{/cart/add/{productId}(productId=${product.id})}" th:method="Post">

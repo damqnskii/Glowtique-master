@@ -44,7 +44,7 @@
 
     if (response.ok && result.success) {
 
-        totalPriceElement.textContent = parseFloat(result.newTotalPrice).toFixed(2) + ' лв.';
+        totalPriceElement.textContent = parseFloat(result.newTotalPrice).toFixed(2) + ' €';
         messageElement.style.color = 'green';
         messageElement.textContent = 'Ваучерът беше приложен успешно!';
         } else {

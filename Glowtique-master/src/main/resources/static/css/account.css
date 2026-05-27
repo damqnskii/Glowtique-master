@@ -1,0 +1,345 @@
+:root {
+    --account-primary: #8B5E3C;
+    --account-primary-dark: #5e3310;
+    --account-primary-soft: #f7eee7;
+    --account-bg: #faf7f4;
+    --account-card: #ffffff;
+    --account-text: #2f2a27;
+    --account-muted: #77706b;
+    --account-border: #eadfd7;
+    --account-success: #238047;
+    --account-danger: #b23b3b;
+    --account-shadow: 0 14px 40px rgba(70, 45, 25, 0.10);
+    --account-radius: 18px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    color: var(--account-text);
+}
+
+.main-content,
+body > main {
+    padding: 2.4rem 0 3.2rem;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 270px minmax(0, 1fr);
+    gap: 1.5rem;
+    width: min(1280px, 94%);
+    margin: 0 auto;
+    align-items: start;
+}
+
+.sidebar,
+.profile-content,
+.notifcation-container {
+    background: rgba(255, 255, 255, 0.94);
+    border: 1px solid var(--account-border);
+    border-radius: var(--account-radius);
+    box-shadow: var(--account-shadow);
+    backdrop-filter: blur(8px);
+}
+
+.sidebar {
+    position: sticky;
+    top: 1.25rem;
+    padding: 1.25rem;
+}
+
+.sidebar h2 {
+    margin: 0 0 1rem;
+    padding: 0 0 0.85rem;
+    border-bottom: 1px solid var(--account-border);
+    font-size: 1.15rem;
+    color: var(--account-text);
+    text-align: left;
+}
+
+.sidebar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 0.15rem 0;
+}
+
+.sidebar ul li a {
+    display: block;
+    padding: 0.72rem 0.85rem;
+    border-radius: 999px;
+    color: var(--account-muted);
+    font-size: 0.92rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
+}
+
+.sidebar ul li a:hover,
+.sidebar ul li a.active {
+    background: var(--account-primary-soft);
+    color: var(--account-primary);
+    transform: translateX(3px);
+}
+
+.profile-content,
+.notifcation-container {
+    min-width: 0;
+    padding: 1.7rem;
+}
+
+.profile-content > h1,
+.notification-preferences-box > h2 {
+    margin: 0 0 1.3rem;
+    color: var(--account-text);
+    font-size: 1.65rem;
+    line-height: 1.2;
+    text-align: left;
+    letter-spacing: 0.2px;
+}
+
+.profile-content > h1::after,
+.notification-preferences-box > h2::after {
+    content: "";
+    display: block;
+    width: 58px;
+    height: 3px;
+    margin-top: 0.7rem;
+    border-radius: 999px;
+    background: var(--account-primary);
+}
+
+.banner,
+.empty-state {
+    margin: 0 0 1.4rem;
+    padding: 1rem 1.15rem;
+    border: 1px solid var(--account-border);
+    border-radius: 16px;
+    background: var(--account-primary-soft);
+    color: var(--account-text);
+}
+
+.banner p,
+.empty-state p {
+    margin: 0;
+    color: var(--account-muted);
+    line-height: 1.5;
+    text-align: center;
+}
+
+.profile-info {
+    margin-top: 1.35rem;
+}
+
+.profile-info h2,
+.profile-content > h2,
+.profile-content > h3 {
+    margin: 0 0 1rem;
+    padding: 0;
+    color: var(--account-text);
+    font-size: 1.15rem;
+    text-align: left;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.info-block,
+.details-section-container {
+    padding: 1rem;
+    border: 1px solid var(--account-border);
+    border-radius: 16px;
+    background: #fff;
+}
+
+.info-block h3 {
+    margin: 0 0 0.65rem;
+    font-size: 1rem;
+    color: var(--account-text);
+}
+
+.info-block p,
+.details-section-container p {
+    margin: 0.35rem 0;
+    color: var(--account-muted);
+    line-height: 1.45;
+}
+
+.info-block a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 0.65rem;
+    color: var(--account-primary);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.profile-content table,
+.notification-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    border: 1px solid var(--account-border);
+    border-radius: 16px;
+    background: #fff;
+}
+
+.profile-content thead,
+.notification-table thead {
+    background: var(--account-primary);
+    color: #fff;
+}
+
+.profile-content td:nth-child(4) {
+    font-weight: 800;
+    color: var(--account-primary);
+    white-space: nowrap;
+}
+
+.profile-content th,
+.profile-content td,
+.notification-table th,
+.notification-table td {
+    padding: 0.9rem 1rem;
+    border-bottom: 1px solid var(--account-border);
+    text-align: left;
+    font-size: 0.92rem;
+}
+
+.profile-content tbody tr:last-child td,
+.notification-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.profile-content tbody tr:hover,
+.notification-table tbody tr:hover {
+    background: #fffaf6;
+}
+
+.used td,
+.profile-content tbody tr.used:hover {
+    background: #fff0ee;
+    color: #8f2f2f;
+}
+
+.notUsed td {
+    background: #f3fbf5;
+}
+
+.pagination,
+.pagination-hidden {
+    margin-top: 1.4rem;
+}
+
+.pagination-hidden {
+    display: none;
+}
+
+.pagination ul {
+    display: flex;
+    justify-content: center;
+    gap: 0.45rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.pagination a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 38px;
+    height: 38px;
+    padding: 0 0.85rem;
+    border: 1px solid var(--account-border);
+    border-radius: 999px;
+    background: #fff;
+    color: var(--account-text);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.pagination a:hover,
+.pagination a.active {
+    background: var(--account-primary);
+    color: #fff;
+    border-color: var(--account-primary);
+}
+
+.alert-warning {
+    color: #8f2f2f;
+    background-color: #fff0ee;
+    border: 1px solid #e3aaaa;
+    padding: 0.75rem 0.85rem;
+    border-radius: 12px;
+    margin: 0.45rem 0 0;
+    font-size: 0.88rem;
+    line-height: 1.35;
+}
+
+@media (max-width: 900px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        position: static;
+    }
+
+    .sidebar ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem;
+    }
+
+    .sidebar ul li {
+        margin: 0;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 560px) {
+    .main-content,
+    body > main {
+        padding: 1.2rem 0 2rem;
+    }
+
+    .container {
+        width: 94%;
+        gap: 1rem;
+    }
+
+    .profile-content,
+    .notifcation-container,
+    .sidebar {
+        padding: 1rem;
+        border-radius: 16px;
+    }
+
+    .profile-content > h1,
+    .notification-preferences-box > h2 {
+        font-size: 1.35rem;
+    }
+
+    .profile-content table,
+    .notification-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}

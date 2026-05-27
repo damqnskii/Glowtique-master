@@ -2,6 +2,7 @@ package com.glowtique.glowtique.order.model;
 
 import com.glowtique.glowtique.payment.model.Payment;
 import com.glowtique.glowtique.user.model.User;
+import com.glowtique.glowtique.voucher.model.Voucher;
 import jakarta.persistence.*;
 import lombok.*;
 import org.aspectj.weaver.ast.Or;
@@ -59,6 +60,9 @@ public class Order {
 
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
     private Payment payment;
+
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    private Voucher voucher;
 
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
     private List<OrderItem> orderItems;

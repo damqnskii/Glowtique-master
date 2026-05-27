@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     if (totalPriceContainer) {
                         let formattedPrice = parseFloat(data.totalPrice).toFixed(2);
-                        totalPriceContainer.innerHTML = `Крайна цена с ДДС: <strong>${formattedPrice} лв.</strong>`;
+                        totalPriceContainer.innerHTML = `Крайна цена с ДДС: <strong>${formattedPrice} €</strong>`;
                     }
                 } else if (response.status === 401) {
                     alert("You must be logged in to update the cart.");

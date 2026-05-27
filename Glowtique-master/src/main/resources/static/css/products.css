@@ -113,7 +113,6 @@ h4 {
     display: flex;
     flex-direction: column;
     justify-content: space-between; /* Ensures spacing */
-    height: 95%; /* Ensures equal height */
 }
 
 .product a {

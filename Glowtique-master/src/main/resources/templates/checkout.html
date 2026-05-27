@@ -79,29 +79,29 @@
 
 
                             <span th:if="${cart.totalPrice >= 200.00 && method == T(com.glowtique.glowtique.order.model.OrderMethod).SPEEDY_POST}"
-                                  th:text="'Доставка до автомат на Спиди - 0.00 лв'"></span>
+                                  th:text="'Доставка до автомат на Спиди - 0.00 €'"></span>
                             <span th:if="${cart.totalPrice < 200.00 && method == T(com.glowtique.glowtique.order.model.OrderMethod).SPEEDY_POST}"
-                                  th:text="'Доставка до автомат на Спиди - 7.00 лв'"></span>
+                                  th:text="'Доставка до автомат на Спиди - 7.00 €'"></span>
                             <span th:if="${cart.totalPrice >= 200.00 && method == T(com.glowtique.glowtique.order.model.OrderMethod).EASY_BOX}"
-                                  th:text="'Доставка до EasyBox - 0.00 лв'"></span>
+                                  th:text="'Доставка до EasyBox - 0.00 €'"></span>
                             <span th:if="${cart.totalPrice < 200.00 && method == T(com.glowtique.glowtique.order.model.OrderMethod).EASY_BOX}"
-                                  th:text="'Доставка до EasyBox - 7.00 лв'"></span>
+                                  th:text="'Доставка до EasyBox - 7.00 €'"></span>
                             <span th:if="${cart.totalPrice >= 200.00 && method == T(com.glowtique.glowtique.order.model.OrderMethod).SPEEDY_ADDRESS}"
-                                  th:text="'Доставка до адрес със Спиди - 0.00 лв'"></span>
+                                  th:text="'Доставка до адрес със Спиди - 0.00 €'"></span>
                             <span th:if="${cart.totalPrice < 200.00 && method == T(com.glowtique.glowtique.order.model.OrderMethod).SPEEDY_ADDRESS}"
-                                  th:text="'Доставка до адрес със Спиди - 7.00 лв'"></span>
+                                  th:text="'Доставка до адрес със Спиди - 7.00 €'"></span>
                             <span th:if="${cart.totalPrice >= 200.00 && method == T(com.glowtique.glowtique.order.model.OrderMethod).SPEEDY_OFFICE}"
-                                  th:text="'Доставка до офис на Спиди - 0.00 лв'"></span>
+                                  th:text="'Доставка до офис на Спиди - 0.00 €'"></span>
                             <span th:if="${cart.totalPrice < 200.00 && method == T(com.glowtique.glowtique.order.model.OrderMethod).SPEEDY_OFFICE}"
-                                  th:text="'Доставка до офис на Спиди - 7.00 лв'"></span>
+                                  th:text="'Доставка до офис на Спиди - 7.00 €'"></span>
                             <span th:if="${cart.totalPrice >= 200.00 && method == T(com.glowtique.glowtique.order.model.OrderMethod).ECONT_OFFICE}"
-                                  th:text="'Доставка до офис на Еконт - 0.00 лв'"></span>
+                                  th:text="'Доставка до офис на Еконт - 0.00 €'"></span>
                             <span th:if="${cart.totalPrice < 200.00 && method == T(com.glowtique.glowtique.order.model.OrderMethod).ECONT_OFFICE}"
-                                  th:text="'Доставка до офис на Еконт - 7.00 лв'"></span>
+                                  th:text="'Доставка до офис на Еконт - 7.00 €'"></span>
                             <span th:if="${cart.totalPrice >= 200.00 && method == T(com.glowtique.glowtique.order.model.OrderMethod).ECONT_ADDRESS}"
-                                  th:text="'Доставка до адрес с Еконт - 0.00 лв'"></span>
+                                  th:text="'Доставка до адрес с Еконт - 0.00 €'"></span>
                             <span th:if="${cart.totalPrice < 200.00 && method == T(com.glowtique.glowtique.order.model.OrderMethod).ECONT_ADDRESS}"
-                                  th:text="'Доставка до адрес с Еконт - 7.00 лв'"></span>
+                                  th:text="'Доставка до адрес с Еконт - 7.00 €'"></span>
                         </label>
                         <script>
                             document.addEventListener('DOMContentLoaded', () => {
@@ -158,13 +158,13 @@
                             <div class=ordered>
                                 <a th:href="@{/product/{id}(id=${item.product.id})}" class="order-item-img"><p th:text="${item.product.name}"></p></a>
                                 <p th:text="'Количество: ' + ${item.quantity}" class="quantity"></p>
-                                <p th:text="'Цена: ' + ${item.product.price} + ' лв.'" class="price"></p>
+                                <p th:text="'Цена: ' + ${item.product.price} + ' €'" class="price"></p>
                             </div>
                         </div>
 
                         <div class="total-price-container">
-                            <p th:unless="${user.cart.totalPrice == 0}" th:if="${cart.totalPrice >= 200}" th:text="'Крайна цена: ' + ${cart.totalPrice} + ' лв.'" class="total-price"></p>
-                            <p th:unless="${cart.totalPrice >= 200}" th:text="'Крайна цена: ' + ${cart.totalPrice + 7.00} + ' лв.'" class="total-price"></p>
+                            <p th:unless="${user.cart.totalPrice == 0}" th:if="${cart.totalPrice >= 200}" th:text="'Крайна цена: ' + ${cart.totalPrice} + ' €'" class="total-price"></p>
+                            <p th:unless="${cart.totalPrice >= 200}" th:text="'Крайна цена: ' + ${cart.totalPrice + 7.00} + ' €'" class="total-price"></p>
                             <p th:if="${voucher != null}" th:text="${'Използван ваучер: ' + voucher.name}" class="total-price" style="color: green"></p>
                             <p th:unless="${voucher != null}" th:text="${'Не е използван ваучер'}" class="total-price" style="color: #831b1b"></p>
 

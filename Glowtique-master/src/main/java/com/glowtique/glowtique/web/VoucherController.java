@@ -32,7 +32,7 @@ public class VoucherController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("vouchers");
         modelAndView.addObject("user", user);
-        modelAndView.addObject("vouchers", user.getVouchers());
+        modelAndView.addObject("vouchers", voucherService.getAllVouchersByUserId(user.getId()));
         return modelAndView;
     }
 }

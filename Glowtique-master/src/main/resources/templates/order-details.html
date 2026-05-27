@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/logged-header.css">
+    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/account.css">
+    <link rel="stylesheet" href="/css/orders.css">
+    <title>Glowtique | Order Details</title>
+</head>
+<body>
+<th:block th:insert="fragments/header-fragment :: header"></th:block>
+<main>
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Моят профил</h2>
+            <ul>
+                <li><a th:href="@{/profile}">Обща информация</a></li>
+                <li><a th:href="@{/orders}" class="active">Моите поръчки</a></li>
+                <li><a href="#">Заявки за връщане/рекламация</a></li>
+                <li><a th:href="@{/wishlist}">Любими продукти</a></li>
+                <li><a th:href="@{/vouchers}">Моите промокодове</a></li>
+                <li><a href="#">Моите адреси</a></li>
+                <li><a th:href="@{/edit-profile}">Настройки на профила</a></li>
+                <li><a th:href="@{/notifications}">Нотификации</a></li>
+                <li><a href="#">Beauty Card</a></li>
+                <li><a href="#">Управление на лични данни</a></li>
+                <li><a th:href="@{/logout}">Изход</a></li>
+            </ul>
+        </aside>
+
+        <main class="profile-content order-details-page">
+            <a class="back-link" th:href="@{/orders}">Назад към поръчките</a>
+            <h1 th:text="'Поръчка № ' + ${order.trackingNumber}"></h1>
+
+            <section class="order-summary-grid">
+                <div class="summary-card">
+                    <span>Дата</span>
+                    <strong th:text="${#temporals.format(order.orderDate, 'yyyy-MM-dd HH:mm')}"></strong>
+                </div>
+                <div class="summary-card">
+                    <span>Статус</span>
+                    <strong th:switch="${order.orderStatus.name()}">
+                        <span th:case="'ORDER_CONFIRMED'">Приета</span>
+                        <span th:case="'DECLINED'">Отказана</span>
+                        <span th:case="'COMPLETED'">Завършена</span>
+                        <span th:case="'CANCELLED'">Нулирана</span>
+                        <span th:case="'DELIVERED'">Доставена</span>
+                        <span th:case="'REFUNDED'">Върната</span>
+                        <span th:case="'PENDING'">Чакаща одобрение</span>
+                        <span th:case="'AWAITING_PICKUP'">Очаква вземане</span>
+                        <span th:case="*" th:text="${order.orderStatus.name()}"></span>
+                    </strong>
+                </div>
+                <div class="summary-card">
+                    <span>Общо</span>
+                    <strong th:text="${order.totalPrice} + ' €'"></strong>
+                </div>
+            </section>
+
+            <section class="order-details-grid">
+                <div class="detail-panel">
+                    <h2>Доставка</h2>
+                    <p><strong>Град:</strong> <span th:text="${order.town}"></span></p>
+                    <p><strong>Пощенски код:</strong> <span th:text="${order.postalCode}"></span></p>
+                    <p><strong>Адрес:</strong> <span th:text="${order.shippingAddress}"></span></p>
+                    <p th:if="${order.officeAddress != null && !#strings.isEmpty(order.officeAddress)}"><strong>Офис:</strong> <span th:text="${order.officeAddress}"></span></p>
+                    <p><strong>Телефон:</strong> <span th:text="${order.orderPhoneNumber}"></span></p>
+                    <p><strong>Начин на доставка:</strong> <span th:text="${order.orderMethod.getDisplayName()}"></span></p>
+                </div>
+
+                <div class="detail-panel">
+                    <h2>Плащане</h2>
+                    <p><strong>Метод:</strong>
+                        <span th:if="${order.payment != null && order.payment.paymentMethod.name() == 'CASH'}">Наложен платеж</span>
+                        <span th:if="${order.payment != null && order.payment.paymentMethod.name() == 'BANK_TRANSFER'}">Кредитна/Дебитна карта</span>
+                        <span th:if="${order.payment != null && order.payment.paymentMethod.name() == 'EASY_PAY'}">Easy Pay</span>
+                        <span th:if="${order.payment != null && order.payment.paymentMethod.name() == 'GIFT_CARD'}">Gift Card</span>
+                        <span th:if="${order.payment == null}">-</span>
+                    </p>
+                    <p><strong>Статус:</strong> <span th:text="${order.payment != null ? order.payment.status.name() : '-'}"></span></p>
+                    <p th:if="${order.payment != null && order.payment.transactionId != null}"><strong>Транзакция:</strong> <span th:text="${order.payment.transactionId}"></span></p>
+                    <p th:if="${order.voucher != null}"><strong>Ваучер:</strong> <span th:text="${order.voucher.name}"></span></p>
+                    <p th:if="${order.description != null && !#strings.isEmpty(order.description)}"><strong>Бележка:</strong> <span th:text="${order.description}"></span></p>
+                </div>
+            </section>
+
+            <section class="order-items-section">
+                <h2>Продукти</h2>
+                <div class="order-item-card" th:each="item : ${orderItems}">
+                    <img th:src="${item.product.image}" alt="Product image">
+                    <div>
+                        <h3 th:text="${item.product.name}"></h3>
+                        <p th:text="${item.product.description}"></p>
+                        <span th:text="${item.product.volume} + ' мл.'"></span>
+                    </div>
+                    <div class="item-meta">
+                        <span th:text="'Количество: ' + ${item.quantity}"></span>
+                        <strong th:text="${item.priceAtPurchase} + ' €'"></strong>
+                    </div>
+                </div>
+            </section>
+
+            <section class="order-total-panel">
+                <p><span>Продукти</span><strong th:text="${itemsSubtotal} + ' €'"></strong></p>
+                <p><span>Доставка</span><strong th:text="${shippingPrice} + ' €'"></strong></p>
+                <p th:if="${discountAmount > 0}"><span>Отстъпка</span><strong th:text="'-' + ${discountAmount} + ' €'"></strong></p>
+                <p class="grand-total"><span>Общо</span><strong th:text="${order.totalPrice} + ' €'"></strong></p>
+            </section>
+        </main>
+    </div>
+</main>
+</body>
+</html>

@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/css/vouchers.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/logged-header.css">
     <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/account.css">
+    <link rel="stylesheet" href="/css/vouchers.css">
     <title>Glowtique | Vouchers</title>
 </head>
 <body>
@@ -41,12 +43,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="voucher : ${vouchers}" th:classappend="${voucher.isUsed()} ? 'used' : 'notUsed'">
+                <tr th:each="voucher : ${vouchers}" th:classappend="${voucher.isTerminated()} ? 'used' : 'notUsed'">
                     <td th:text="${voucher.getName()}"></td>
                     <td th:if="${voucher.percentageDiscount != null}" th:text="${voucher.getPercentageDiscount() + ' %'}"></td>
-                    <td th:unless="${voucher.percentageDiscount != null}" th:text="${voucher.priceDiscount  + ' лв.'}"></td>
-                    <td th:if="${voucher.isUsed() == true}" th:text="${'Да'}"></td>
-                    <td th:unless="${voucher.isUsed() == true}" th:text="${'Не'}" ></td>
+                    <td th:unless="${voucher.percentageDiscount != null}" th:text="${voucher.priceDiscount  + ' €'}"></td>
+                    <td th:if="${voucher.isTerminated() == true}" th:text="${'Да'}"></td>
+                    <td th:unless="${voucher.isTerminated() == true}" th:text="${'Не'}" ></td>
                 </tr>
                 </tbody>
             </table>

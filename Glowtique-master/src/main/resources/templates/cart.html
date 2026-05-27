@@ -14,7 +14,7 @@
             <div class="cart-container">
                 <form th:action="@{/cart}" th:method="Get" th:object="${user}">
                 <div class="free-shipping">
-                    <p><span class="highlight">Безплатна доставка при над 200 лв. поръчка</span></p>
+                    <p><span class="highlight">Безплатна доставка при над 200 € поръчка</span></p>
                 </div>
 
                 <div th:if="${user.cart != null and user.cart.getCartItems().size() == 0}">
@@ -27,7 +27,7 @@
                         <p th:text="${item.product.description}"></p>
                     </div>
                     <div>
-                        <span th:text="${item.product.price} + ' лв.'"></span>
+                        <span th:text="${item.product.price} + ' €'"></span>
                     </div>
                     <form th:action="@{/cart/update-quantity/{productId}(productId=${item.product.id})}" th:method="Put">
                         <div class="quantity">
@@ -65,10 +65,10 @@
                     </div>
 
                     <div class="final-price-container" th:if="${user.cart.getCartItems().size == 0}" style="visibility: hidden">
-                    <p class="total-price">Крайна цена с ДДС: <strong th:text="${cart.totalPrice} + ' лв.'"></strong></p>
+                    <p class="total-price">Крайна цена с ДДС: <strong th:text="${cart.totalPrice} + ' €'"></strong></p>
                 </div>
                 <div class="final-price-container" th:unless="${user.cart.getCartItems().size() == 0}">
-                    <p class="total-price">Крайна цена с ДДС: <strong th:text="${cart.totalPrice} + ' лв.'"></strong></p>
+                    <p class="total-price">Крайна цена с ДДС: <strong th:text="${cart.totalPrice} + ' €'"></strong></p>
                 </div>
                 <div class="checkout-section">
                     <form th:action="@{/home}" th:method="Get">

@@ -2,7 +2,10 @@ package com.glowtique.glowtique.web;
 
 import com.glowtique.glowtique.cart.model.Cart;
 import com.glowtique.glowtique.cart.service.CartService;
+import com.glowtique.glowtique.exception.VoucherAlreadyUsed;
+import com.glowtique.glowtique.exception.VoucherNotExistingException;
 import com.glowtique.glowtique.security.AuthenticationMetadata;
+import com.glowtique.glowtique.user.model.User;
 import com.glowtique.glowtique.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -82,14 +85,39 @@ public class CartController {
 
     @PutMapping("/cart/voucher-use")
     @ResponseBody
+
     public ResponseEntity<Map<String, Object>> voucherUse(@AuthenticationPrincipal AuthenticationMetadata authenticationMetadata,
                                                           @RequestParam("voucher-name") String voucherName) {
         if (authenticationMetadata == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "User is not authenticated!"));
         }
 
-        cartService.applyVoucher(authenticationMetadata.getUserId(), voucherName);
+        try {
+            cartService.applyVoucher(authenticationMetadata.getUserId(), voucherName);
+        } catch (VoucherAlreadyUsed | VoucherNotExistingException e) {
+            return ResponseEntity.badRequest().body(Map.of(
+                    "success", false,
+                    "error", e.getMessage()
+            ));
+        }
 
+        Cart cart = cartService.getCartByUser(authenticationMetadata.getUserId());
+
+        return ResponseEntity.ok(Map.of(
+                "success", true,
+                "newTotalPrice", cart.getTotalPrice()
+        ));
+    }
+
+    @DeleteMapping("/cart/voucher-use")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> removeVoucher(@AuthenticationPrincipal AuthenticationMetadata authenticationMetadata) {
+        if (authenticationMetadata == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "User is not authenticated!"));
+        }
+
+        User user = userService.getUserById(authenticationMetadata.getUserId());
+        cartService.clearAppliedVoucher(user);
         Cart cart = cartService.getCartByUser(authenticationMetadata.getUserId());
 
         return ResponseEntity.ok(Map.of(

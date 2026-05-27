@@ -4,24 +4,28 @@ import com.glowtique.glowtique.cart.model.Cart;
 import com.glowtique.glowtique.cart.model.CartItem;
 import com.glowtique.glowtique.cart.repository.CartItemRepository;
 import com.glowtique.glowtique.cart.repository.CartRepository;
-import com.glowtique.glowtique.exception.*;
+import com.glowtique.glowtique.exception.CartNotExisting;
+import com.glowtique.glowtique.exception.ProductNotfoundException;
+import com.glowtique.glowtique.exception.UserNotExisting;
+import com.glowtique.glowtique.exception.VoucherAlreadyUsed;
+import com.glowtique.glowtique.exception.VoucherNotExistingException;
+import com.glowtique.glowtique.order.model.OrderStatus;
 import com.glowtique.glowtique.product.model.Product;
 import com.glowtique.glowtique.product.repository.ProductRepository;
-import com.glowtique.glowtique.product.service.ProductService;
+import com.glowtique.glowtique.user.model.User;
 import com.glowtique.glowtique.user.repository.UserRepository;
-import com.glowtique.glowtique.user.service.UserService;
 import com.glowtique.glowtique.voucher.model.Voucher;
 import com.glowtique.glowtique.voucher.repository.VoucherRepository;
-import com.glowtique.glowtique.voucher.service.VoucherService;
 import jakarta.transaction.Transactional;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.glowtique.glowtique.user.model.User;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.UUID;
 
 @Service
@@ -45,7 +49,7 @@ public class CartService {
         Cart cart = Cart.builder()
                 .user(user)
                 .cartItems(new ArrayList<>())
-                .totalPrice(BigDecimal.valueOf(0))
+                .totalPrice(BigDecimal.ZERO)
                 .build();
 
         return cartRepository.save(cart);
@@ -89,11 +93,25 @@ public class CartService {
         return cartRepository.findByUser(user)
                 .orElseGet(() -> createCart(user));
     }
+
     private void updateTotalPrice(Cart cart) {
-        BigDecimal totalPrice = cart.getCartItems().stream()
+        BigDecimal totalPrice = calculateSubtotal(cart);
+
+        if (cart.getUsedVoucher() != null && totalPrice.compareTo(BigDecimal.ZERO) > 0) {
+            totalPrice = calculateDiscountedTotal(cart.getUsedVoucher(), totalPrice);
+        }
+
+        if (totalPrice.compareTo(BigDecimal.ZERO) == 0) {
+            releaseAppliedVoucher(cart);
+        }
+
+        cart.setTotalPrice(totalPrice);
+    }
+
+    private BigDecimal calculateSubtotal(Cart cart) {
+        return cart.getCartItems().stream()
                 .map(CartItem::getTotalPrice)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
-        cart.setTotalPrice(totalPrice);
     }
 
     @Transactional
@@ -129,33 +147,63 @@ public class CartService {
         return cartRepository.save(cart);
     }
 
+    @Transactional
     public void applyVoucher(UUID userId, String voucherName) {
         Cart cart = cartRepository.findByUserId(userId).orElseThrow(() -> new CartNotExisting("Cart not found"));
         User user = userRepository.findById(userId).orElseThrow(() -> new UserNotExisting("User not found"));
-        Voucher voucher = voucherRepository.getVoucherByNameAndUserId(voucherName, user.getId()).orElseThrow(() -> new VoucherNotExistingException("Няма такъв код за отсъпка !"));
+        Voucher voucher = voucherRepository.getVoucherByNameAndUserId(normalizeVoucherCode(voucherName), user.getId())
+                .orElseThrow(() -> new VoucherNotExistingException("Няма такъв код за отстъпка!"));
 
-        BigDecimal newPrice = getBigDecimal(voucher, cart);
+        validateVoucherForCart(voucher, cart);
 
-        cart.setTotalPrice(newPrice);
+        BigDecimal subtotal = calculateSubtotal(cart);
+        if (subtotal.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new VoucherNotExistingException("Кошницата е празна.");
+        }
+
+        Voucher previousVoucher = cart.getUsedVoucher();
+        if (previousVoucher != null && !previousVoucher.getId().equals(voucher.getId())) {
+            previousVoucher.setAppliedAt(null);
+            previousVoucher.setCart(null);
+            voucherRepository.save(previousVoucher);
+        }
+
         cart.setUsedVoucher(voucher);
-        cartRepository.save(cart);
-
         voucher.setAppliedAt(LocalDateTime.now());
-        voucher.setUsed(true);
+        voucher.setCart(cart);
+        updateTotalPrice(cart);
+        cartRepository.save(cart);
         voucherRepository.save(voucher);
     }
 
-    private static @NotNull BigDecimal getBigDecimal(Voucher voucher, Cart cart) {
-        if (voucher.isUsed() || voucher.equals(cart.getUsedVoucher())) {
-            throw new VoucherAlreadyUsed("Кодът за отсъпка вече е използван !");
+    private static void validateVoucherForCart(Voucher voucher, Cart cart) {
+        if (voucher.isUsed() || voucher.isTerminated()) {
+            throw new VoucherAlreadyUsed("Кодът за отстъпка вече е използван!");
         }
 
-        BigDecimal originalPrice = cart.getTotalPrice();
+        if (voucher.getExpiryDate() != null && voucher.getExpiryDate().isBefore(LocalDateTime.now())) {
+            throw new VoucherAlreadyUsed("Кодът за отстъпка е изтекъл!");
+        }
+
+        if (cart.getUsedVoucher() != null && cart.getUsedVoucher().getId().equals(voucher.getId())) {
+            return;
+        }
+
+        if (voucher.getCart() != null && !voucher.getCart().getId().equals(cart.getId())) {
+            throw new VoucherAlreadyUsed("Кодът за отстъпка вече е приложен към друга кошница.");
+        }
+
+        if (voucher.getOrder() != null && voucher.getOrder().getOrderStatus() == OrderStatus.PENDING) {
+            throw new VoucherAlreadyUsed("Кодът за отстъпка вече е приложен към незавършена поръчка.");
+        }
+    }
+
+    private static @NotNull BigDecimal calculateDiscountedTotal(Voucher voucher, BigDecimal originalPrice) {
         BigDecimal discountAmount = BigDecimal.ZERO;
 
         if (voucher.getPercentageDiscount() != null) {
             BigDecimal percentage = voucher.getPercentageDiscount();
-            discountAmount = originalPrice.multiply(percentage.divide(BigDecimal.valueOf(100)));
+            discountAmount = originalPrice.multiply(percentage.divide(BigDecimal.valueOf(100), 4, RoundingMode.HALF_UP));
         } else if (voucher.getPriceDiscount() != null) {
             discountAmount = voucher.getPriceDiscount();
         }
@@ -164,16 +212,56 @@ public class CartService {
         if (newPrice.compareTo(BigDecimal.ZERO) < 0) {
             newPrice = BigDecimal.ZERO;
         }
-        return newPrice;
+        return newPrice.setScale(2, RoundingMode.HALF_UP);
     }
 
+    @Transactional
+    public void clearAppliedVoucher(User user) {
+        Cart cart = user.getCart();
+        if (cart == null || cart.getUsedVoucher() == null) {
+            return;
+        }
+
+        releaseAppliedVoucher(cart);
+        updateTotalPrice(cart);
+        cartRepository.save(cart);
+    }
+
+    @Transactional
     public void clearCart(User user) {
         Cart cart = user.getCart();
+        if (cart == null) {
+            return;
+        }
+
         if (cart != null && cart.getCartItems() != null) {
             cartItemRepository.deleteAll(cart.getCartItems());
             cart.getCartItems().clear();
         }
+        releaseAppliedVoucher(cart);
         cart.setTotalPrice(BigDecimal.ZERO);
         cartRepository.save(cart);
+    }
+
+    private void releaseAppliedVoucher(Cart cart) {
+        if (cart == null || cart.getUsedVoucher() == null) {
+            return;
+        }
+
+        Voucher voucher = cart.getUsedVoucher();
+        if (!voucher.isTerminated() && !voucher.isUsed()) {
+            voucher.setAppliedAt(null);
+            voucher.setCart(null);
+            voucherRepository.save(voucher);
+        }
+        cart.setUsedVoucher(null);
+    }
+
+    private String normalizeVoucherCode(String voucherName) {
+        if (voucherName == null || voucherName.isBlank()) {
+            throw new VoucherNotExistingException("Моля, въведете код за отстъпка.");
+        }
+
+        return voucherName.trim().toUpperCase(Locale.ROOT);
     }
 }

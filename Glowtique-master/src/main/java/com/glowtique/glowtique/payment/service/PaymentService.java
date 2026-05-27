@@ -1,10 +1,12 @@
 package com.glowtique.glowtique.payment.service;
 
+import com.glowtique.glowtique.cart.model.Cart;
 import com.glowtique.glowtique.cart.service.CartService;
 import com.glowtique.glowtique.order.service.OrderService;
 import com.glowtique.glowtique.payment.model.Payment;
 import com.glowtique.glowtique.payment.model.PaymentMethod;
 import com.glowtique.glowtique.payment.model.PaymentStatus;
+import com.glowtique.glowtique.order.model.Order;
 import com.glowtique.glowtique.product.repository.ProductRepository;
 import com.glowtique.glowtique.user.service.UserService;
 import com.glowtique.glowtique.voucher.service.VoucherService;
@@ -14,7 +16,6 @@ import com.glowtique.glowtique.user.model.User;
 import com.glowtique.glowtique.voucher.model.Voucher;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -50,8 +51,12 @@ public class PaymentService {
     }
 
     private String cashProcessPayment(User user) {
-         orderService.getCurrentOrder(user.getId()).setPayment(Payment.builder()
-                        .order(orderService.getCurrentOrder(user.getId()))
+        Order currentOrder = orderService.getCurrentOrder(user.getId());
+        Cart userCart = cartService.getCartByUser(user.getId());
+        Voucher appliedVoucher = currentOrder.getVoucher() != null ? currentOrder.getVoucher() : userCart.getUsedVoucher();
+
+        currentOrder.setPayment(Payment.builder()
+                        .order(currentOrder)
                         .status(PaymentStatus.PENDING)
                         .transactionId(UUID.randomUUID().toString())
                         .createdAt(LocalDateTime.now())
@@ -62,6 +67,7 @@ public class PaymentService {
 
         userService.saveUser(user);
         orderService.completeOrder(user);
+        voucherService.completeVoucherUse(appliedVoucher, userCart, currentOrder);
         cartService.clearCart(user);
         return "order-confirmation";
     }

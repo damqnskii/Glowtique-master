@@ -1,6 +1,7 @@
 package com.glowtique.glowtique.voucher.model;
 
 import com.glowtique.glowtique.cart.model.Cart;
+import com.glowtique.glowtique.order.model.Order;
 import jakarta.persistence.*;
 import lombok.*;
 import com.glowtique.glowtique.user.model.User;
@@ -34,8 +35,17 @@ public class Voucher {
 
     private LocalDateTime createdAt;
 
+    private VoucherType voucherType;
+
+    private LocalDateTime expiryDate;
+
     @OneToOne
     private Cart cart;
+
+    @OneToOne
+    private Order order;
+
+    private boolean isTerminated;
 
     private boolean isUsed;
 }

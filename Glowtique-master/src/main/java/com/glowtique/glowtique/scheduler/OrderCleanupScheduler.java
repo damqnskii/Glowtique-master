@@ -2,6 +2,7 @@ package com.glowtique.glowtique.scheduler;
 
 import com.glowtique.glowtique.order.repository.OrderRepository;
 import com.glowtique.glowtique.order.service.OrderService;
+import com.glowtique.glowtique.voucher.service.VoucherService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -15,11 +16,13 @@ import java.util.List;
 public class OrderCleanupScheduler {
     private OrderRepository orderRepository;
     private OrderService orderService;
+    private VoucherService voucherService;
 
     @Autowired
-    public OrderCleanupScheduler(OrderRepository orderRepository, OrderService orderService) {
+    public OrderCleanupScheduler(OrderRepository orderRepository, OrderService orderService, VoucherService voucherService) {
         this.orderRepository = orderRepository;
         this.orderService = orderService;
+        this.voucherService = voucherService;
     }
 
     @Scheduled(cron = "0 0 2 * * *")
@@ -31,6 +34,7 @@ public class OrderCleanupScheduler {
             return;
         }
 
+        allPendingOrdersOneDayAgo.forEach(order -> voucherService.releasePendingVoucher(order.getVoucher()));
         orderRepository.deleteAll(allPendingOrdersOneDayAgo);
         log.info("{} pending orders were cleaned up", allPendingOrdersOneDayAgo.size());
     }

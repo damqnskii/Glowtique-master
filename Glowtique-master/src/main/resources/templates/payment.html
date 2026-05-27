@@ -37,7 +37,7 @@
 
                     <div class="payment-method">
                         <input type="radio" id="cash" name="payment" value="CASH" onclick="toggleForms('cash-form')">
-                        <label for="cash">Наложен платеж (1.99 лв.)</label>
+                        <label for="cash">Наложен платеж (1.99 €)</label>
                     </div>
 
 
@@ -71,7 +71,7 @@
 
                         <div id="cash-form" class="hidden">
                             <h3>Наложен платеж</h3>
-                            <p>Плащане на доставчика при получаване на поръчката (1.99 лв.)</p>
+                            <p>Плащане на доставчика при получаване на поръчката (1.99 €)</p>
                         </div>
 
                         <div id="creditCard-form" class="hidden">
@@ -147,6 +147,9 @@
                     <form th:action="@{/checkout}" th:method="Get">
                         <button type="submit" class="return-btn">Върни се назад</button>
                     </form>
+                    <form th:action="@{/orders/{orderId}/cancel(orderId=${currentOrder.id})}" th:method="Post">
+                        <button type="submit" class="return-btn">Отмени поръчката</button>
+                    </form>
             </div>
             <div class="order-summary">
                 <form th:action="@{/payment}" th:method="Get" th:object="${user}">
@@ -188,17 +191,17 @@
                             <div class="product-details">
                                 <a th:href="@{/product/{id}(id=${item.product.id})}"><p th:text="${item.product.name}"></p></a>
                                 <p th:text="'Количество: ' + ${item.quantity}"></p>
-                                <p th:text="'Цена: ' + ${item.totalPrice} + ' лв.'"></p>
+                                <p th:text="'Цена: ' + ${item.priceAtPurchase * item.quantity} + ' €'"></p>
                             </div>
                         </div>
                     </div>
 
                     <div class="total-summary">
-                        <p th:text="'Цена: ' + ${user.getCart().totalPrice} + ' лв.'"></p>
-                        <p th:if="${user.getCart().totalPrice >= 200.00}" th:text="'Доставка: 0.00 лв.'"></p>
-                        <p th:unless="${user.getCart().totalPrice >= 200.00}" th:text="'Доставка: 7.00 лв.'"></p>
-                        <p th:if="${user.getCart().totalPrice >= 200.00}" th:text="'Общо: ' + ${user.getCart().totalPrice} + ' лв.'"></p>
-                        <p th:unless="${user.getCart().totalPrice >= 200.00}" th:text="'Общо: ' + ${user.getCart().totalPrice + 7.00    } + ' лв.'"></p>
+                        <p th:text="'Цена: ' + ${itemsSubtotal} + ' €'"></p>
+                        <p th:text="'Доставка: ' + ${shippingPrice} + ' €'"></p>
+                        <p th:if="${voucher != null}" th:text="'Ваучер: ' + ${voucher.name}" style="color: green"></p>
+                        <p th:if="${discountAmount > 0}" th:text="'Отстъпка: -' + ${discountAmount} + ' €'" style="color: green"></p>
+                        <p th:text="'Общо: ' + ${currentOrder.totalPrice} + ' €'"></p>
                     </div>
                 </form>
             </div>

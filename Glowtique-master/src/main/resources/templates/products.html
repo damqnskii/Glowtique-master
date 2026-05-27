@@ -91,9 +91,9 @@
                         <div class="price-range">
 
                             <div class="price-inputs">
-                                <input type="number" name="minPrice" placeholder="0 лв." min="0" step="any" th:value="${minPrice} + ' лв.'">
+                                <input type="number" name="minPrice" placeholder="0 €" min="0" step="any" th:value="${minPrice} + ' €'">
                                 <span>-</span>
-                                <input type="number" name="maxPrice" th:placeholder="${expensiveProduct} + ' лв'" min="0" step="any" th:value="${maxPrice} + ' лв.'">
+                                <input type="number" name="maxPrice" th:placeholder="${expensiveProduct} + ' €'" min="0" step="any" th:value="${maxPrice} + ' €'">
                             </div>
                         </div>
                     </div>
@@ -167,7 +167,7 @@
                     <img th:src="${item.product.image}" alt="product-image">
                     <div class="item-details-side">
                         <a th:href="@{/product/{id}(id=${item.product.id})}" class="item-name-side" th:text="${item.product.name}"></a>
-                        <p th:text="${item.product.price} + ' лв.'" class="price-side"></p>
+                        <p th:text="${item.product.price} + ' €'" class="price-side"></p>
                         <form th:action="@{/cart/add/{productId}(productId=${item.product.id})}" method="post">
                             <input type="hidden" name="quantity" value="1">
                             <button  th:if="${item.product.quantity > 0}" type="submit" class="add-to-cart-side" th:data-id="${item.product.id}">
@@ -211,7 +211,7 @@
                 <h6 th:text="${product.description} + ' ' + ${product.volume} + ' мл.'" class="product-details"></h6>
             </a>
             <div class="product-details">
-                <p th:text="${product.price} + ' лв.'" class="price"></p>
+                <p th:text="${product.price} + ' €'" class="price"></p>
             </div>
             <form th:action="@{/cart/add/{productId}(productId=${product.id})}" method="post">
                 <input type="hidden" name="quantity" value="1">

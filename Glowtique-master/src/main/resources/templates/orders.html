@@ -4,8 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/logged-header.css">
-  <link rel="stylesheet" href="/css/orders.css">
   <link rel="stylesheet" href="/css/font.css">
+  <link rel="stylesheet" href="/css/account.css">
+  <link rel="stylesheet" href="/css/orders.css">
   <title>Glowtique | My Orders</title>
 </head>
 <body>
@@ -16,7 +17,7 @@
       <h2>Моят профил</h2>
       <ul>
         <li><a th:href="@{/profile}">Обща информация</a></li>
-        <li><a th:href="@{redirect:/orders}" class="active">Моите поръчки</a></li>
+        <li><a th:href="@{/orders}" class="active">Моите поръчки</a></li>
         <li><a href="#">Заявки за връщане/рекламация</a></li>
         <li><a th:href="@{/wishlist}">Любими продукти</a></li>
         <li><a th:href="@{/vouchers}">Моите промокодове</a></li>
@@ -31,53 +32,74 @@
 
     <main class="profile-content">
       <h1>Моите поръчки</h1>
-      <h2 th:if="${orders.size() == 0 || orders == null}">Все още нямате напревени поръчки в профила</h2>
-      <table th:unless="${orders.size() == 0 || orders == null}">
+
+      <div class="orders-toolbar" th:if="${totalOrders > 0}">
+        <p th:text="'Общо поръчки: ' + ${totalOrders}"></p>
+      </div>
+
+      <div class="empty-state" th:if="${orders == null || orders.isEmpty()}">
+        <p>Все още нямате направени поръчки в профила.</p>
+      </div>
+
+      <table th:unless="${orders == null || orders.isEmpty()}">
         <thead>
         <tr>
           <th>Поръчка №</th>
           <th>Дата</th>
-          <th>Лице за Контакт</th>
+          <th>Лице за контакт</th>
           <th>Общо</th>
           <th>Статус</th>
           <th>Метод на плащане</th>
+          <th></th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="order : ${orders}">
-          <td th:text="${order.trackingNumber}"></td>
+        <tr class="order-row" th:each="order : ${orders}" th:attr="data-href=@{/orders/{orderId}(orderId=${order.id})}" onclick="window.location.href=this.dataset.href">
+          <td>
+            <a class="order-link" th:href="@{/orders/{orderId}(orderId=${order.id})}" th:text="${order.trackingNumber}"></a>
+          </td>
           <td th:text="${#temporals.format(order.orderDate, 'yyyy-MM-dd')}"></td>
           <td th:text="${order.user.firstName} + ' ' + ${order.user.lastName}"></td>
-          <td th:text="${order.totalPrice} + ' лв.'"></td>
-          <td   th:if="${order.orderStatus.name() == 'ORDER_CONFIRMED'}"
-                  th:text="'Приета'"></td>
-          <td   th:if="${order.orderStatus.name() == 'DECLINED'}"
-                th:text="'Отказана'"></td>
-          <td   th:if="${order.orderStatus.name() == 'COMPLETED'}"
-                th:text="'Завършена'"></td>
-            <td   th:if="${order.orderStatus.name() == 'CANCELLED'}"
-                  th:text="'Нулирана'"></td>
-          <td   th:if="${order.orderStatus.name() == 'DELIVERED'}"
-                th:text="'Доставена'"></td>
-          <td   th:if="${order.orderStatus.name() == 'REFUNDED'}"
-                th:text="'Върната'"></td>
-          <td   th:if="${order.orderStatus.name() == 'PENDING'}"
-                th:text="'Чакаща одобрение'"></td>
-          <td   th:if="${order.orderStatus.name() == 'AWAITING_PICKUP'}"
-                th:text="'В очакване на вземане'"></td>
-
-          <td   th:if="${order.payment.paymentMethod.name() == 'CASH'}"
-                  th:text="'Наложен платеж'"></td>
-          <td   th:if="${order.payment.paymentMethod.name() == 'BANK_TRANSFER'}"
-                th:text="'Кредитна/Дебитна карта'"></td>
-          <td   th:if="${order.payment.paymentMethod.name() == 'EASY_PAY'}"
-                th:text="'Easy Pay'"></td>
-          <td   th:if="${order.payment.paymentMethod.name() == 'GIFT_CARD'}"
-                th:text="'Gift Card'"></td>
-
+          <td th:text="${order.totalPrice} + ' €'"></td>
+          <td>
+            <span class="status-pill status-confirmed" th:if="${order.orderStatus.name() == 'ORDER_CONFIRMED'}">Приета</span>
+            <span class="status-pill status-declined" th:if="${order.orderStatus.name() == 'DECLINED'}">Отказана</span>
+            <span class="status-pill status-completed" th:if="${order.orderStatus.name() == 'COMPLETED'}">Завършена</span>
+            <span class="status-pill status-cancelled" th:if="${order.orderStatus.name() == 'CANCELLED'}">Нулирана</span>
+            <span class="status-pill status-delivered" th:if="${order.orderStatus.name() == 'DELIVERED'}">Доставена</span>
+            <span class="status-pill status-refunded" th:if="${order.orderStatus.name() == 'REFUNDED'}">Върната</span>
+            <span class="status-pill status-pending" th:if="${order.orderStatus.name() == 'PENDING'}">Чакаща одобрение</span>
+            <span class="status-pill status-pending" th:if="${order.orderStatus.name() == 'AWAITING_PICKUP'}">Очаква вземане</span>
+          </td>
+          <td>
+            <span th:if="${order.payment != null && order.payment.paymentMethod.name() == 'CASH'}">Наложен платеж</span>
+            <span th:if="${order.payment != null && order.payment.paymentMethod.name() == 'BANK_TRANSFER'}">Кредитна/Дебитна карта</span>
+            <span th:if="${order.payment != null && order.payment.paymentMethod.name() == 'EASY_PAY'}">Easy Pay</span>
+            <span th:if="${order.payment != null && order.payment.paymentMethod.name() == 'GIFT_CARD'}">Gift Card</span>
+            <span th:if="${order.payment == null}">-</span>
+          </td>
+          <td>
+            <a class="details-link" th:href="@{/orders/{orderId}(orderId=${order.id})}" onclick="event.stopPropagation()">Детайли</a>
+          </td>
         </tr>
         </tbody>
       </table>
+
+      <nav class="pagination" th:if="${totalPages > 1}">
+        <ul>
+          <li th:if="${currentPage > 0}">
+            <a th:href="@{/orders(page=${currentPage - 1}, size=${pageSize})}">Предишна</a>
+          </li>
+          <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+            <a th:href="@{/orders(page=${i}, size=${pageSize})}"
+               th:classappend="${i == currentPage} ? 'active' : ''"
+               th:text="${i + 1}"></a>
+          </li>
+          <li th:if="${currentPage < totalPages - 1}">
+            <a th:href="@{/orders(page=${currentPage + 1}, size=${pageSize})}">Следваща</a>
+          </li>
+        </ul>
+      </nav>
     </main>
   </div>
 </main>

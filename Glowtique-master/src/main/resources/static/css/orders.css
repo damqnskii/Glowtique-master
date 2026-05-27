@@ -1,107 +1,267 @@
+.profile-content table {
+    min-width: 860px;
+}
 
-body {
+.profile-content > h2 {
     margin: 0;
-    padding-top: 1em;
-
-    font-family: Arial, sans-serif;
+    padding: 1rem;
+    border: 1px solid var(--account-border);
+    border-radius: 16px;
+    background: var(--account-primary-soft);
+    color: var(--account-muted);
+    font-size: 1rem;
+    line-height: 1.45;
 }
 
-h2 {
-    text-align: center;
-    padding: 15px;
+.profile-content td:nth-child(4) {
+    font-weight: 800;
+    color: var(--account-primary);
 }
-.container {
+
+.orders-toolbar {
     display: flex;
-    max-width: 1200px;
-    margin: 20px auto;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    justify-content: flex-end;
+    margin-bottom: 1rem;
 }
 
-.sidebar {
-    width: 250px;
-    padding: 20px;
+.orders-toolbar p {
+    margin: 0;
+    padding: 0.5rem 0.85rem;
+    border: 1px solid var(--account-border);
+    border-radius: 999px;
     background: #fff;
-
+    color: var(--account-muted);
+    font-size: 0.88rem;
+    font-weight: 700;
 }
 
-.profile-content h1 {
-    text-align: center;
+.order-row {
+    cursor: pointer;
 }
 
-.sidebar h2 {
-    font-size: 18px;
-    margin-bottom: 15px;
-}
-
-.sidebar ul {
-    list-style: none;
-    padding: 0;
-}
-
-.sidebar ul li {
-    margin-bottom: 10px;
-}
-
-.sidebar ul li a {
+.order-link,
+.details-link,
+.back-link {
+    color: var(--account-primary);
+    font-weight: 800;
     text-decoration: none;
-    color: #333;
-    font-size: 14px;
+}
+
+.order-link:hover,
+.details-link:hover,
+.back-link:hover {
+    color: var(--account-primary-dark);
+}
+
+.details-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.45rem 0.75rem;
+    border: 1px solid var(--account-border);
+    border-radius: 999px;
+    background: #fff;
+    white-space: nowrap;
+}
+
+.status-pill {
+    display: inline-flex;
+    align-items: center;
+    min-height: 28px;
+    padding: 0.28rem 0.68rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.status-confirmed,
+.status-completed,
+.status-delivered {
+    background: #eefaf2;
+    color: var(--account-success);
+}
+
+.status-pending {
+    background: #fff7e8;
+    color: #9a620c;
+}
+
+.status-declined,
+.status-cancelled,
+.status-refunded {
+    background: #fff0ee;
+    color: #8f2f2f;
+}
+
+.back-link {
+    display: inline-flex;
+    margin-bottom: 1rem;
+}
+
+.order-summary-grid,
+.order-details-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+}
+
+.order-details-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.summary-card,
+.detail-panel,
+.order-total-panel,
+.order-item-card {
+    border: 1px solid var(--account-border);
+    border-radius: 16px;
+    background: #fff;
+}
+
+.summary-card {
+    padding: 1rem;
+}
+
+.summary-card span {
     display: block;
-    padding: 5px;
+    margin-bottom: 0.35rem;
+    color: var(--account-muted);
+    font-size: 0.82rem;
+    font-weight: 700;
 }
 
-.sidebar ul li a.active,
-.sidebar ul li a:hover {
-    color: #02665c;
-    font-weight: bold;
-    transition-duration: 0.2s;
+.summary-card strong {
+    color: var(--account-text);
+    font-size: 1rem;
 }
 
-.profile-content {
-    flex: 1;
-    padding: 20px;
+.detail-panel {
+    padding: 1.1rem;
 }
 
-.profile-content h1 {
-    font-size: 1.5rem;
-    margin-bottom: 1.25rem;
+.detail-panel h2,
+.order-items-section h2 {
+    margin: 0 0 0.9rem;
+    color: var(--account-text);
+    font-size: 1.05rem;
 }
 
-table {
-    margin: auto;
-    border-collapse: collapse;
-    width: 53.75rem;
-
-}
-thead {
-    background-color: #96D1C4;
-    font-weight: bold;
-    color: black;
+.detail-panel p {
+    margin: 0.5rem 0;
+    color: var(--account-muted);
+    line-height: 1.45;
 }
 
-th {
-    padding: 10px;
-    text-align: center;
-}
-tbody tr {
-    background-color: #EAF8F3;
-    border-bottom: 1px solid #ccc;
-}
-tbody tr td {
-    padding: 10px;
-    text-align: center;
-    font-size: 14px;
-}
-tbody tr:hover {
-    background-color: #D6F5E3;
-}
-tbody tr:nth-child(odd) {
-    background-color: #EAF8F3;
+.detail-panel strong {
+    color: var(--account-text);
 }
 
-tbody tr:nth-child(even) {
-    background-color: #D6F5E3;
+.order-items-section {
+    margin-top: 1rem;
+}
+
+.order-item-card {
+    display: grid;
+    grid-template-columns: 78px minmax(0, 1fr) auto;
+    gap: 1rem;
+    align-items: center;
+    padding: 0.85rem;
+    margin-bottom: 0.75rem;
+}
+
+.order-item-card img {
+    width: 78px;
+    height: 78px;
+    object-fit: cover;
+    border: 1px solid var(--account-border);
+    border-radius: 14px;
+    background: #fff;
+}
+
+.order-item-card h3 {
+    margin: 0 0 0.35rem;
+    color: var(--account-text);
+    font-size: 1rem;
+}
+
+.order-item-card p {
+    margin: 0 0 0.35rem;
+    color: var(--account-muted);
+    font-size: 0.88rem;
+    line-height: 1.35;
+}
+
+.order-item-card span {
+    color: var(--account-muted);
+    font-size: 0.86rem;
+}
+
+.item-meta {
+    display: grid;
+    gap: 0.35rem;
+    justify-items: end;
+    text-align: right;
+}
+
+.item-meta strong {
+    color: var(--account-primary);
+    font-size: 1rem;
+}
+
+.order-total-panel {
+    max-width: 420px;
+    margin-left: auto;
+    padding: 1rem;
+}
+
+.order-total-panel p {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin: 0;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--account-border);
+    color: var(--account-muted);
+}
+
+.order-total-panel p:last-child {
+    border-bottom: 0;
+}
+
+.order-total-panel strong {
+    color: var(--account-text);
+}
+
+.order-total-panel .grand-total {
+    color: var(--account-text);
+    font-size: 1.08rem;
+    font-weight: 800;
+}
+
+.order-total-panel .grand-total strong {
+    color: var(--account-primary);
+}
+
+@media (max-width: 820px) {
+    .order-summary-grid,
+    .order-details-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .order-item-card {
+        grid-template-columns: 64px minmax(0, 1fr);
+    }
+
+    .item-meta {
+        grid-column: 1 / -1;
+        justify-items: start;
+        text-align: left;
+    }
+
+    .order-total-panel {
+        max-width: none;
+    }
 }
 

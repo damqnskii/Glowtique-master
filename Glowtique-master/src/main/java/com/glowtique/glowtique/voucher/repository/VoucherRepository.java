@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import com.glowtique.glowtique.user.model.User;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -17,4 +18,5 @@ public interface VoucherRepository extends JpaRepository<Voucher, UUID> {
     Optional<Voucher> getVoucherByNameAndUserId(String voucherName, UUID userId);
     @Query("SELECT v FROM Voucher v WHERE v.user = :user ORDER BY v.appliedAt DESC LIMIT 1")
     Optional<Voucher> getVoucherByUserAndUsedAfterAt(User user);
+    List<Voucher> findVouchersByUserId(UUID userId);
 }

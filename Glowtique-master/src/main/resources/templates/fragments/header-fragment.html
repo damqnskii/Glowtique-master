@@ -115,19 +115,5 @@
         </header>
 
 </body>
-<script>
-    let lastScroll = window.scrollY;
-    const topBar = document.getElementById('top-bar-id');
-    const menu = document.getElementById('menu-id');
 
-    window.addEventListener('scroll', () => {
-
-        if (window.scrollY > lastScroll) {
-            menu.style.position = 'fixed';
-        } else {
-            menu.style.position = 'none';
-        }
-        lastScroll = window.scrollY;
-    });
-</script>
 </html>

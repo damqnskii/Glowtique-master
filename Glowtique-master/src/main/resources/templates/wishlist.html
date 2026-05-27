@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/logged-header.css">
     <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/account.css">
     <link rel="stylesheet" href="/css/wishlist.css">
     <link rel="stylesheet" href="/css/wishlisted.css">
     <link rel="stylesheet" href="/css/toast.css">
@@ -42,8 +43,8 @@
                 <p>Тук ще намерите вашите любими продукти. Добавете ги към кошницата за лесна поръчка!</p>
             </div>
 
-            <div th:if="${wishlistItems.size() == 0}">
-                <h3 style="text-align: center">Все още нямате харесани продукти.</h3>
+            <div class="empty-state" th:if="${wishlistItems.size() == 0}">
+                <p>Все още нямате харесани продукти.</p>
             </div>
 
             <!-- Wishlist Products -->
@@ -66,7 +67,7 @@
                             <h6 th:text="${item.description} + ' ' + ${item.volume} + ' мл.'" class="product-details"></h6>
                         </a>
                         <div class="product-details">
-                            <p th:text="${item.price} +  ' лв.'" class="price"></p>
+                            <p th:text="${item.price} +  ' €'" class="price"></p>
                         </div>
                         <form th:action="@{/cart/add/{productId}(productId=${item.id})}" th:method="Post">
                             <input type="hidden" name="quantity" value="1">
