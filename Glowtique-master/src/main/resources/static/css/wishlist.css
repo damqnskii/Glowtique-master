@@ -14,15 +14,15 @@
     padding: 1rem;
     border: 1px solid var(--account-border);
     border-radius: 16px;
-    background: #fff;
-    box-shadow: 0 10px 26px rgba(70, 45, 25, 0.08);
+    background: var(--account-card);
+    box-shadow: var(--account-shadow);
     text-align: left;
     transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 
 .product:hover {
     transform: translateY(-3px);
-    box-shadow: 0 16px 34px rgba(70, 45, 25, 0.12);
+    box-shadow: 0 22px 48px rgba(0, 0, 0, 0.55);
 }
 
 .product a {
@@ -37,7 +37,7 @@
     object-fit: cover;
     border: 1px solid var(--account-border);
     border-radius: 14px;
-    background: #fff;
+    background: #050505;
 }
 
 .product .price {
@@ -91,7 +91,7 @@
     border: none;
     border-radius: 999px;
     background: linear-gradient(135deg, var(--account-primary), var(--account-primary-dark));
-    color: white;
+    color: #050505;
     cursor: pointer;
     font-weight: 800;
     transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;

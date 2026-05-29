@@ -1,7 +1,7 @@
 
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: var(--font-body);
 }
 
 .carousel {
@@ -135,4 +135,36 @@ body {
     bottom: 5px;
     left: 20px;
     font-size: 16px;
+}
+
+@media (max-width: 760px) {
+    .slide img {
+        height: 360px;
+    }
+
+    .slide-text {
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    .container-advertise {
+        flex-direction: column;
+        gap: 1rem;
+        margin: 1rem;
+    }
+
+    .item {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .slide img {
+        height: 260px;
+    }
+
+    .arrow {
+        padding: 0.4rem;
+        font-size: 1.4rem;
+    }
 }

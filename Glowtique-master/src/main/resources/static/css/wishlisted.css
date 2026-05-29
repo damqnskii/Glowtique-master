@@ -1,31 +1,40 @@
-.wishlist-btn-liked {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: transparent;
-    border: none;
-    font-size: 22px;
-    color: #a10101;
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
+.wishlist-btn-liked,
 .wishlist-btn {
     position: absolute;
     top: 10px;
     right: 10px;
-    background: transparent;
-    border: none;
+    background: rgba(5, 5, 5, 0.55);
+    border: 1px solid rgba(244, 239, 231, 0.16);
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
     font-size: 22px;
-    color: #ccc;
     cursor: pointer;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(6px);
 }
+
+.wishlist-btn-liked {
+    color: #a10101;
+}
+
+.wishlist-btn {
+    color: #d8d0c4;
+}
+
 .wishlist-btn-liked:hover {
-    color: #ccc;
+    color: #d8d0c4;
+    border-color: rgba(216, 208, 196, 0.35);
+    transform: translateY(-2px);
 }
+
 .wishlist-btn:hover {
     color: #a10101;
+    border-color: rgba(161, 1, 1, 0.45);
+    transform: translateY(-2px);
 }
 .pagination ul {
     list-style: none;
@@ -36,16 +45,17 @@
 
 .pagination a {
     padding: 8px 12px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--site-border, #ccc);
     text-decoration: none;
-    color: #333;
+    color: var(--site-text, #333);
+    background: var(--site-card, #fff);
     border-radius: 4px;
 }
 
 .pagination a.active {
-    background-color: #8B5E3C;
-    color: #fff;
-    border-color: #8B5E3C;
+    background-color: var(--site-accent, #8B5E3C);
+    color: #050505;
+    border-color: var(--site-accent, #8B5E3C);
 }
 .pagination {
     display: flex;
@@ -56,3 +66,9 @@
     display: none;
 }
 
+@media (max-width: 520px) {
+    .pagination ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}

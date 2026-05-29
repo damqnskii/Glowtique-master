@@ -1,30 +1,50 @@
-@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;600;700&display=swap');
 
 :root {
+    --primary: #b08b57;
+    --primary-dark: #7d5f38;
+    --primary-soft: rgba(176, 139, 87, 0.16);
+    --bg: #050505;
+    --card-bg: rgba(17, 17, 18, 0.96);
+    --text: #f4efe7;
+    --muted: #9f9488;
+    --border: rgba(244, 239, 231, 0.16);
+    --danger: #a10101;
+    --success: #1f6b3a;
+    --shadow: 0 18px 45px rgba(0, 0, 0, 0.55);
+    --radius: 18px;
+}
+
+html[data-theme="light"] {
     --primary: #8B5E3C;
     --primary-dark: #5e3310;
     --primary-soft: #f7eee7;
     --bg: #faf7f4;
-    --card-bg: #ffffff;
+    --card-bg: rgba(255, 255, 255, 0.96);
     --text: #2f2a27;
     --muted: #77706b;
     --border: #eadfd7;
     --danger: #b23b3b;
     --success: #238047;
     --shadow: 0 14px 40px rgba(70, 45, 25, 0.10);
-    --radius: 18px;
 }
 
 * {
-    font-family: 'Mulish', sans-serif;
+    font-family: var(--font-body);
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
 body {
-    background: linear-gradient(135deg, #fffaf6 0%, #f6eee8 100%);
+    background:
+        radial-gradient(circle at 15% 5%, rgba(255, 255, 255, 0.12), transparent 24%),
+        radial-gradient(circle at 90% 20%, rgba(176, 139, 87, 0.12), transparent 26%),
+        linear-gradient(135deg, rgba(3, 3, 3, 0.96), rgba(17, 17, 18, 0.96));
     color: var(--text);
+}
+
+html[data-theme="light"] body {
+    background: linear-gradient(135deg, #fffaf6 0%, #f6eee8 100%);
 }
 
 /* Page title */
@@ -49,7 +69,7 @@ h2::after {
 
 /* Main card */
 .cart-container {
-    background-color: rgba(255, 255, 255, 0.94);
+    background-color: var(--card-bg);
     padding: 2rem;
     border-radius: var(--radius);
     max-width: 1050px;
@@ -74,8 +94,8 @@ h2::after {
     color: var(--success);
     font-weight: 700;
     margin-bottom: 1.5rem;
-    background: #eefaf2;
-    border: 1px solid #ccebd7;
+    background: rgba(31, 107, 58, 0.16);
+    border: 1px solid rgba(31, 107, 58, 0.42);
     padding: 0.85rem 1rem;
     border-radius: 999px;
 }
@@ -104,7 +124,7 @@ h2::after {
     object-fit: cover;
     border-radius: 16px;
     border: 1px solid var(--border);
-    background: #fff;
+    background: #050505;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -173,7 +193,7 @@ h2::after {
     overflow: hidden;
     border: 1px solid var(--border);
     border-radius: 999px;
-    background: #fff;
+    background: var(--site-card);
     width: fit-content;
     margin: 0 auto;
 }
@@ -215,7 +235,7 @@ h2::after {
     outline: none;
     font-weight: 700;
     color: var(--text);
-    background: #fff;
+    background: var(--site-card);
 }
 
 /* Remove */
@@ -269,8 +289,9 @@ h2::after {
     border-radius: 999px;
     width: 270px;
     outline: none;
-    background: #fff;
+    background: var(--site-card);
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    color: var(--text);
 }
 
 .voucher-input:focus {
@@ -279,8 +300,7 @@ h2::after {
 }
 
 .voucher-button {
-    background-color: var(--text);
-    color: #fff;
+    color: #050505;
     border: none;
     border-radius: 999px;
     padding: 0.8rem 1.15rem;
@@ -346,7 +366,7 @@ h2::after {
 
 .checkout-button {
     background: linear-gradient(135deg, var(--primary), #a7744b);
-    color: white;
+    color: #050505;
     border: none;
     box-shadow: 0 8px 22px rgba(139, 94, 60, 0.28);
 }
@@ -365,7 +385,7 @@ h2::after {
 }
 
 .redirect {
-    background-color: #fff;
+    background-color: var(--site-card);
     color: var(--text);
     border: 1px solid var(--border);
 }

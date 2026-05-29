@@ -1,7 +1,27 @@
 body {
     margin: 0;
-    background-color: white;
-    font-family: Arial, sans-serif;
+    background:
+        radial-gradient(circle at 15% 5%, rgba(255, 255, 255, 0.12), transparent 24%),
+        radial-gradient(circle at 90% 20%, rgba(176, 139, 87, 0.12), transparent 26%),
+        linear-gradient(135deg, rgba(3, 3, 3, 0.96), rgba(17, 17, 18, 0.96));
+    color: var(--site-text);
+    font-family: var(--font-body);
+}
+
+html[data-theme="light"] body {
+    background: linear-gradient(135deg, #fffaf6 0%, #f6eee8 100%);
+}
+
+html[data-theme="light"] .top-bar {
+    background-color: #ffffff;
+}
+
+html[data-theme="light"] .login-container {
+    background-color: var(--site-card);
+}
+
+html[data-theme="light"] .form-group label {
+    color: var(--site-text);
 }
 
 .top-bar {
@@ -9,7 +29,7 @@ body {
     align-items: center;
     justify-content: center;
     margin-bottom: inherit;
-    background-color: #8B5E3C;
+    background-color: var(--site-bg);
     padding: 10px;
 }
 
@@ -27,7 +47,8 @@ main {
 }
 
 .login-container {
-    background-color: #8B5E3C;
+    background-color: var(--site-card);
+    border: 1px solid var(--site-border);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -40,7 +61,7 @@ main {
     text-align: center;
     margin-bottom: 20px;
     font-size: 24px;
-    color: #8B5E3C;
+    color: var(--site-accent);
 }
 
 .form-group {
@@ -51,7 +72,7 @@ main {
     display: block;
     margin-bottom: 5px;
     font-weight: 400;
-    color: white;
+    color: var(--site-text);
 }
 
 .form-group input {
@@ -71,7 +92,7 @@ main {
     width: 100%;
     padding: 10px;
     background-color: darkgray;
-    color: #fff;
+    color: #050505;
     border: none;
     border-radius: 5px;
     font-size: 16px;
@@ -112,11 +133,32 @@ main {
 
 .alert-warning {
     color: #b60000;
-    background-color: #fff3cd;
+    background-color: rgba(176, 139, 87, 0.18);
     border-color: #ffeeba;
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 15px;
     font-size: 14px;
     display: block;
+}
+
+@media (max-width: 520px) {
+    main {
+        align-items: flex-start;
+        margin: 1rem;
+    }
+
+    .login-container {
+        padding: 1rem;
+    }
+
+    .form-group input {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .footer {
+        position: static;
+        margin-top: 2rem;
+    }
 }

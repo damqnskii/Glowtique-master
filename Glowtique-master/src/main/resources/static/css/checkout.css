@@ -1,14 +1,26 @@
 :root {
+    --primary: #b08b57;
+    --primary-dark: #7d5f38;
+    --primary-light: rgba(176, 139, 87, 0.16);
+    --bg: #050505;
+    --card-bg: rgba(17, 17, 18, 0.96);
+    --text: #f4efe7;
+    --muted: #9f9488;
+    --border: rgba(244, 239, 231, 0.16);
+    --shadow: 0 18px 45px rgba(0, 0, 0, 0.55);
+    --radius: 18px;
+}
+
+html[data-theme="light"] {
     --primary: #8B5E3C;
     --primary-dark: #5e3310;
     --primary-light: #f6eee8;
     --bg: #faf7f4;
-    --card-bg: #ffffff;
+    --card-bg: rgba(255, 255, 255, 0.96);
     --text: #2f2a27;
     --muted: #77706b;
     --border: #e4d8cf;
     --shadow: 0 14px 40px rgba(70, 45, 25, 0.10);
-    --radius: 18px;
 }
 
 * {
@@ -17,8 +29,20 @@
 
 body {
     margin: 0;
-    background: linear-gradient(135deg, #fffaf6 0%, #f6eee8 100%);
+    background:
+        radial-gradient(circle at 15% 5%, rgba(255, 255, 255, 0.12), transparent 24%),
+        radial-gradient(circle at 90% 20%, rgba(176, 139, 87, 0.12), transparent 26%),
+        linear-gradient(135deg, rgba(3, 3, 3, 0.96), rgba(17, 17, 18, 0.96));
     color: var(--text);
+}
+
+html[data-theme="light"] body {
+    background: linear-gradient(135deg, #fffaf6 0%, #f6eee8 100%);
+}
+
+html[data-theme="light"] input,
+html[data-theme="light"] textarea {
+    background-color: #ffffff;
 }
 
 /* Main checkout layout */
@@ -63,7 +87,7 @@ body {
     flex-direction: column;
     justify-content: center;
     padding: 1.7rem;
-    background: rgba(255, 255, 255, 0.92);
+    background: var(--card-bg);
     border: 1px solid var(--border);
     border-radius: var(--radius);
     box-shadow: var(--shadow);
@@ -111,7 +135,7 @@ textarea {
     border-radius: 12px;
     margin: 0.35rem 0 1rem;
     font-size: 0.95rem;
-    background-color: #fff;
+    background-color: #0b0b0c;
     color: var(--text);
     outline: none;
     transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
@@ -124,7 +148,7 @@ textarea:focus {
 }
 
 input[readonly] {
-    background-color: #f7f3ef;
+    background-color: rgba(255, 255, 255, 0.06);
     color: var(--muted);
     cursor: not-allowed;
 }
@@ -148,7 +172,7 @@ input[readonly] {
     margin: 0;
     border-radius: 15px;
     cursor: pointer;
-    background: #fff;
+    background: var(--site-card);
     transition: transform 0.18s ease, border-color 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease;
 }
 
@@ -177,7 +201,7 @@ input[readonly] {
     object-fit: contain;
     margin-right: 0;
     padding: 0.2rem;
-    background: #fff;
+    background: var(--site-card);
     border-radius: 9px;
     border: 1px solid #eee2d8;
 }
@@ -191,7 +215,7 @@ input[readonly] {
 
 /* Order summary */
 .order-summary {
-    background: #fff;
+    background: var(--site-card);
     padding: 1rem;
     border-radius: 14px;
 }
@@ -216,7 +240,7 @@ input[readonly] {
     padding: 0;
     border-radius: 14px;
     border: 1px solid #eee2d8;
-    background: #fff;
+    background: var(--site-card);
 }
 
 .ordered {
@@ -304,7 +328,7 @@ input[readonly] {
 
 .payment-button {
     background: linear-gradient(135deg, var(--primary), #a7744b);
-    color: white;
+    color: #050505;
     padding: 0.9rem 1.7rem;
     font-size: 0.95rem;
     font-weight: 700;
@@ -337,7 +361,7 @@ input[readonly] {
 
 .info-icon {
     background-color: var(--primary);
-    color: white;
+    color: #050505;
     border-radius: 50%;
     width: 21px;
     height: 21px;
@@ -353,7 +377,7 @@ input[readonly] {
     visibility: hidden;
     opacity: 0;
     width: 300px;
-    background-color: #fff;
+    background-color: var(--site-card);
     color: var(--text);
     text-align: left;
     border-radius: 12px;
@@ -378,7 +402,7 @@ input[readonly] {
     margin-left: -6px;
     border-width: 6px;
     border-style: solid;
-    border-color: #fff transparent transparent transparent;
+    border-color: var(--site-card) transparent transparent transparent;
 }
 
 .tooltip-container:hover .tooltip {
@@ -389,8 +413,8 @@ input[readonly] {
 
 /* Alerts */
 .alert-warning {
-    color: #8f2f2f;
-    background-color: #fff0ee;
+    color: #ffb4b4;
+    background-color: rgba(161, 1, 1, 0.16);
     border: 1px solid #e3aaaa;
     padding: 0.75rem 0.85rem;
     border-radius: 12px;

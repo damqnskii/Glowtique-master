@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: var(--font-body);
     background-color: #f4f6f9;
     padding: 30px;
 }
@@ -52,4 +52,15 @@ label {
     border-radius: 5px;
     margin-top: 5px;
     font-size: 14px;
+}
+
+@media (max-width: 640px) {
+    body {
+        padding: 1rem;
+    }
+
+    .container {
+        max-width: none;
+        padding: 1rem;
+    }
 }

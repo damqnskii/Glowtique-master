@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: var(--font-body);
     background-color: #f4f4f4;
     margin: 0;
     padding: 20px;
@@ -118,4 +118,26 @@ tr:hover {
 
 .edit:hover {
     background-color: #5e3310;
+}
+
+@media (max-width: 760px) {
+    body {
+        display: block;
+        padding: 1rem;
+    }
+
+    .container-user {
+        overflow-x: auto;
+        padding: 1rem 0;
+    }
+
+    table {
+        width: 100%;
+        min-width: 680px;
+    }
+
+    .creation-section,
+    .edit-section {
+        padding: 1rem;
+    }
 }

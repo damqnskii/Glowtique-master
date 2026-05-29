@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: var(--font-body);
     background-color: #f4f4f4;
     margin: 0;
     padding: 20px;
@@ -136,5 +136,27 @@ td:nth-child(7):hover {
     cursor: pointer;
     transition: all 0.3s ease;
     text-decoration: none;
+}
+
+@media (max-width: 760px) {
+    body {
+        padding: 1rem;
+    }
+
+    .container-user {
+        overflow-x: auto;
+        padding: 1rem 0;
+    }
+
+    table {
+        width: 100%;
+        min-width: 760px;
+    }
+
+    .update,
+    .delete,
+    .edit-section {
+        padding: 0.75rem;
+    }
 }
 

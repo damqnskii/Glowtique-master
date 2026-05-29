@@ -1,8 +1,26 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: var(--font-body);
+    background:
+        radial-gradient(circle at 15% 5%, rgba(255, 255, 255, 0.12), transparent 24%),
+        radial-gradient(circle at 90% 20%, rgba(176, 139, 87, 0.12), transparent 26%),
+        linear-gradient(135deg, rgba(3, 3, 3, 0.96), rgba(17, 17, 18, 0.96));
+    color: var(--site-text);
     margin: 0;
     padding-bottom: 20px;
+}
+
+html[data-theme="light"] body {
+    background: linear-gradient(135deg, #fffaf6 0%, #f6eee8 100%);
+}
+
+html[data-theme="light"] .product,
+html[data-theme="light"] .product-ingridients,
+html[data-theme="light"] .brand-info {
+    background-color: var(--site-card);
+}
+
+html[data-theme="light"] .product-info {
+    border-left-color: var(--site-border);
 }
 
 .container {
@@ -13,13 +31,14 @@ body {
 }
 
 .product {
-    background-color: white;
+    background-color: var(--site-card);
     padding: 20px;
     width: 70%;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--site-border);
+    box-shadow: var(--site-shadow);
 }
 
 .product img {
@@ -36,12 +55,12 @@ body {
 
 .product-info h1 {
     font-size: 24px;
-    color: #333;
+    color: var(--site-text);
 }
 
 .price {
     font-size: 28px;
-    color: #333;
+    color: var(--site-text);
     margin: 1.5rem;
 }
 
@@ -107,16 +126,16 @@ body {
 }
 
 .qty-container button {
-    background-color: #333;
-    color: white;
+    background-color: var(--site-text);
+    color: #050505;
     border: none;
     padding: 5px 10px;
     cursor: pointer;
 }
 
 .add-to-cart {
-    background: #8B5E3C;
-    color: white;
+    background: var(--site-accent);
+    color: #050505;
     border: none;
     padding: 15px;
     width: 100%;
@@ -162,7 +181,7 @@ body {
 
 
 .add-to-cart:hover {
-    background-color: #5e3310;
+    background-color: var(--site-accent-dark);
 }
 
 .quantity {
@@ -173,8 +192,8 @@ body {
 }
 
 .quantity button {
-    background-color: #8B5E3C;
-    color: #fff;
+    background-color: var(--site-accent);
+    color: #050505;
     border: none;
     cursor: pointer;
     font-size: 20px;
@@ -219,7 +238,7 @@ body {
     font-size: 16px;
     padding: 10px 20px;
     cursor: pointer;
-    color: #333;
+    color: var(--site-text);
 }
 
 .tab.active {
@@ -255,7 +274,7 @@ h1 {
 }
 
 .product-table tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: grey;
 }
 
 .description-text {
@@ -294,7 +313,6 @@ h2 {
     width: 50%;
     padding: 10px;
     margin: auto;
-    background-color: #f2f2f2;
     border-radius: 5px;
     box-shadow: 0 0 5px 0;
 }
@@ -314,7 +332,6 @@ h2 {
     width: 50%;
     padding: 40px;
     margin:auto;
-    background-color: #f2f2f2;
     border-radius: 5px;
     box-shadow: 0 0 5px 0;
 }
@@ -325,14 +342,14 @@ h2 {
 
 .in-stock {
     background: green;
-    color: white;
+    color: #fff;
     padding: 5px 10px;
     font-size: 12px;
     margin: -5px 0 0 0;
 }
 .out-of-stock {
     background: rgb(143, 0, 0);
-    color: white;
+    color: #fff;
     padding: 5px 10px;
     font-size: 12px;
     margin: -5px 0 0 0;
@@ -342,6 +359,66 @@ h2 {
     justify-content: center;
     align-items: center;
     margin: auto;
+}
+
+@media (max-width: 900px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .product {
+        width: min(100%, 760px);
+        grid-template-columns: 1fr;
+    }
+
+    .product-info {
+        border-left: 0;
+        border-top: 1px solid darkgray;
+        padding-left: 0;
+        padding-top: 1.25rem;
+    }
+
+    .product-table,
+    .product-ingridients,
+    .brand-info,
+    .description-text {
+        width: 92%;
+    }
+}
+
+@media (max-width: 560px) {
+    .container {
+        padding: 0.75rem;
+    }
+
+    .product {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .menu-container,
+    .tabs {
+        flex-wrap: wrap;
+    }
+
+    .menu-option {
+        width: calc(50% - 0.5rem);
+    }
+
+    .price {
+        margin: 1rem 0;
+        font-size: 1.5rem;
+    }
+
+    .product-table {
+        display: block;
+        overflow-x: auto;
+    }
+
+    .ingridient-container,
+    .brand-info {
+        padding: 1rem;
+    }
 }
 
 

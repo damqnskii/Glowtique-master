@@ -1,21 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
 
 * {
-    font-family: "Mulish", sans-serif;
+    font-family: var(--font-body);
     font-optical-sizing: auto;
     font-style: normal;
 }
 body {
     margin: 0;
-    background-color: #f9f9f9;
-    color: #444;
+    background:
+        radial-gradient(circle at 15% 5%, rgba(255, 255, 255, 0.12), transparent 24%),
+        radial-gradient(circle at 90% 20%, rgba(176, 139, 87, 0.12), transparent 26%),
+        linear-gradient(135deg, rgba(3, 3, 3, 0.96), rgba(17, 17, 18, 0.96));
+    color: var(--site-text);
 }
 
 .top-bar {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #8B5E3C;
+    background-color: var(--site-bg);
     padding: 10px;
 }
 
@@ -32,7 +34,8 @@ main {
 }
 
 .registration-container {
-    background-color: #8B5E3C; /* Keeping the same brown */
+    background-color: var(--site-card);
+    border: 1px solid var(--site-border);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -49,7 +52,7 @@ main {
     text-align: center;
     margin-bottom: 20px;
     font-size: 24px;
-    color: white;
+    color: var(--site-accent);
 }
 
 .form-group {
@@ -60,7 +63,23 @@ main {
     display: block;
     margin-bottom: 5px;
     font-weight: 400;
-    color: white;
+    color: var(--site-text);
+}
+
+html[data-theme="light"] body {
+    background: linear-gradient(135deg, #fffaf6 0%, #f6eee8 100%);
+}
+
+html[data-theme="light"] .top-bar {
+    background-color: #ffffff;
+}
+
+html[data-theme="light"] .registration-container {
+    background-color: var(--site-card);
+}
+
+html[data-theme="light"] .form-group label {
+    color: var(--site-text);
 }
 
 .form-group input, .form-group select {
@@ -69,12 +88,12 @@ main {
     border: 1px solid #bbb;
     border-radius: 5px;
     font-size: 16px;
-    background-color: #fff;
-    color: #333;
+    background-color: var(--site-card);
+    color: var(--site-text);
 }
 
 .form-group input:focus, .form-group select:focus {
-    border-color: #8B5E3C;
+    border-color: var(--site-accent);
     outline: none;
     box-shadow: 0 0 5px rgba(139, 94, 60, 0.5);
 }
@@ -83,7 +102,7 @@ main {
     width: 100%;
     padding: 10px;
     background-color: #6A4A3C; /* Darker brown */
-    color: #fff;
+    color: #050505;
     border: none;
     border-radius: 5px;
     font-size: 16px;
@@ -131,4 +150,26 @@ main {
     border-radius: 5px;
     margin-top: 5px;
     font-size: 14px;
+}
+
+@media (max-width: 520px) {
+    main {
+        align-items: flex-start;
+        margin: 1rem;
+    }
+
+    .registration-container {
+        padding: 1rem;
+    }
+
+    .form-group input,
+    .form-group select {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .footer {
+        position: static;
+        margin-top: 2rem;
+    }
 }

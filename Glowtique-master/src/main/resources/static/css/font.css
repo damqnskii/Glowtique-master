@@ -1,6 +1,80 @@
-@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+:root {
+    --font-body: "Cormorant Garamond", serif;
+    --font-heading: "Playfair Display", serif;
+    --site-bg: #050505;
+    --site-bg-deep: #0b0b0c;
+    --site-card: rgba(17, 17, 18, 0.96);
+    --site-card-soft: rgba(24, 24, 27, 0.96);
+    --site-text: #f4efe7;
+    --site-text-soft: #d8d0c4;
+    --site-muted: #9f9488;
+    --site-accent: #b08b57;
+    --site-accent-dark: #7d5f38;
+    --site-accent-soft: rgba(176, 139, 87, 0.16);
+    --site-border: rgba(244, 239, 231, 0.16);
+    --site-shadow: 0 18px 45px rgba(0, 0, 0, 0.55);
+}
+
+html[data-theme="light"] {
+    --site-bg: #faf7f4;
+    --site-bg-deep: #f6eee8;
+    --site-card: rgba(255, 255, 255, 0.96);
+    --site-card-soft: #ffffff;
+    --site-text: #2f2a27;
+    --site-text-soft: #4b433d;
+    --site-muted: #77706b;
+    --site-accent: #8B5E3C;
+    --site-accent-dark: #5e3310;
+    --site-accent-soft: #f7eee7;
+    --site-border: #eadfd7;
+    --site-shadow: 0 14px 40px rgba(70, 45, 25, 0.10);
+}
+
 * {
-    font-family: "Mulish", sans-serif;
+    box-sizing: border-box;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+body,
+button,
+input,
+select,
+textarea {
+    font-family: var(--font-body);
     font-optical-sizing: auto;
     font-style: normal;
+}
+
+body {
+    color: var(--site-text);
+    background:
+        radial-gradient(circle at 15% 5%, rgba(255, 255, 255, 0.12), transparent 24%),
+        radial-gradient(circle at 90% 20%, rgba(176, 139, 87, 0.12), transparent 26%),
+        linear-gradient(135deg, rgba(3, 3, 3, 0.96), rgba(17, 17, 18, 0.96));
+}
+
+html[data-theme="light"] body {
+    background: linear-gradient(135deg, #fffaf6 0%, #f6eee8 100%);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.logo,
+.glowtique-logo {
+    font-family: var(--font-heading);
+}
+
+img,
+video {
+    max-width: 100%;
 }

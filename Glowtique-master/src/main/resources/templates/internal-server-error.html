@@ -2,13 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Server Error</title>
   <style>
-    body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+    body { font-family: "Cormorant Garamond", serif; text-align: center; margin: 50px; }
     .error-container {
       max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; background: #f8d7da; color: #721c24;
     }
     .error-title {
+      font-family: "Playfair Display", serif;
       font-size: 24px; font-weight: bold;
     }
     .error-message {
@@ -16,6 +19,10 @@
     }
     .error-timestamp {
       font-size: 14px; color: #555; margin-top: 10px;
+    }
+    @media (max-width: 520px) {
+      body { margin: 1rem; }
+      .error-container { padding: 1rem; }
     }
   </style>
 </head>

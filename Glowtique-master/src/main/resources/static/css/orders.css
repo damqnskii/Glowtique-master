@@ -29,7 +29,7 @@
     padding: 0.5rem 0.85rem;
     border: 1px solid var(--account-border);
     border-radius: 999px;
-    background: #fff;
+    background: var(--site-card);
     color: var(--account-muted);
     font-size: 0.88rem;
     font-weight: 700;
@@ -60,7 +60,7 @@
     padding: 0.45rem 0.75rem;
     border: 1px solid var(--account-border);
     border-radius: 999px;
-    background: #fff;
+    background: var(--site-card);
     white-space: nowrap;
 }
 
@@ -78,20 +78,20 @@
 .status-confirmed,
 .status-completed,
 .status-delivered {
-    background: #eefaf2;
+    background: rgba(31, 107, 58, 0.18);
     color: var(--account-success);
 }
 
 .status-pending {
-    background: #fff7e8;
-    color: #9a620c;
+    background: rgba(176, 139, 87, 0.16);
+    color: var(--site-accent);
 }
 
 .status-declined,
 .status-cancelled,
 .status-refunded {
-    background: #fff0ee;
-    color: #8f2f2f;
+    background: rgba(161, 1, 1, 0.16);
+    color: #ffb4b4;
 }
 
 .back-link {
@@ -117,7 +117,7 @@
 .order-item-card {
     border: 1px solid var(--account-border);
     border-radius: 16px;
-    background: #fff;
+    background: var(--site-card);
 }
 
 .summary-card {
@@ -177,7 +177,7 @@
     object-fit: cover;
     border: 1px solid var(--account-border);
     border-radius: 14px;
-    background: #fff;
+    background: var(--site-card);
 }
 
 .order-item-card h3 {
@@ -264,4 +264,3 @@
         max-width: none;
     }
 }
-

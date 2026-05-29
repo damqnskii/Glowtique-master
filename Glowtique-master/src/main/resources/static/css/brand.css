@@ -5,8 +5,18 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: var(--font-body);
     background-color: white;
+}
+
+html[data-theme="light"] .alphabet-nav span a {
+    color: black;
+}
+html[data-theme="light"] .brand-section a {
+    color: black;
+}
+html[data-theme="light"] .brand-section h3 {
+    color: black;
 }
 
 .container h1 {
@@ -40,6 +50,11 @@ body {
     color: #007BFF;
 }
 
+.alphabet-nav span a {
+    text-decoration: none;
+    color: white;
+}
+
 .brands-list {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
@@ -58,7 +73,7 @@ body {
 .brand-section h3 {
     font-size: 40px;
     margin-bottom: 1rem;
-    color: #333;
+    color: white;
 }
 
 .brand-section ul {
@@ -81,7 +96,7 @@ body {
 
 .brand-section ul li a {
     text-decoration: none;
-    color: black;
+    color: white;
     transition: color 0.3s ease;
 }
 
@@ -89,11 +104,34 @@ body {
     color: #8B5E3C;
 }
 
-.alphabet-nav span a {
-    text-decoration: none;
-    color: black;
-}
 
 .alphabet-nav span a:hover {
     color: #8B5E3C;
+}
+
+@media (max-width: 760px) {
+    .container {
+        width: 94%;
+        padding: 1rem;
+    }
+
+    .alphabet-nav {
+        justify-content: flex-start;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .brand-section ul {
+        columns: 2;
+    }
+
+    .brand-section h3 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 460px) {
+    .brand-section ul {
+        columns: 1;
+    }
 }

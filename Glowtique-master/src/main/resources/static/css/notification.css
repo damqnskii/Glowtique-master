@@ -70,12 +70,12 @@
 }
 
 .disable-notifications {
-    background: #fff0ee;
-    color: #8f2f2f;
+    background: rgba(161, 1, 1, 0.16);
+    color: #ffb4b4;
 }
 
 .enable-notifications {
-    background: #eefaf2;
+    background: rgba(31, 107, 58, 0.16);
     color: var(--account-success);
 }
 

@@ -23,7 +23,7 @@
     padding: 0.8rem 0.95rem;
     border: 1px solid var(--account-border);
     border-radius: 12px;
-    background: #fff;
+    background: var(--site-card);
     color: var(--account-text);
     font-size: 0.95rem;
     outline: none;
@@ -38,7 +38,7 @@
 
 .form-group input:disabled,
 .form-group select:disabled {
-    background: #f7f2ee;
+    background: rgba(255, 255, 255, 0.06);
     color: var(--account-muted);
     cursor: not-allowed;
 }
@@ -64,12 +64,12 @@
 
 .buttons .save {
     background: linear-gradient(135deg, var(--account-primary), var(--account-primary-dark));
-    color: #fff;
+    color: #050505;
 }
 
 .buttons .edit-profile {
     border: 1px solid var(--account-border);
-    background: #fff;
+    background: var(--site-card);
     color: var(--account-primary);
 }
 
