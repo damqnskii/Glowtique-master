@@ -21,10 +21,10 @@ public class OrderRequest {
     private String phoneNumber;
     @NotBlank(message = "Въведете личен адрес !")
     private String shippingAddress;
-    @NotBlank
+    @NotBlank(message = "Въведете валиден пощенски код")
     @Pattern(regexp = "^[0-9]{4}$", message = "Въведете валиден пощенски код !")
     private String postCode;
-    @NotBlank(message = "Въведете град !")
+    @NotBlank()
     @Pattern(regexp = "^[A-Za-zА-Яа-яЁё\\s]+$", message = "Градът трябва да съдържа само букви !")
     private String town;
     private String officeAddress;

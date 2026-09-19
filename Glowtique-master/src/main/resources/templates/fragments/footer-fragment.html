@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="bg">
+<body>
+<th:block th:fragment="footer">
+    <link rel="stylesheet" href="/css/footer.css">
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <section class="footer-brand">
+                <h2>Glowtique</h2>
+                <p>Селекция от аромати, козметика и beauty предложения с внимание към детайла.</p>
+            </section>
+
+            <nav class="footer-column" aria-label="Информация">
+                <h3>Информация</h3>
+                <a th:href="@{/terms}">Общи условия</a>
+                <a th:href="@{/delivery-terms}">Условия за доставка</a>
+                <a th:href="@{/return-policy}">Условия за връщане</a>
+                <a th:href="@{/privacy-policy}">Политика за поверителност</a>
+                <a th:href="@{/payment-methods}">Начини на плащане</a>
+            </nav>
+
+            <nav class="footer-column" aria-label="Профил">
+                <h3>Профил</h3>
+                <a th:href="@{/profile}">Моят профил</a>
+                <a th:href="@{/orders}">Моите поръчки</a>
+                <a th:href="@{/wishlist}">Любими продукти</a>
+                <a th:href="@{/vouchers}">Моите промокодове</a>
+            </nav>
+
+            <section class="footer-column">
+                <h3>Контакти</h3>
+                <p>support@glowtique.bg</p>
+                <p>Понеделник - Петък: 09:00 - 18:00</p>
+                <p>София, България</p>
+            </section>
+        </div>
+
+        <div class="footer-bottom">
+            <span>© 2026 Glowtique. Всички права запазени.</span>
+            <span>Информационните страници са примерни и могат да бъдат редактирани.</span>
+        </div>
+    </footer>
+</th:block>
+</body>
+</html>

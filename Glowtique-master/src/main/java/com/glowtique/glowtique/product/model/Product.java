@@ -35,6 +35,7 @@ public class Product {
     @Column(nullable = false)
     private int quantity;
 
+    @Column(length = 1000)
     private String ingredients;
 
     @OneToOne(cascade = CascadeType.ALL)

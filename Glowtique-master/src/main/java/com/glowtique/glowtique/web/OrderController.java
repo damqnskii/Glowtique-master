@@ -2,6 +2,7 @@ package com.glowtique.glowtique.web;
 
 import com.glowtique.glowtique.cart.model.Cart;
 import com.glowtique.glowtique.cart.model.CartItem;
+import com.glowtique.glowtique.exception.NotEnoughProductStock;
 import com.glowtique.glowtique.order.model.Order;
 import com.glowtique.glowtique.order.model.OrderMethod;
 import com.glowtique.glowtique.order.service.OrderService;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.glowtique.glowtique.user.model.User;
 
 import java.math.BigDecimal;
@@ -44,16 +46,25 @@ public class OrderController {
     }
 
     @GetMapping("/checkout")
-    public ModelAndView getOrder(@AuthenticationPrincipal AuthenticationMetadata authenticationMetadata) {
+    public ModelAndView getOrder(@AuthenticationPrincipal AuthenticationMetadata authenticationMetadata,
+                                 RedirectAttributes redirectAttributes) {
 
         if (authenticationMetadata == null) {
             return new ModelAndView("redirect:/login");
         }
 
         User user = userService.getUserById(authenticationMetadata.getUserId());
+        Cart cart = user.getCart();
+
+        try {
+            orderService.validateCartStock(cart);
+        } catch (NotEnoughProductStock e) {
+            redirectAttributes.addFlashAttribute("notEnoughProductStockMessage", e.getMessage());
+            return new ModelAndView("redirect:/cart");
+        }
+
         ModelAndView modelAndView = new ModelAndView("checkout");
         modelAndView.addObject("user", user);
-        Cart cart = user.getCart();
         modelAndView.addObject("cart", cart);
 
         List<CartItem> cartItems = cart.getCartItems();

@@ -17,6 +17,10 @@
                     <p><span class="highlight">Безплатна доставка при над 200 € поръчка</span></p>
                 </div>
 
+                <p class="cart-stock-warning"
+                   th:if="${notEnoughProductStockMessage}"
+                   th:text="${notEnoughProductStockMessage}"></p>
+
                 <div th:if="${user.cart != null and user.cart.getCartItems().size() == 0}">
                     <div class="empty-cart">Нямате добавени продукти в кошницата </div>
                 </div>
@@ -74,9 +78,12 @@
                     <form th:action="@{/home}" th:method="Get">
                         <button type="submit" class="redirect">Назад към магазина</button>
                     </form>
-                    <form th:action="@{/checkout}" th:method="Get">
-                        <button th:if="${user.getCart().getCartItems() == 0}" disabled type="submit" class="checkout-button">Към поръчката</button>
-                        <button th:unless="${user.getCart().getCartItems() == 0}" type="submit" class="checkout-button">Към поръчката</button>
+                    <form th:action="@{/checkout}" method="get">
+                        <button th:if="${!user.cart.cartItems.isEmpty()}"
+                                type="submit"
+                                class="checkout-button">
+                            Към поръчката
+                        </button>
                     </form>
                 </div>
                 </form>
@@ -84,5 +91,6 @@
         </main>
     <script src="/css/voucher-apply.js"></script>
     <script src="/css/quantityUpdate.js"></script>
+<th:block th:insert="fragments/footer-fragment :: footer"></th:block>
 </body>
 </html>

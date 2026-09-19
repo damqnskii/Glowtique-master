@@ -413,14 +413,14 @@ input[readonly] {
 
 /* Alerts */
 .alert-warning {
-    color: #ffb4b4;
+    color: inherit;
     background-color: rgba(161, 1, 1, 0.16);
     border: 1px solid #e3aaaa;
     padding: 0.75rem 0.85rem;
     border-radius: 12px;
-    margin: -0.35rem 0 1rem;
     font-size: 0.88rem;
     line-height: 1.35;
+    margin: 0.5rem;
 }
 
 /* Responsive */

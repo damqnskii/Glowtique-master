@@ -23,7 +23,7 @@
                 <li><a th:href="@{/wishlist}">Любими продукти</a></li>
                 <li><a th:href="@{redirect:/vouchers}" class="active">Моите промокодове</a></li>
                 <li><a href="#">Моите адреси</a></li>
-                <li><a th:href="@{redirect:/edit-profile}">Настройки на профила</a></li>
+                <li><a th:href="@{/edit-profile}">Настройки на профила</a></li>
                 <li><a th:href="@{/notifications}">Нотификации</a></li>
                 <li><a href="#">Beauty Card</a></li>
                 <li><a href="#">Управление на лични данни</a></li>
@@ -56,5 +56,6 @@
     </div>
 
 </main>
+<th:block th:insert="fragments/footer-fragment :: footer"></th:block>
 </body>
 </html>

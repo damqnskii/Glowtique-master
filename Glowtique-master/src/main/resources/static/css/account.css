@@ -253,7 +253,7 @@ body > main {
 .used td,
 .profile-content tbody tr.used:hover {
     background: rgba(161, 1, 1, 0.16);
-    color: #ffb4b4;
+    color: inherit;
 }
 
 .notUsed td {

@@ -47,11 +47,13 @@
 
                         <label>Пощенски код</label>
                         <input type="text" th:field="*{postCode}" placeholder="Пощенски код">
-                        <p class="alert-warning" th:if="${#fields.hasErrors('postCode')}" th:errors="*{postCode}"></p>
 
                         <label>Град</label>
                         <input type="text" th:field="*{town}" th:value="${user.town}" th:placeholder="${user.town}">
-                        <p class="alert-warning" th:if="${#fields.hasErrors('town')}" th:errors="*{town}"></p>
+                        <p class="alert-warning"
+                           th:if="${#fields.hasErrors('postCode') || #fields.hasErrors('town')}">
+                            Моля, попълнете коректно град и пощенски код.
+                        </p>
 
 
                     <h2>Метод на доставка</h2>
@@ -192,5 +194,6 @@
         </div>
         </form>
     </main>
+<th:block th:insert="fragments/footer-fragment :: footer"></th:block>
 </body>
 </html>

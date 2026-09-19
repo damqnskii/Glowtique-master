@@ -11,6 +11,19 @@
         <a th:href="@{/admin-dashboard}">Return</a>
         <a th:href="@{/admin-dashboard/product/creation}">Create</a>
         <a th:href="@{/admin-dashboard/product-list}">Get All</a>
+        <form th:action="@{/admin-dashboard/products/import}"
+              method="post"
+              enctype="multipart/form-data">
+
+            <label>Import products from CSV</label>
+            <input type="file" name="file" accept=".csv" required>
+
+            <button type="submit">Import Products</button>
+        </form>
+
+        <a th:href="@{/admin-dashboard/products/export}">
+            <button type="button">Export Products CSV</button>
+        </a>
     </div>
 </body>
 </html>

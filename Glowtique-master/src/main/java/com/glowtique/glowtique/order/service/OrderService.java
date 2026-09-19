@@ -69,11 +69,7 @@ public class OrderService {
     @Transactional
     public Order createOrder(OrderRequest orderRequest, User user, Cart cart) {
 
-        for (CartItem item : cart.getCartItems()) {
-            if (item.getQuantity() > item.getProduct().getQuantity()) {
-                throw new NotEnoughProductStock("Не е налично количеството от продукта " + item.getProduct().getName() + " !");
-            }
-        }
+        validateCartStock(cart);
 
         List<OrderItem> orderItems = cart.getCartItems().stream().map(cartItem -> {
             return OrderItem.builder()
@@ -130,6 +126,14 @@ public class OrderService {
         cartRepository.save(cart);
 
         return order;
+    }
+
+    public void validateCartStock(Cart cart) {
+        for (CartItem item : cart.getCartItems()) {
+            if (item.getQuantity() > item.getProduct().getQuantity()) {
+                throw new NotEnoughProductStock("Не е налично количеството от продукта " + item.getProduct().getName() + " !");
+            }
+        }
     }
 
     private BigDecimal applyVoucherDiscount(BigDecimal totalPrice, Voucher voucher) {

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glowtique | Начини на плащане</title>
+    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/logged-header.css">
+    <link rel="stylesheet" href="/css/info-pages.css">
+</head>
+<body>
+<th:block th:insert="fragments/header-fragment :: header"></th:block>
+<main class="info-page">
+    <h1>Начини на плащане</h1>
+    <p class="intro">Glowtique предлага няколко удобни начина за плащане при финализиране на поръчката.</p>
+    <section class="info-section">
+        <h2>Наложен платеж</h2>
+        <p>Плащането се извършва при получаване на поръчката от куриер или избрана точка за получаване.</p>
+    </section>
+    <section class="info-section">
+        <h2>Карта</h2>
+        <p>При онлайн плащане с карта поръчката се обработва след успешно потвърждение на плащането.</p>
+    </section>
+    <section class="info-section">
+        <h2>Easy Pay и подаръчни карти</h2>
+        <p>Когато са налични, могат да се използват допълнителни методи като Easy Pay или gift card плащане.</p>
+    </section>
+    <section class="info-section">
+        <h2>Сигурност</h2>
+        <p>Данните за плащане се обработват според избрания метод и приложимите стандарти за сигурност.</p>
+    </section>
+</main>
+<th:block th:insert="fragments/footer-fragment :: footer"></th:block>
+</body>
+</html>

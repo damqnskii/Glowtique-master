@@ -104,6 +104,23 @@ h2::after {
     margin-right: 8px;
 }
 
+.cart-stock-warning {
+    width: 100%;
+    margin: 0 0 1.25rem;
+    padding: 0.9rem 1rem;
+    border-radius: 12px;
+    border: 1px solid rgba(178, 59, 59, 0.45);
+    background: rgba(178, 59, 59, 0.14);
+    color: #f0b7b7;
+    font-weight: 700;
+    text-align: center;
+}
+
+html[data-theme="light"] .cart-stock-warning {
+    color: #8c2525;
+    background: rgba(178, 59, 59, 0.10);
+}
+
 /* Product rows */
 .cart-item {
     display: grid;

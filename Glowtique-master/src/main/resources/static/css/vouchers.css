@@ -1,13 +1,10 @@
 h3 {
     margin: 0;
     padding: 1rem;
-    border: 1px solid var(--account-border);
-    border-radius: 16px;
-    background: var(--account-primary-soft);
     color: var(--account-muted);
     font-size: 1rem;
     line-height: 1.45;
-    text-align: left;
+    text-align: center;
 }
 
 .profile-content table {

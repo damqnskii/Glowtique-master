@@ -64,4 +64,16 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
     Page<Product> findAll(Pageable pageable);
     @NativeQuery("SELECT p.price FROM product p ORDER BY p.price DESC LIMIT 1")
     BigDecimal findTheExpensiveProductPrice(Page<Product> products);
+    boolean existsByNameIgnoreCaseAndBrand_NameIgnoreCaseAndVolume(
+            String name,
+            String brandName,
+            Integer volume
+    );
+
+    Optional<Product> findByNameIgnoreCaseAndBrand_NameIgnoreCaseAndVolume(
+            String name,
+            String brandName,
+            Integer volume
+    );
+
 }

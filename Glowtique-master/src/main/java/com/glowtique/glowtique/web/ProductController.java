@@ -15,6 +15,7 @@ import com.glowtique.glowtique.web.dto.ProductEditRequest;
 import com.glowtique.glowtique.web.dto.ProductInsertionRequest;
 import com.glowtique.glowtique.wishlistitem.model.WishlistItem;
 import com.glowtique.glowtique.wishlistitem.service.WishlistItemService;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,8 +25,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -55,6 +58,11 @@ public class ProductController {
         return new ModelAndView("admin-product");
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping("/admin-dashboard/products/export")
+    public void exportProducts(HttpServletResponse response) throws IOException {
+        productService.exportProductsToCsv(response);
+    }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping("/admin-dashboard/product/creation")
@@ -66,6 +74,12 @@ public class ProductController {
         modelAndView.addObject("categoryType", CategoryType.values());
 
         return modelAndView;
+    }
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PostMapping("/admin-dashboard/products/import")
+    public ModelAndView importProducts(@RequestParam("file") MultipartFile file) {
+        productService.importProducts(file);
+        return new ModelAndView("redirect:/admin-dashboard/product-list");
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
